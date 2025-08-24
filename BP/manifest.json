@@ -2,7 +2,7 @@
 	"format_version": 2,
 	"metadata": {
 		"authors": [
-			"hsmp"
+			"Samuraibread"
 		],
 		"generated_with": {
 			"bridge": [
@@ -14,7 +14,7 @@
 		}
 	},
 	"header": {
-		"name": "The Devine Stone",
+		"name": "HiraethSMP: The Devine Stone",
 		"description": "Developed by: SamuraiBread for: HiraethSMP",
 		"min_engine_version": [
 			1,
