@@ -1,0 +1,20 @@
+{
+	"format_version": "1.21.40",
+	"minecraft:block": {
+		"description": {
+			"identifier": "hsmp:start_button"
+		},
+		"components": {
+			"minecraft:geometry": "geometry.start_button",
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "hsmp_start_button",
+					"render_method": "alpha_test"
+				}
+			},
+			"minecraft:custom_components": [
+				"hsmp:playmenu"
+			]
+		}
+	}
+}

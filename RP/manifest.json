@@ -1,4 +1,4 @@
-{
+	{
 	"format_version": 2,
 	"metadata": {
 		"authors": [
@@ -14,7 +14,7 @@
 		}
 	},
 	"header": {
-		"name": "The Devine Stone",
+		"name": "§2§l[RP]§r HiraethSMP: The Devine Stone",
 		"description": "Developed by: SamuraiBread for: HiraethSMP",
 		"min_engine_version": [
 			1,
