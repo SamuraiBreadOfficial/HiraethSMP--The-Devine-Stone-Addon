@@ -1,0 +1,48 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"SamuraiBread"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.50"
+			],
+			"dash": [
+				"0.11.7"
+			]
+		}
+	},
+	"header": {
+		"name": "The Devine Stone",
+		"description": "Developed by: SamuraiBread for: HiraethSMP",
+		"min_engine_version": [
+			1,
+			21,
+			90
+		],
+		"uuid": "88b7483f-dc7c-4b16-bd2e-d85c5e76d8a0",
+		"version": [
+			1,
+			0,
+			0
+		],
+		"lock_template_options": true,
+		"base_game_version": [
+			1,
+			21,
+			90
+		]
+	},
+	"modules": [
+		{
+			"type": "world_template",
+			"uuid": "4ca004d1-a0aa-47bc-8700-9875c136ed9a",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}

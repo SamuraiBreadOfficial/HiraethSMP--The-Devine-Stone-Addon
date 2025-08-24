@@ -1,0 +1,63 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"hsmp"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.50"
+			],
+			"dash": [
+				"0.11.7"
+			]
+		}
+	},
+	"header": {
+		"name": "The Devine Stone",
+		"description": "Developed by: SamuraiBread for: HiraethSMP",
+		"min_engine_version": [
+			1,
+			21,
+			90
+		],
+		"uuid": "cb7717b9-5658-4b1e-a36b-4ead8e269049",
+		"version": [
+			1,
+			0,
+			0
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "e13208cd-71f2-49f3-8d8a-ef367eb58d87",
+			"version": [
+				1,
+				0,
+				0
+			]
+		},
+		{
+			"type": "script",
+			"language": "javascript",
+			"uuid": "8203c52e-b9a4-47ee-b607-82bb21b8bb2c",
+			"entry": "scripts/main.js",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "2.0.0"
+		},
+		{
+			"module_name": "@minecraft/server-ui",
+			"version": "2.0.0"
+		}
+	]
+}

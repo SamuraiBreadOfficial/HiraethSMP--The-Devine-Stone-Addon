@@ -1,0 +1,42 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"hsmp"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.50"
+			],
+			"dash": [
+				"0.11.7"
+			]
+		}
+	},
+	"header": {
+		"name": "The Devine Stone",
+		"description": "Developed by: SamuraiBread for: HiraethSMP",
+		"min_engine_version": [
+			1,
+			21,
+			90
+		],
+		"uuid": "05462ea0-9d88-48c0-a49c-fe828b80b78a",
+		"version": [
+			1,
+			0,
+			0
+		]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "654d6623-8a45-4bb2-a893-da2f6e965778",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}

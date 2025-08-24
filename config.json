@@ -1,0 +1,47 @@
+{
+	"type": "minecraftBedrock",
+	"name": "The Devine Stone",
+	"namespace": "hsmp",
+	"authors": [
+		"hsmp"
+	],
+	"targetVersion": "1.21.90",
+	"description": "Developed by: SamuraiBread for: HiraethSMP",
+	"experimentalGameplay": {
+		"creationOfCustomBiomes": true,
+		"upcomingCreatorFeatures": true,
+		"experimentalCreatorCameraFeatures": true,
+		"enableGameTestFramework": true,
+		"dataDrivenJigsawStructures": true,
+		"renderDragonFeatures": true,
+		"educationEdition": false
+	},
+	"bdsProject": true,
+	"packs": {
+		"behaviorPack": "./BP",
+		"resourcePack": "./RP",
+		"worldTemplate": "./WT"
+	},
+	"worlds": [
+		"./worlds/*"
+	],
+	"compiler": {
+		"plugins": [
+			"generatorScripts",
+			"typeScript",
+			"entityIdentifierAlias",
+			"customEntityComponents",
+			"customItemComponents",
+			"customBlockComponents",
+			"customCommands",
+			"moLang",
+			"formatVersionCorrection",
+			[
+				"simpleRewrite",
+				{
+					"packName": "The Devine Stone"
+				}
+			]
+		]
+	}
+}
