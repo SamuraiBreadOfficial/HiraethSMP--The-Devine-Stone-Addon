@@ -18,11 +18,11 @@ system.beforeEvents.startup.subscribe((e) => {
                 .label('Informative Section')
                 .divider()
                 .button('Information Case 1', "textures/ui/hsmp_mainmenu/info_button")
-                .button('Factions Case 2')
-                .button('Credits Case 3')
+                .button('Factions Case 2', "textures/ui/hsmp_mainmenu/factions_icon")
+                .button('Credits Case 3', "textures/ui/hsmp_mainmenu/credits_button")
                 .divider()
                 .label('Explore')
-                .button('Explore the Spawn Case 4');
+                .button('Explore the Spawn Case 4', "textures/ui/hsmp_mainmenu/back_button");
 
             const info = new ActionFormData()
                 .title('Information')
