@@ -6,9 +6,10 @@ system.beforeEvents.startup.subscribe((e) => {
         onPlayerInteract(e) {
             const source = e.player
             const block = e.block
+            const playerName = source.name
             const menu = new ActionFormData()
                 .title('Main Menu')
-                .body('§e§lWelcome to HiraethSMP!§r An §eNation based Minecraft:Bedrock Edition SMP§r with a lot to do!' +
+                .body('Hello §e§l' + playerName + '§r!\n' + '§e§lWelcome to HiraethSMP!§r An §eNation based Minecraft:Bedrock Edition SMP§r with a lot to do!' +
                     "\n\nExplore the §e10k by 10k map§r made by §2SamuraiBread§r - An owner of the SMP itself!" +
                     "\n\nHave fun trying out §emagical properties of special items§r added to the game!" +
                     "\n\nEnjoy §efree Addon download and support§r, plus §ebe the one who will grow HiraethSMP addon§r with us!")
@@ -74,9 +75,9 @@ system.beforeEvents.startup.subscribe((e) => {
                 .label('There is no going back from this menu. Sorry.')
 
             function getPlayerRace(source) {
-                if (source.hasTag('human')) return 'Human';
-                if (source.hasTag('elf')) return 'Elf';
-                if (source.hasTag('halforc')) return 'Half Orc';
+                if (source.hasTag('human')) return '§eHuman§r';
+                if (source.hasTag('elf')) return '§qElf§r';
+                if (source.hasTag('halforc')) return '§mHalf Orc§r';
                 return 'Error Found: No race detected. Contact SamuraiBread.';
             }
 
@@ -99,7 +100,8 @@ system.beforeEvents.startup.subscribe((e) => {
                     .title('Finalization')
                     .body('You\'re an ' + playerRace + ' from ' + factionName + ' Faction. You don\'t remember the past')
                     .divider()
-                    .button('Okay');
+                    .button('Okay')
+                    .button('Start Over')
             }
 
             const info = new ActionFormData()
@@ -199,6 +201,173 @@ system.beforeEvents.startup.subscribe((e) => {
                     'Paste more credits when needed here lol\n\n'
                 )
                 .button('Back');
+
+
+            function getSettingsEventSFXVolume(source) {
+                if (source.hasTag('full_sfxvol')) return '§q100\%§r';
+                if (source.hasTag('half_sfxvol')) return '§e50\%§r';
+                if (source.hasTag('no_sfxvol')) return '§4Event SFX Muted§r';
+            }
+
+            function getSettingsEventMusicVolume(source) {
+                if (source.hasTag('full_audiovol')) return '§q100\%§r';
+                if (source.hasTag('half_audiovol')) return '§e50\%§r';
+                if (source.hasTag('no_audiovol')) return '§4Event Music Muted§r';
+            }
+
+            function getSettingsEventVoiceVolume(source) {
+                if (source.hasTag('full_voicevol')) return '§q100\%§r';
+                if (source.hasTag('half_voicevol')) return '§e50\%§r';
+                if (source.hasTag('no_voicevol')) return '§4Even Dialogue Muted§r';
+            }
+
+            function getSettingsJumpscareToogle(source) {
+                if (source.hasTag('scare_full')) return '§qFull Jumpscares§r';
+                if (source.hasTag('scare_minimum')) return '§eMinimum Jumpscares§r';
+                if (source.hasTag('scare_disable')) return '§4Jumpscares Disabled§r';
+            }
+
+            const init_settings1 = new ActionFormData()
+                .title('Choose Your Settings (Page 1/5)')
+                .body(
+                    "You will now be able to choose your settings based on your likings.\n\nThere are 5 settings: SFX, Audio, Voice and Jumpscares.\n\nBe patient and choose what is the best for you :)"
+
+                )
+                .button('Next')
+
+            const init_settings2 = new ActionFormData()
+                .title('Event SFX (Page 2/5)')
+                .body(
+                    'Choose your prefered volume of the event sfx like:/n/n' +
+                    '- Footsteps\n' +
+                    '- Machinery Working\n' +
+                    '- Ambient\n\n' +
+                    '§m/!\\ It is Better to set this setting to full to get the best experience!§r'
+                )
+                .divider()
+                .label('§qFull Volume')
+                .button('Check')
+                .button('Choose')
+                .divider()
+                .label('§eHalf Volume')
+                .button('Check')
+                .button('Choose')
+                .divider()
+                .label('§mMute')
+                .button('Choose');
+
+            function init_settings3(source) {
+                const sfx_vol = getSettingsEventSFXVolume(source)
+
+                return new ActionFormData()
+                    .title('Event Music (Page 3/5)')
+                    .body(
+                        '§l§eYour Settings:§r\n' +
+                        '§eSFX§r: ' + sfx_vol +
+                        '\n§sMusic§r: Now Choosing' +
+                        '\n§qDialogue§r: Up next' +
+                        '\n§mJumpscares§r: Up next' +
+                        '\n\n§eChoose your prefered volume of the event music§r\n\n' +
+                        '§m/!\\ It is Better to set this setting to Half to get the best experience!§r'
+                    )
+                    .divider()
+                    .label('Full Volume')
+                    .button('Check')
+                    .button('Choose')
+                    .divider()
+                    .label('Half Volume')
+                    .button('Check')
+                    .button('Choose')
+                    .divider()
+                    .label('Mute')
+                    .button('Choose')
+                    .divider()
+                    .button('Back')
+            }
+
+            function init_settings4(source) {
+                const sfx_vol = getSettingsEventSFXVolume(source)
+                const music_vol = getSettingsEventMusicVolume(source)
+
+                return new ActionFormData()
+                    .title('Event Dialogue (Page 4/5)')
+                    .body(
+                        '§l§eYour Settings:§r\n' +
+                        '§eSFX§r: ' + sfx_vol +
+                        '\n§sMusic§r: ' + music_vol +
+                        '\n§qDialogue§r: Now Choosing' +
+                        '\n§mJumpscares§r: Up next' +
+                        '\n\n§eChoose your prefered volume of the event music§r\n\n' +
+                        '§m/!\\ It is Better to set this setting to Full to get the best experience!§r'
+                    )
+                    .divider()
+                    .label('Full Volume')
+                    .button('Check')
+                    .button('Choose')
+                    .divider()
+                    .label('Half Volume')
+                    .button('Check')
+                    .button('Choose')
+                    .divider()
+                    .label('Mute')
+                    .button('Choose')
+                    .divider()
+                    .button('Back')
+            }
+
+            function init_settings5(source) {
+                const sfx_vol = getSettingsEventSFXVolume(source)
+                const music_vol = getSettingsEventMusicVolume(source)
+                const dial_vol = getSettingsEventVoiceVolume(source)
+                return new ActionFormData()
+                    .title('Jumpscares (Page 5/5)')
+                    .body(
+                        '§l§eYour Settings:§r\n' +
+                        '§eSFX§r: ' + sfx_vol +
+                        '\n§sMusic§r: ' + music_vol +
+                        '\n§qDialogue§r: ' + dial_vol +
+                        '\n§mJumpscares§r: Now Choosing' +
+                        '\n\n§eChoose your prefered volume of the event music§r\n\n' +
+                        '§m/!\\ It is Better to set this setting to Maximum to get the best experience!§r'
+                    )
+                    .divider()
+                    .label('Maximum')
+                    .button('Check')
+                    .button('Choose')
+                    .divider()
+                    .label('Minimum')
+                    .button('Check')
+                    .button('Choose')
+                    .divider()
+                    .label('Disable')
+                    .button('Choose')
+                    .divider()
+                    .button('Back')
+            }
+
+            function finalize_settings(source) {
+                const sfx_vol = getSettingsEventSFXVolume(source)
+                const music_vol = getSettingsEventMusicVolume(source)
+                const dial_vol = getSettingsEventVoiceVolume(source)
+                const scare_vol = getSettingsJumpscareToogle(source)
+
+                return new ActionFormData()
+                    .title('Check Settings')
+                    .body(
+                        '§m/!\\ You can always change those settings inside the HiraethSMP Menu Item!§r' +
+                        '\n\n§l§eYour settings§r:' +
+                        '\n- Event SFX: ' + sfx_vol +
+                        '\n- Event Music: ' + music_vol +
+                        '\n- Event Dialogue: ' + dial_vol +
+                        '\n- Jumpscares: ' + scare_vol
+                    )
+                    .divider()
+                    .button('Finish')
+                    .button('Start Over')
+            }
+
+
+
 
             function openmenu(source) {
                 menu.show(source).then((r) => {
@@ -334,7 +503,255 @@ system.beforeEvents.startup.subscribe((e) => {
             function finalization(source) {
                 const finalization_form = createFinalizationForm(source)
 
-                finalization_form.show(source)
+                finalization_form.show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            settingspage1(source)
+                            break;
+
+                        case 1:
+                            source.removeTag('sunlight_faction');
+                            source.removeTag('crimsonhood_faction');
+                            source.removeTag('witherhood_faction');
+                            source.removeTag('redlotus_faction');
+                            source.removeTag('human');
+                            source.removeTag('elf');
+                            source.removeTag('halforc');
+                            play_page1(source);
+                            break;
+
+                        default:
+                            finalization(source)
+                            break;
+
+
+
+                    }
+                })
+            }
+
+            function settingspage1(source) {
+                init_settings1.show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            settingspage2(source);
+                            break;
+
+                        default:
+                            settingspage1(source)
+                            break;
+                    }
+                })
+            }
+
+            function settingspage2(source) {
+                init_settings2.show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 1 1 1");
+                            settingspage2(source);
+                            break;
+
+                        case 1:
+                            source.addTag('full_sfxvol')
+                            settingspage3(source)
+                            break;
+
+                        case 2:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 0.3 1 0.3");
+                            settingspage2(source);
+                            break;
+
+                        case 3:
+                            source.addTag('half_sfxvol')
+                            settingspage3(source)
+                            break;
+
+                        case 4:
+                            source.addTag('no_sfxvol')
+                            settingspage3(source)
+                            break;
+
+                        default:
+                            settingspage2(source)
+                            break;
+
+
+                    }
+                })
+
+            }
+
+            function settingspage3(source) {
+                init_settings3(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 1 1 1");
+                            settingspage3(source);
+                            break;
+
+                        case 1:
+                            source.addTag('full_audiovol')
+                            settingspage4(source)
+                            break;
+
+                        case 2:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 0.3 1 0.3");
+                            settingspage3(source);
+                            break;
+
+                        case 3:
+                            source.addTag('half_audiovol')
+                            settingspage4(source)
+                            break;
+
+                        case 4:
+                            source.addTag('no_audiovol')
+                            settingspage4(source)
+                            break;
+
+                        case 5:
+                            source.removeTag('full_sfxvol')
+                            source.removeTag('half_sfxvol')
+                            source.removeTag('no_sfxvol')
+                            settingspage2(source)
+                            break;
+
+
+
+                        default:
+                            settingspage3(source)
+                            break;
+
+
+                    }
+                })
+
+
+            }
+
+            function settingspage4(source) {
+                init_settings4(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 1 1 1");
+                            settingspage4(source);
+                            break;
+
+                        case 1:
+                            source.addTag('full_voicevol')
+                            settingspage5(source)
+                            break;
+
+                        case 2:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 0.3 1 0.3");
+                            settingspage4(source);
+                            break;
+
+                        case 3:
+                            source.addTag('half_voicevol')
+                            settingspage5(source)
+                            break;
+
+                        case 4:
+                            source.addTag('no_voicevol')
+                            settingspage5(source)
+                            break;
+
+                        case 5:
+                            source.removeTag('full_audiovol')
+                            source.removeTag('half_audiovol')
+                            source.removeTag('no_audiovol')
+                            settingspage4(source)
+                            break;
+
+
+
+                        default:
+                            settingspage4(source)
+                            break;
+
+
+                    }
+                })
+
+            }
+
+            function settingspage5(source) {
+                init_settings5(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 1 1 1");
+                            settingspage5(source);
+                            break;
+
+                        case 1:
+                            source.addTag('scare_full')
+                            settingsfinal(source)
+                            break;
+
+                        case 2:
+                            source.runCommand("playsound random.chestopen @s ~ ~ ~ 0.3 1 0.3");
+                            settingspage5(source);
+                            break;
+
+                        case 3:
+                            source.addTag('scare_minimum')
+                            settingsfinal(source)
+                            break;
+
+                        case 4:
+                            source.addTag('scare_disable')
+                            settingsfinal(source)
+                            break;
+
+                        case 5:
+                            source.removeTag('full_voicevol')
+                            source.removeTag('half_voicevol')
+                            source.removeTag('no_voicevol')
+                            settingspage4(source)
+                            break;
+
+
+
+                        default:
+                            settingspage4(source)
+                            break;
+                    }
+                })
+
+
+            }
+
+            function settingsfinal(source) {
+                finalize_settings(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            break;
+
+                        case 1:
+                            source.removeTag('full_voicevol')
+                            source.removeTag('half_voicevol')
+                            source.removeTag('no_voicevol')
+                            source.removeTag('full_audiovol')
+                            source.removeTag('half_audiovol')
+                            source.removeTag('no_audiovol')
+                            source.removeTag('full_sfxvol')
+                            source.removeTag('half_sfxvol')
+                            source.removeTag('no_sfxvol')
+                            source.removeTag('scare_full')
+                            source.removeTag('scare_minimum')
+                            source.removeTag('scare_disable')
+
+                            settingspage1(source)
+                            break;
+
+                        default:
+                            settingsfinal(source)
+                            break;
+                    }
+                })
+
             }
 
 

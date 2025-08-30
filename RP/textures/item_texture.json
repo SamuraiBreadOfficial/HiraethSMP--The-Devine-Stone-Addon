@@ -1,5 +1,9 @@
 {
 	"resource_pack_name": "The Devine Stone",
 	"texture_name": "atlas.items",
-	"texture_data": {}
+	"texture_data": {
+		"hsmp_hsmp_menu": {
+			"textures": "textures/items/menu_item"
+		}
+	}
 }

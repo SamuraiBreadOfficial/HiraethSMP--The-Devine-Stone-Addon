@@ -1,0 +1,22 @@
+{
+	"format_version": "1.21.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hsmp:hsmp_menu",
+			"menu_category": {
+				"category": "nature"
+			}
+		},
+		"components": {
+			"minecraft:icon": "hsmp_hsmp_menu",
+			"minecraft:glint": true,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:display_name": {
+				"value": "§l§eHiraethSMP§r §qMain Menu§r"
+			},
+			"minecraft:custom_components": [
+				"hsmp:ig_menu"
+			]
+		}
+	}
+}
