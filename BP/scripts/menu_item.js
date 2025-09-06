@@ -1,11 +1,13 @@
 import { system, world } from "@minecraft/server";
-import { ActionFormData } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
 system.beforeEvents.startup.subscribe((e) => {
     e.itemComponentRegistry.registerCustomComponent('hsmp:ig_menu', {
         onUse(e) {
             const source = e.source
             const playerName = e.source.name
+
+
 
             const ig_menu = new ActionFormData()
                 .title('HiraethSMP Menu')
@@ -400,14 +402,6 @@ system.beforeEvents.startup.subscribe((e) => {
                     .button('Back')
             }
 
-            function getScore(source, objectiveName) {
-                const objective = world.scoreboard.getObjective(objectiveName);
-                if (!objective) return 0;
-
-                const score = objective.getScore(source);
-                return score ?? 0;
-            }
-
             function getRace(source) {
                 if (source.hasTag('human')) return '§eHuman';
                 if (source.hasTag('elf')) return '§aElf';
@@ -415,14 +409,32 @@ system.beforeEvents.startup.subscribe((e) => {
                 return 'Error Found: No race detected. Contact SamuraiBread.';
             }
 
+
+            function getCashScore(source, objectiveName) {
+                const objective = world.scoreboard.getObjective(objectiveName);
+                if (!objective) return 0;
+
+                const cash = objective.getScore(source);
+                return cash ?? 0;
+            }
+
+            function getBankScore(source, objectiveName) {
+                const objective = world.scoreboard.getObjective(objectiveName);
+                if (!objective) return 0;
+
+                const bank = objective.getScore(source);
+                return bank ?? 0;
+            }
+
+
             function showPlayerInfo(source) {
                 const race = getRace(source)
-                const score = getScore(source, "balance")
+                const cash = getCashScore(source, "balance")
 
                 return new ActionFormData()
                     .title(playerName + '\'s Info')
                     .body('Gamertag: §e' + playerName +
-                        "§r\n\nBalance: §e" + score + "$§r" + '\n\nRace: ' + race)
+                        "§r\n\nBalance: §e" + cash + "$§r" + '\n\nRace: ' + race)
                     .button('Back')
 
             }
@@ -444,12 +456,266 @@ system.beforeEvents.startup.subscribe((e) => {
                             settingsmenu_main(source)
                             break;
 
+                        case 3:
+                            balance_window(source);
+                            break;
+
+                        case 4:
+                            servermarket(source).show(source);
+                            break;
+
 
                         default:
                             break;
                     }
                 })
             }
+
+            //Economy Part
+
+            function cashFunction(source, amount) {
+                const cashObjective = world.scoreboard.getObjective("balance");
+                const bankObjective = world.scoreboard.getObjective("bank");
+
+                if (!cashObjective || !bankObjective) {
+                    source.sendMessage("§cBank Error Detected. Couldn't proceed.");
+                    return;
+                }
+
+                const currentCash = cashObjective.getScore(source) ?? 0;
+
+                if (currentCash < amount) {
+                    source.sendMessage("§eYou don't have enough Credits to deposit.");
+                    return;
+                }
+
+                const currentBank = bankObjective.getScore(source) ?? 0;
+
+                // Aktualizacja wyników
+                cashObjective.setScore(source, currentCash - amount);
+                bankObjective.setScore(source, currentBank + amount);
+
+                // Komunikat zwrotny
+                source.sendMessage("§aDeposited §e" + amount + "§a Credits.");
+            }
+
+            function withdrawFunction(source, amount) {
+                const cashObjective = world.scoreboard.getObjective("balance");
+                const bankObjective = world.scoreboard.getObjective("bank");
+
+                if (!cashObjective || !bankObjective) {
+                    source.sendMessage("§cBank Error Detected. Couldn't proceed.");
+                    return;
+                }
+
+                const currentBank = bankObjective.getScore(source) ?? 0;
+
+                if (currentBank < amount) {
+                    source.sendMessage("§eYou don't have enough credits at Bank.");
+                    return;
+                }
+
+                const currentCash = cashObjective.getScore(source) ?? 0;
+
+                bankObjective.setScore(source, currentBank - amount);
+                cashObjective.setScore(source, currentCash + amount);
+
+                source.sendMessage("§aWithdrawed §e" + amount + "§a Credits.");
+            }
+
+
+            function depAmount(source) {
+                new ModalFormData()
+                    .title('Deposit To Bank')
+                    .textField('How much you wish to deposit?', 'Example: 50')
+                    .show(source)
+                    .then(response => {
+                        if (response.canceled) return;
+
+                        const input = response.formValues[0];
+                        const amount = parseInt(input);
+                        if (isNaN(amount) || amount <= 0) {
+                            source.sendMessage('Error');
+                            return;
+                        }
+
+                        cashFunction(source, amount);
+
+                    })
+            }
+
+            function depAll(source) {
+                const cashObjective = world.scoreboard.getObjective("balance");
+                const cash = cashObjective?.getScore(source) ?? 0;
+                cashFunction(source, cash);
+            }
+
+            function withAmount(source) {
+                new ModalFormData()
+                    .title('Withdraw From Bank')
+                    .textField('How much you wish to withdraw?', 'Example: 50')
+                    .show(source)
+                    .then(response => {
+                        if (response.canceled) return;
+
+                        const input = response.formValues[0];
+                        const amount = parseInt(input);
+
+                        if (isNaN(amount) || amount <= 0) {
+                            source.sendMessage('§cInvalid amount. Withdrawal failed.');
+                            return;
+                        }
+
+                        withdrawFunction(source, amount);
+                    });
+            }
+
+            function withAll(source) {
+                const bankObjective = world.scoreboard.getObjective("bank");
+                const bank = bankObjective?.getScore(source) ?? 0;
+                withdrawFunction(source, bank);
+            }
+
+            function showTransferForm(source) {
+                const senderName = source.name;
+                const onlinePlayers = world.getPlayers();
+                const playerNames = [];
+                const bank = getBankScore(source, "bank")
+                const balance = getCashScore(source, 'balance')
+
+                for (const p of onlinePlayers) {
+                    try {
+                        const name = p.name;
+                        if (typeof name === "string" && name !== senderName) {
+                            playerNames.push(name.trim());
+                        }
+                    } catch (err) {
+                        console.warn("Could not find any players:", err);
+                    }
+                }
+
+                if (playerNames.length === 0) {
+                    source.sendMessage("§cNo one else is Online.");
+                    return;
+                }
+
+                new ModalFormData()
+                    .title("Credits Transfer")
+                    .label(playerName + '\'s Transfer Menu' + '\n\nYour Balance:' + '\n\nCash: §e' + balance + '\n\n§rBank: §e' + bank)
+                    .divider()
+                    .dropdown("Choose a player you want to Transfer your Credits to", playerNames)
+                    .textField("Credits amount", "Example. 100")
+                    .show(source)
+                    .then(response => {
+                        if (response.canceled) return;
+
+                        const selectedIndex = response.formValues[0];
+                        const recipientName = playerNames[selectedIndex];
+                        const amount = parseInt(response.formValues[1]);
+                        const senderName = source.name;
+
+                        if (isNaN(amount) || amount <= 0) {
+                            source.sendMessage("§cIncorrect Amount. Minium amount is 1.");
+                            return;
+                        }
+
+                        // Komendy do aktualizacji scoreboardu
+                        source.runCommand(`scoreboard players remove @s balance ${amount}`);
+                        source.runCommand(`scoreboard players add "${recipientName}" balance ${amount}`);
+
+                        source.sendMessage(`§aTransfered §e${amount}§a Credits to §b${recipientName}§a.`);
+                        source.runCommand(`tellraw ${recipientName} {"rawtext":[{"text":"§aReceived §e${amount}§a Credits from §b${source.name}§a."}]}`)
+                    });
+            }
+
+
+            function economy_BalanceInfo(source) {
+                const cash = getCashScore(source, "balance")
+                const bank = getBankScore(source, "bank")
+
+                return new ActionFormData()
+                    .title('§l§e' + playerName + '\'s§r Balance')
+                    .body('Control your Credits However you want! Deposit, withdraw or even transfer them to another player!')
+                    .divider()
+                    .header('Balance')
+                    .label('Cash: ' + cash)
+                    .label('Bank: ' + bank)
+                    .divider()
+                    .header('Bank Control')
+                    .button('Deposit Amount')
+                    .button('Deposit All')
+                    .divider()
+                    .button('Withdraw Amount')
+                    .button('Withdraw All')
+                    .divider()
+                    .button('Transfer Credits')
+                    .divider()
+                    .button('Back')
+            }
+
+            function balance_window(source) {
+                economy_BalanceInfo(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            depAmount(source);
+                            break;
+
+                        case 1:
+                            depAll(source);
+                            break;
+
+                        case 2:
+                            withAmount(source);
+                            break;
+
+                        case 3:
+                            withAll(source);
+                            break;
+
+                        case 4:
+                            showTransferForm(source);
+                            break;
+
+                        case 5:
+                            open_igmenu(source);
+                            break;
+                    }
+                })
+            }
+
+            function servermarket(source) {
+                const balance = getCashScore(source, "balance")
+                const bank = getBankScore(source, "bank")
+
+                return new ActionFormData()
+                    .title('Server Market')
+                    .body(
+                        '§c/!\\ Remember! You need to have your cash withdrawed to be able to buy something!§r' +
+                        '\n\nYour Cash Balance: §e' + balance +
+                        '\n§rBank Balance: §e' + bank
+                    )
+                    .divider()
+                    .label('Categories')
+                    .button('Food')
+                    .button('Crops')
+                    .button('Nature')
+                    .button('Wood')
+                    .button('Stone')
+                    .button('Other Materials')
+                    .button('Weapons')
+                    .button('Armours')
+                    .button('Armour Upgrades (Addon Only)')
+            }
+
+            function servermarket_menu(source) {
+                const balance = getCashScore(source, "balance")
+                const bank = getBankScore(source, "bank")
+
+            }
+
+            function foodmarket(source) { }
+
+
 
             open_igmenu(source);
 
