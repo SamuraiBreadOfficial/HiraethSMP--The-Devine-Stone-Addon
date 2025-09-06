@@ -694,6 +694,7 @@ system.beforeEvents.startup.subscribe((e) => {
                     .label('Categories')
                     .button('Food')
                     .button('Crops')
+                    .button('Mobs')
                     .button('Nature')
                     .button('Wood')
                     .button('Stone')
@@ -707,7 +708,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 servermarket(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            servermarketcat_food(source).show(source);
+                            foodmarket(source);
                             break;
 
                         default:
@@ -720,7 +721,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
             const buy_food_price = {
                 cooked: {
-                    modifier: 0,
+                    modifier: 2,
                     items: {
                         cooked_chicken: 50,
                         cooked_porkchop: 45,
@@ -732,12 +733,12 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 },
                 miscellaneous: {
-                    modifier: 0,
+                    modifier: 3,
                     items: {
                         bread: 20,
-                        mushroom_stew: 15,
-                        beetroot_soup: 10,
-                        rabbit_stew: 20,
+                        mushroom_stew: 3,
+                        beetroot_soup: 1,
+                        rabbit_stew: 2,
                         jacked_potato: 15,
                         cookie: 10,
                         pumpkin_pie: 30,
@@ -746,18 +747,42 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 },
                 extra: {
-                    modifier: 0,
+                    modifier: 40,
                     items: {
                         golden_carrot: 550,
                         golden_apple: 1119,
                         notch_apple: 15080
+                    }
+                },
+                crops: {
+                    modifier: 0,
+                    items: {
+                        wheat_seeds: 2,
+                        pumpkin_seeds: 2,
+                        melon_seeds: 2,
+                        beetroot_seeds: 1,
+                        torchflower_seeds: 10,
+                        pitcher_pod: 10
+                    }
+                },
+
+                crops_grown: {
+                    modifier: 0,
+                    items: {
+                        wheat: 40,
+                        pumpkin: 20,
+                        melon: 20,
+                        melon_slice: 5,
+                        beetroot: 5,
+                        torchflower: 50,
+                        pitcher_plant: 50
                     }
                 }
             }
 
             const sell_food_price = {
                 cooked: {
-                    modifier: 5,
+                    modifier: -10,
                     items: {
                         cooked_chicken: 30,
                         cooked_porkchop: 35,
@@ -769,12 +794,12 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 },
                 miscellaneous: {
-                    modifier: 0,
+                    modifier: 1,
                     items: {
                         bread: 10,
-                        mushroom_stew: 10,
-                        beetroot_soup: 3,
-                        rabbit_stew: 8,
+                        mushroom_stew: 1,
+                        beetroot_soup: 1,
+                        rabbit_stew: 1,
                         jacked_potato: 7,
                         cookie: 7,
                         pumpkin_pie: 21,
@@ -783,13 +808,37 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 },
                 extra: {
-                    modifier: 0,
+                    modifier: -2,
                     items: {
                         golden_carrot: 399,
-                        golden_apple: 994,
                         notch_apple: 13999
                     }
+                },
+                crops: {
+                    modifier: 0,
+                    items: {
+                        wheat_seeds: 1,
+                        pumpkin_seeds: 1,
+                        melon_seeds: 1,
+                        beetroot_seeds: 1,
+                        torchflower_seeds: 5,
+                        pitcher_pod: 5
+                    }
+                },
+
+                crops_grown: {
+                    modifier: 0,
+                    items: {
+                        wheat: 25,
+                        pumpkin: 15,
+                        melon: 16,
+                        melon_slice: 3,
+                        beetroot: 2,
+                        torchflower: 25,
+                        pitcher_plant: 26
+                    }
                 }
+
             }
 
 
@@ -867,7 +916,6 @@ system.beforeEvents.startup.subscribe((e) => {
                 const golden_carrot_sell = getSellPrice('extra', "golden_carrot")
 
                 const golden_apple_buy = getBuyPrice('extra', "golden_apple")
-                const golden_apple_sell = getSellPrice('extra', "golden_apple")
 
                 const notch_apple_buy = getBuyPrice('extra', "notch_apple")
                 const notch_apple_sell = getSellPrice('extra', "notch_apple")
@@ -877,169 +925,183 @@ system.beforeEvents.startup.subscribe((e) => {
 
                 return new ActionFormData()
                     .title('Server Market / Food')
-                    .body('Food Category' + "\n\n§c/!\\ Every button will give or take a full stack from your inventory. To Sell any item, you need to have a full stack of it!")
+                    .body('§l§eFood Category§r' + "\n\n§c/!\\ Every button will give or take a full stack from your inventory. To Sell any item, you need to have a full stack of it!")
                     .divider()
                     .label(
-                        'Your Balance' +
-                        '\n\nCash: ' + cash +
-                        '\n\nBank: ' + bank
+                        '§aYour Balance§r' +
+                        '\n\nCash: §e' + cash +
+                        '\n\n§rBank: §e' + bank
                     )
                     .divider()
-                    .header('Cooked Food.')
+                    .header('§nCooked Food.')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.cooked.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.cooked.modifier + '%%'
+
+                    )
                     .divider()
                     .label(
                         'Cooked Chicken' +
-                        '\n\nBuy Price: ' + cooked_chicken_buy +
-                        '\nSell Price: ' + cooked_chicken_sell
+                        '\n\nBuy Price: §e' + cooked_chicken_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cooked_chicken_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cooked Porkchop' +
-                        '\n\nBuy Price: ' + cooked_porkchop_buy +
-                        '\nSell Price ' + cooked_porkchop_sell
+                        '\n\nBuy Price: §e' + cooked_porkchop_buy + '§r Credits per 64' +
+                        '\nSell Price §e' + cooked_porkchop_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cooked Beef' +
-                        '\n\nBuy Price: ' + cooked_beef_buy +
-                        '\nSell Price: ' + cooked_beef_sell
+                        '\n\nBuy Price: §e' + cooked_beef_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cooked_beef_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cooked Mutton' +
-                        '\n\nBuy Price: ' + cooked_mutton_buy +
-                        '\nSell Price: ' + cooked_mutton_sell
+                        '\n\nBuy Price: §e' + cooked_mutton_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cooked_mutton_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cooked Rabbit' +
-                        '\n\nBuy Price: ' + cooked_rabbit_buy +
-                        '\nSell Price: ' + cooked_rabbit_sell
+                        '\n\nBuy Price: §e' + cooked_rabbit_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cooked_rabbit_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cooked Cod' +
-                        '\n\nBuy Price: ' + cooked_cod_buy +
-                        '\nSell Price: ' + cooked_cod_sell
+                        '\n\nBuy Price: §e' + cooked_cod_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cooked_cod_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cooked Salmon' +
-                        '\n\nBuy Price: ' + cooked_salmon_buy +
-                        '\nSell Price: ' + cooked_salmon_sell
+                        '\n\nBuy Price: §e' + cooked_salmon_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cooked_salmon_sell + '§r Credits per 64'
                     )
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
-                    .header('Miscellaneous')
+                    .header('§aMiscellaneous')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.miscellaneous.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.miscellaneous.modifier + '%%'
+
+                    )
                     .divider()
                     .label(
                         'Bread' +
-                        '\n\nBuy Price: ' + bread_buy +
-                        '\nSell Price: ' + bread_sell
+                        '\n\nBuy Price: §e' + bread_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + bread_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Mushroom Stew' +
-                        '\n\nBuy Price: ' + mushroom_stew_buy +
-                        '\nSell Price: ' + mushroom_stew_sell
+                        '\n\nBuy Price: §e' + mushroom_stew_buy + '§r Credits per 1' +
+                        '\nSell Price: §e' + mushroom_stew_sell + '§r Credits per 1'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x1')
+                    .button('Sell x1')
                     .divider()
                     .label(
                         'Beetroot Soup' +
-                        '\n\nBuy Price: ' + beetroot_soup_buy +
-                        '\nSell Price: ' + beetroot_soup_sell
+                        '\n\nBuy Price: §e' + beetroot_soup_buy + '§r Credits per 1' +
+                        '\nSell Price: §e' + beetroot_soup_sell + '§r Credits per 1'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x1')
+                    .button('Sell x1')
                     .divider()
                     .label(
                         'Rabbit Stew' +
-                        '\n\nBuy Price: ' + rabbit_stew_buy +
-                        '\nSell Price: ' + rabbit_stew_sell
+                        '\n\nBuy Price: §e' + rabbit_stew_buy + '§r Credits per 1' +
+                        '\nSell Price: §e' + rabbit_stew_sell + '§r Credits per 1'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x1')
+                    .button('Sell x1')
                     .divider()
                     .label(
                         'Jacked Potato' +
-                        '\n\nBuy Price: ' + jacked_potato_buy +
-                        '\nSell Price: ' + jacked_potato_sell
+                        '\n\nBuy Price: §e' + jacked_potato_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + jacked_potato_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cookie' +
-                        '\n\nBuy Price: ' + cookie_buy +
-                        '\nSell Price: ' + cookie_sell
+                        '\n\nBuy Price: §e' + cookie_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + cookie_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Pumpkin Pie' +
-                        '\n\nBuy Price: ' + pumpkin_pie_buy +
-                        '\nSell Price: ' + pumpkin_pie_sell
+                        '\n\nBuy Price: §e' + pumpkin_pie_buy + '§r Credits per 64' +
+                        '\nSell Price: §e' + pumpkin_pie_sell + '§r Credits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
                     .label(
                         'Cake' +
-                        '\n\nBuy Price: ' + cake_buy +
-                        '\nSell Price: ' + cake_sell
+                        '\n\nBuy Price: §e' + cake_buy + ' §rCredits per 1' +
+                        '\nSell Price: §e' + cake_sell + ' §rCredits per 1'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x1')
+                    .button('Sell x1')
                     .divider()
                     .label(
                         'Dried Kelp' +
-                        '\n\nBuy Price: ' + dried_kelp_buy +
-                        '\nSell Price: ' + dried_kelp_sell
+                        '\n\nBuy Price: §e' + dried_kelp_buy + ' §rCredits per 64' +
+                        '\nSell Price: §e' + dried_kelp_sell + ' §rCredits per 64'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x64')
+                    .button('Sell x64')
                     .divider()
-                    .header('Extra')
+                    .header('§uExtra')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.extra.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.extra.modifier + '%%'
+                    )
                     .divider()
                     .label(
                         'Golden Carrots' +
-                        '\n\nBuy Price: ' + golden_carrot_buy +
-                        '\nSell Price: ' + golden_carrot_sell
+                        '\n\nBuy Price: §e' + golden_carrot_buy + '§r Credits per 32' +
+                        '\nSell Price: §e' + golden_carrot_sell + '§r Credits per 32'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x32')
+                    .button('Sell x32')
                     .divider()
                     .label(
                         'Golden Apple' +
-                        '\n\nBuy Price: ' + golden_apple_buy +
-                        '\nSell Price: ' + golden_apple_sell
+                        '\n\nBuy Price: §e' + golden_apple_buy + '§r Credits per 12'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x12')
                     .divider()
                     .label(
                         'Enchanted Golden Apple' +
-                        '\n\nBuy Price: ' + notch_apple_buy +
-                        '\nSell Price: ' + notch_apple_sell
+                        '\n\nBuy Price: §e' + notch_apple_buy + '§r Credits per 1' +
+                        '\nSell Price: §e' + notch_apple_sell + '§r Credits per 1'
                     )
-                    .button('Buy')
-                    .button('Sell')
+                    .button('Buy x1')
+                    .button('Sell x1')
                     .divider()
                     .button('Back')
 
@@ -1047,8 +1109,446 @@ system.beforeEvents.startup.subscribe((e) => {
 
             }
 
+            function foodmarket(source) {
+                const bank = getBankScore(source, "bank");
+                const cash = getBankScore(source, "balance");
 
-            function foodmarket(source) { }
+                const cooked_chicken_buy = getBuyPrice("cooked", "cooked_chicken");
+                const cooked_chicken_sell = getSellPrice("cooked", "cooked_chicken");
+
+                const cooked_porkchop_buy = getBuyPrice("cooked", "cooked_porkchop");
+                const cooked_porkchop_sell = getSellPrice('cooked', 'cooked_porkchop');
+
+                const cooked_beef_buy = getBuyPrice('cooked', 'cooked_beef');
+                const cooked_beef_sell = getSellPrice('cooked', 'cooked_beef');
+
+                const cooked_mutton_buy = getBuyPrice('cooked', 'cooked_mutton');
+                const cooked_mutton_sell = getSellPrice('cooked', 'cooked_mutton');
+
+                const cooked_rabbit_buy = getBuyPrice('cooked', 'cooked_rabbit');
+                const cooked_rabbit_sell = getSellPrice('cooked', 'cooked_rabbit');
+
+                const cooked_cod_buy = getBuyPrice('cooked', "cooked_cod");
+                const cooked_cod_sell = getSellPrice('cooked', "cooked_cod");
+
+                const cooked_salmon_buy = getBuyPrice('cooked', "cooked_salmon");
+                const cooked_salmon_sell = getSellPrice('cooked', "cooked_salmon");
+
+                const bread_buy = getBuyPrice('miscellaneous', "bread");
+                const bread_sell = getSellPrice('miscellaneous', "bread");
+
+                const mushroom_stew_buy = getBuyPrice('miscellaneous', "mushroom_stew");
+                const mushroom_stew_sell = getSellPrice('miscellaneous', "mushroom_stew");
+
+                const beetroot_soup_buy = getBuyPrice('miscellaneous', "beetroot_soup");
+                const beetroot_soup_sell = getSellPrice('miscellaneous', "beetroot_soup");
+
+                const rabbit_stew_buy = getBuyPrice('miscellaneous', "rabbit_stew");
+                const rabbit_stew_sell = getSellPrice('miscellaneous', "rabbit_stew");
+
+                const jacked_potato_buy = getBuyPrice('miscellaneous', "jacked_potato");
+                const jacked_potato_sell = getSellPrice('miscellaneous', "jacked_potato");
+
+                const cookie_buy = getBuyPrice('miscellaneous', "cookie");
+                const cookie_sell = getSellPrice('miscellaneous', "cookie");
+
+                const pumpkin_pie_buy = getBuyPrice('miscellaneous', "pumpkin_pie");
+                const pumpkin_pie_sell = getSellPrice('miscellaneous', "pumpkin_pie");
+
+                const cake_buy = getBuyPrice('miscellaneous', "cake");
+                const cake_sell = getSellPrice('miscellaneous', "cake");
+
+                const dried_kelp_buy = getBuyPrice('miscellaneous', "dried_kelp");
+                const dried_kelp_sell = getSellPrice('miscellaneous', "dried_kelp");
+
+                const golden_carrot_buy = getBuyPrice('extra', "golden_carrot");
+                const golden_carrot_sell = getSellPrice('extra', "golden_carrot");
+
+                const golden_apple_buy = getBuyPrice('extra', "golden_apple");
+                const golden_apple_sell = getSellPrice('extra', "golden_apple");
+
+                const notch_apple_buy = getBuyPrice('extra', "notch_apple");
+                const notch_apple_sell = getSellPrice('extra', "notch_apple");
+
+                servermarketcat_food(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            if (cash <= cooked_chicken_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_chicken_buy}`)
+                                source.runCommand(`give @s cooked_chicken 64`)
+                                source.sendMessage(`§aBought §e§lCooked Chicked x64 §r§afor ${cooked_chicken_buy}`)
+                            }
+                            break;
+
+                        case 1:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_chicken, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_chicken, quantity=64}] run scoreboard players add @s balance ${cooked_chicken_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_chicken, quantity=64}] run say §aSold §a§lCooked Chicken x64§r §aFor §e§l${cooked_chicken_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_chicken, quantity=64}] run clear @s cooked_chicken 0 64`), 1)
+                            break;
+
+                        case 2:
+                            if (cash <= cooked_porkchop_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_porkchop_buy}`)
+                                source.runCommand(`give @s cooked_porkchop 64`)
+                                source.sendMessage(`§aBought §e§lCooked Porkchop x64 §r§afor ${cooked_porkchop_buy}`)
+
+                            }
+                            break;
+
+                        case 3:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_porkchop, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_porkchop, quantity=64}] run scoreboard players add @s balance ${cooked_porkchop_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_porkchop, quantity=64}] run say §aSold §a§lCooked Porkchop x64§r §aFor §e§l${cooked_porkchop_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_porkchop, quantity=64}] run clear @s cooked_porkchop 0 64`), 1)
+                            break;
+
+                        case 4:
+                            if (cash <= cooked_beef_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_beef_buy}`)
+                                source.runCommand(`give @s cooked_beef 64`)
+                                source.sendMessage(`§aBought §e§lCooked Beef x64 §r§afor ${cooked_beef_buy}`)
+
+                            }
+                            break;
+
+                        case 5:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_beef, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_beef, quantity=64}] run scoreboard players add @s balance ${cooked_beef_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_beef, quantity=64}] run say §aSold §a§lCooked Beef x64§r §aFor §e§l${cooked_beef_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_beef, quantity=64}] run clear @s cooked_beef 0 64`), 1)
+                            break;
+
+                        case 6:
+                            if (cash <= cooked_mutton_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_mutton_buy}`)
+                                source.runCommand(`give @s cooked_mutton 64`)
+                                source.sendMessage(`§aBought §e§lCooked Mutton x64 §r§afor ${cooked_mutton_buy}`)
+
+                            }
+                            break;
+
+                        case 7:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_mutton, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_mutton, quantity=64}] run scoreboard players add @s balance ${cooked_mutton_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_mutton, quantity=64}] run say §aSold §a§lCooked Mutton x64§r §aFor §e§l${cooked_mutton_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_mutton, quantity=64}] run clear @s cooked_mutton 0 64`), 1)
+                            break;
+
+                        case 8:
+                            if (cash <= cooked_rabbit_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_rabbit_buy}`)
+                                source.runCommand(`give @s cooked_rabbit 64`)
+                                source.sendMessage(`§aBought §e§lCooked Rabbit x64 §r§afor ${cooked_rabbit_buy}`)
+
+                            }
+                            break;
+
+                        case 9:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_rabbit, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_rabbit, quantity=64}] run scoreboard players add @s balance ${cooked_rabbit_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_rabbit, quantity=64}] run say §aSold §a§lCooked Rabbit x64§r §aFor §e§l${cooked_rabbit_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_rabbit, quantity=64}] run clear @s cooked_rabbit 0 64`), 1)
+                            break;
+
+                        case 10:
+                            if (cash <= cooked_cod_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_cod_buy}`)
+                                source.runCommand(`give @s cooked_cod 64`)
+                                source.sendMessage(`§aBought §e§lCooked Cod x64 §r§afor ${cooked_cod_buy}`)
+
+                            }
+                            break;
+
+                        case 11:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_cod, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_cod, quantity=64}] run scoreboard players add @s balance ${cooked_cod_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_cod, quantity=64}] run say §aSold §a§lCooked Cod x64§r §aFor §e§l${cooked_cod_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_cod, quantity=64}] run clear @s cooked_cod 0 64`), 1)
+                            break;
+
+                        case 12:
+                            if (cash <= cooked_salmon_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cooked_salmon_buy}`)
+                                source.runCommand(`give @s cooked_salmon 64`)
+                                source.sendMessage(`§aBought §e§lCooked Salmon x64 §r§afor ${cooked_salmon_buy}`)
+
+                            }
+                            break;
+
+                        case 13:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cooked_salmon, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_salmon, quantity=64}] run scoreboard players add @s balance ${cooked_salmon_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_salmon, quantity=64}] run say §aSold §a§lCooked Cod x64§r §aFor §e§l${cooked_salmon_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cooked_salmon, quantity=64}] run clear @s cooked_salmon 0 64`), 1)
+                            break;
+
+                        case 14:
+                            if (cash <= bread_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${bread_buy}`)
+                                source.runCommand(`give @s bread 64`)
+                                source.sendMessage(`§aBought §e§lBread x64 §r§afor ${bread_buy}`)
+
+                            }
+                            break;
+
+                        case 14:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:bread, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bread, quantity=64}] run scoreboard players add @s balance ${bread_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bread, quantity=64}] run say §aSold §a§lBread x64§r §aFor §e§l${bread_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bread, quantity=64}] run clear @s bread 0 64`), 1)
+                            break;
+
+                        case 15:
+                            if (cash <= mushroom_stew_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${mushroom_stew_buy}`)
+                                source.runCommand(`give @s mushroom_stew 1`)
+                                source.sendMessage(`§aBought §e§lMushroom Stew x1 §r§afor ${mushroom_stew_buy}`)
+
+                            }
+                            break;
+
+                        case 16:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1}] run say §cYou need to have 1 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1}] run scoreboard players add @s balance ${mushroom_stew_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1}] run say §aSold §a§lMushroom Stew x1§r §aFor §e§l${mushroom_stew_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1}] run clear @s mushroom_stew 0 1`), 1)
+                            break;
+
+                        case 17:
+                            if (cash <= beetroot_soup_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${beetroot_soup_buy}`)
+                                source.runCommand(`give @s beetroot_soup 1`)
+                                source.sendMessage(`§aBought §e§lBeetroot Soup x1 §r§afor ${beetroot_soup_buy}`)
+
+                            }
+                            break;
+
+                        case 18:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1}] run say §cYou need to have 1 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1}] run scoreboard players add @s balance ${beetroot_soup_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1}] run say §aSold §a§lBeetroot Soup x1§r §aFor §e§l${beetroot_soup_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1}] run clear @s beetroot_soup 0 1`), 1)
+                            break;
+
+                        case 19:
+                            if (cash <= rabbit_stew_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${rabbit_stew_buy}`)
+                                source.runCommand(`give @s rabbit_stew 1`)
+                                source.sendMessage(`§aBought §e§lRabbit Stew x1 §r§afor ${rabbit_stew_buy}`)
+
+                            }
+                            break;
+
+                        case 20:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1}] run say §cYou need to have 1 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1}] run scoreboard players add @s balance ${rabbit_stew_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1}] run say §aSold §a§lBeetroot Soup x1§r §aFor §e§l${rabbit_stew_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1}] run clear @s rabbit_stew 0 1`), 1)
+                            break;
+
+                        case 21:
+                            if (cash <= jacked_potato_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${jacked_potato_buy}`)
+                                source.runCommand(`give @s jacked_potato 64`)
+                                source.sendMessage(`§aBought §e§lJacked Potato x64 §r§afor ${jacked_potato_buy}`)
+
+                            }
+                            break;
+
+                        case 22:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:jacked_potato, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jacked_potato, quantity=64}] run scoreboard players add @s balance ${jacked_potato_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jacked_potato, quantity=64}] run say §aSold §a§lJacked Potato x64§r §aFor §e§l${jacked_potato_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jacked_potato, quantity=64}] run clear @s jacked_potato 0 64`), 1)
+                            break;
+
+                        case 23:
+                            if (cash <= cookie_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cookie_buy}`)
+                                source.runCommand(`give @s cookie 64`)
+                                source.sendMessage(`§aBought §e§lCookie x64 §r§afor ${cookie_buy}`)
+
+                            }
+                            break;
+
+                        case 24:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cookie, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cookie, quantity=64}] run scoreboard players add @s balance ${cookie_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cookie, quantity=64}] run say §aSold §a§lCookie x64§r §aFor §e§l${cookie_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cookie, quantity=64}] run clear @s cookie 0 64`), 1)
+                            break;
+
+                        case 25:
+                            if (cash <= pumpkin_pie_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${pumpkin_pie_buy}`)
+                                source.runCommand(`give @s pumpkin_pie 64`)
+                                source.sendMessage(`§aBought §e§lPumpkin Pie x64 §r§afor ${pumpkin_pie_buy}`)
+                            }
+                            break;
+
+                        case 26:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64}] run scoreboard players add @s balance ${pumpkin_pie_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64}] run say §aSold §a§lPumpkin Pie x64§r §aFor §e§l${pumpkin_pie_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64}] run clear @s pumpkin_pie 0 64`), 1)
+                            break;
+
+                        case 27:
+                            if (cash <= cake_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cake_buy}`)
+                                source.runCommand(`give @s cake 1`)
+                                source.sendMessage(`§aBought §e§lCake x1 §r§afor ${cake_buy}`)
+                            }
+                            break;
+
+                        case 28:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cake, quantity=1}] run say §cYou need to have 1 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cake, quantity=1}] run scoreboard players add @s balance ${cake_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cake, quantity=1}] run say §aSold §a§lCake x64§r §aFor §e§l${cake_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cake, quantity=1}] run clear @s cake 0 1`), 1)
+                            break;
+
+                        case 29:
+                            if (cash <= dried_kelp_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${dried_kelp_buy}`)
+                                source.runCommand(`give @s dried_kelp 64`)
+                                source.sendMessage(`§aBought §e§lDried Kelp x64 §r§afor ${dried_kelp_buy}`)
+                            }
+                            break;
+
+                        case 30:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:dried_kelp, quantity=64}] run say §cYou need to have 1 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dried_kelp, quantity=64}] run scoreboard players add @s balance ${dried_kelp_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dried_kelp, quantity=64}] run say §aSold §a§lDried Kelp x64§r §aFor §e§l${dried_kelp_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dried_kelp, quantity=64}] run clear @s dried_kelp 0 64`), 1)
+                            break;
+
+                        case 31:
+                            if (cash <= golden_carrot_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${golden_carrot_buy}`)
+                                source.runCommand(`give @s golden_carrot 32`)
+                                source.sendMessage(`§aBought §e§lDried Kelp x32 §r§afor ${golden_carrot_buy}`)
+                            }
+                            break;
+
+                        case 32:
+
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:golden_carrot, quantity=32}] run say §cYou need to have 32 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_carrot, quantity=32}] run scoreboard players add @s balance ${golden_carrot_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_carrot, quantity=32}] run say §aSold §a§lGolden Carrot x32§r §aFor §e§l${golden_carrot_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_carrot, quantity=32}] run clear @s golden_carrot 0 32`), 1)
+                            break;
+
+                        case 33:
+                            if (cash <= golden_apple_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${golden_apple_buy}`)
+                                source.runCommand(`give @s golden_apple 12`)
+                                source.sendMessage(`§aBought §e§lDried Kelp x12 §r§afor ${golden_apple_buy}`)
+                            }
+                            break;
+
+                        case 34:
+                            if (cash <= notch_apple_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${notch_apple_buy}`)
+                                source.runCommand(`give @s enchanted_golden_apple 1`)
+                                source.sendMessage(`§aBought §u§lEnchanted Golden Apple §ex1 §r§afor ${notch_apple_buy}`)
+                            }
+                            break;
+
+                        case 35:
+
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1}] run say §cYou need to have 1 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1}] run scoreboard players add @s balance ${notch_apple_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1}] run say §aSold §a§lGolden Carrot x1§r §aFor §e§l${notch_apple_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1}] run clear @s enchanted_golden_apple 0 1`), 1)
+                            break;
+                    }
+                })
+
+            }
+
+            function servermarketcat_crops(source) {
+                const cash = getCashScore(source, "balance")
+                const bank = getBankScore(source, "bank")
+
+                const wheat_seeds_buy = getBuyPrice('crops', 'wheat_seeds')
+            }
 
 
 
