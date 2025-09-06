@@ -461,7 +461,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 4:
-                            servermarket(source).show(source);
+                            servermarket_menu(source);
                             break;
 
 
@@ -580,8 +580,6 @@ system.beforeEvents.startup.subscribe((e) => {
                 const senderName = source.name;
                 const onlinePlayers = world.getPlayers();
                 const playerNames = [];
-                const bank = getBankScore(source, "bank")
-                const balance = getCashScore(source, 'balance')
 
                 for (const p of onlinePlayers) {
                     try {
@@ -601,8 +599,6 @@ system.beforeEvents.startup.subscribe((e) => {
 
                 new ModalFormData()
                     .title("Credits Transfer")
-                    .label(playerName + '\'s Transfer Menu' + '\n\nYour Balance:' + '\n\nCash: §e' + balance + '\n\n§rBank: §e' + bank)
-                    .divider()
                     .dropdown("Choose a player you want to Transfer your Credits to", playerNames)
                     .textField("Credits amount", "Example. 100")
                     .show(source)
@@ -612,12 +608,12 @@ system.beforeEvents.startup.subscribe((e) => {
                         const selectedIndex = response.formValues[0];
                         const recipientName = playerNames[selectedIndex];
                         const amount = parseInt(response.formValues[1]);
-                        const senderName = source.name;
 
                         if (isNaN(amount) || amount <= 0) {
                             source.sendMessage("§cIncorrect Amount. Minium amount is 1.");
                             return;
                         }
+                        console.warn(source.name + ' Tried to send' + amount)
 
                         // Komendy do aktualizacji scoreboardu
                         source.runCommand(`scoreboard players remove @s balance ${amount}`);
@@ -708,10 +704,349 @@ system.beforeEvents.startup.subscribe((e) => {
             }
 
             function servermarket_menu(source) {
-                const balance = getCashScore(source, "balance")
-                const bank = getBankScore(source, "bank")
+                servermarket(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            servermarketcat_food(source).show(source);
+                            break;
+
+                        default:
+                            open_igmenu(source)
+                            break;
+                    }
+                })
 
             }
+
+            const buy_food_price = {
+                cooked: {
+                    modifier: 0,
+                    items: {
+                        cooked_chicken: 50,
+                        cooked_porkchop: 45,
+                        cooked_beef: 60,
+                        cooked_mutton: 60,
+                        cooked_rabbit: 60,
+                        cooked_cod: 50,
+                        cooked_salmon: 50
+                    }
+                },
+                miscellaneous: {
+                    modifier: 0,
+                    items: {
+                        bread: 20,
+                        mushroom_stew: 15,
+                        beetroot_soup: 10,
+                        rabbit_stew: 20,
+                        jacked_potato: 15,
+                        cookie: 10,
+                        pumpkin_pie: 30,
+                        cake: 105,
+                        dried_kelp: 3
+                    }
+                },
+                extra: {
+                    modifier: 0,
+                    items: {
+                        golden_carrot: 550,
+                        golden_apple: 1119,
+                        notch_apple: 15080
+                    }
+                }
+            }
+
+            const sell_food_price = {
+                cooked: {
+                    modifier: 5,
+                    items: {
+                        cooked_chicken: 30,
+                        cooked_porkchop: 35,
+                        cooked_beef: 30,
+                        cooked_mutton: 30,
+                        cooked_rabbit: 30,
+                        cooked_cod: 20,
+                        cooked_salmon: 20
+                    }
+                },
+                miscellaneous: {
+                    modifier: 0,
+                    items: {
+                        bread: 10,
+                        mushroom_stew: 10,
+                        beetroot_soup: 3,
+                        rabbit_stew: 8,
+                        jacked_potato: 7,
+                        cookie: 7,
+                        pumpkin_pie: 21,
+                        cake: 59,
+                        dried_kelp: 1
+                    }
+                },
+                extra: {
+                    modifier: 0,
+                    items: {
+                        golden_carrot: 399,
+                        golden_apple: 994,
+                        notch_apple: 13999
+                    }
+                }
+            }
+
+
+            function getBuyPrice(category, itemName) {
+                if (buy_food_price[category]?.items?.[itemName] !== undefined) {
+                    const base = buy_food_price[category].items[itemName];
+                    const mod = buy_food_price[category].modifier ?? 0;
+                    return Math.floor(base * (1 + mod / 100));
+                }
+                return null;
+            }
+
+            function getSellPrice(category, itemName) {
+                if (sell_food_price[category]?.items?.[itemName] !== undefined) {
+                    const base = sell_food_price[category].items[itemName];
+                    const mod = sell_food_price[category].modifier ?? 0;
+                    return Math.floor(base * (1 + mod / 100));
+                }
+                return null;
+            }
+
+            function servermarketcat_food(source) {
+                const bank = getBankScore(source, "bank")
+                const cash = getBankScore(source, "balance")
+
+                const cooked_chicken_buy = getBuyPrice("cooked", "cooked_chicken")
+                const cooked_chicken_sell = getSellPrice("cooked", "cooked_chicken")
+
+                const cooked_porkchop_buy = getBuyPrice("cooked", "cooked_porkchop")
+                const cooked_porkchop_sell = getSellPrice('cooked', 'cooked_porkchop')
+
+                const cooked_beef_buy = getBuyPrice('cooked', 'cooked_beef')
+                const cooked_beef_sell = getSellPrice('cooked', 'cooked_beef')
+
+                const cooked_mutton_buy = getBuyPrice('cooked', 'cooked_mutton')
+                const cooked_mutton_sell = getSellPrice('cooked', 'cooked_mutton')
+
+                const cooked_rabbit_buy = getBuyPrice('cooked', 'cooked_rabbit')
+                const cooked_rabbit_sell = getSellPrice('cooked', 'cooked_rabbit')
+
+                const cooked_cod_buy = getBuyPrice('cooked', "cooked_cod")
+                const cooked_cod_sell = getSellPrice('cooked', "cooked_cod")
+
+                const cooked_salmon_buy = getBuyPrice('cooked', "cooked_salmon")
+                const cooked_salmon_sell = getSellPrice('cooked', "cooked_salmon")
+
+                const bread_buy = getBuyPrice('miscellaneous', "bread")
+                const bread_sell = getSellPrice('miscellaneous', "bread")
+
+                const mushroom_stew_buy = getBuyPrice('miscellaneous', "mushroom_stew")
+                const mushroom_stew_sell = getSellPrice('miscellaneous', "mushroom_stew")
+
+                const beetroot_soup_buy = getBuyPrice('miscellaneous', "beetroot_soup")
+                const beetroot_soup_sell = getSellPrice('miscellaneous', "beetroot_soup")
+
+                const rabbit_stew_buy = getBuyPrice('miscellaneous', "rabbit_stew")
+                const rabbit_stew_sell = getSellPrice('miscellaneous', "rabbit_stew")
+
+                const jacked_potato_buy = getBuyPrice('miscellaneous', "jacked_potato")
+                const jacked_potato_sell = getSellPrice('miscellaneous', "jacked_potato")
+
+                const cookie_buy = getBuyPrice('miscellaneous', "cookie")
+                const cookie_sell = getSellPrice('miscellaneous', "cookie")
+
+                const pumpkin_pie_buy = getBuyPrice('miscellaneous', "pumpkin_pie")
+                const pumpkin_pie_sell = getSellPrice('miscellaneous', "pumpkin_pie")
+
+                const cake_buy = getBuyPrice('miscellaneous', "cake")
+                const cake_sell = getSellPrice('miscellaneous', "cake")
+
+                const dried_kelp_buy = getBuyPrice('miscellaneous', "dried_kelp")
+                const dried_kelp_sell = getSellPrice('miscellaneous', "dried_kelp")
+
+                const golden_carrot_buy = getBuyPrice('extra', "golden_carrot")
+                const golden_carrot_sell = getSellPrice('extra', "golden_carrot")
+
+                const golden_apple_buy = getBuyPrice('extra', "golden_apple")
+                const golden_apple_sell = getSellPrice('extra', "golden_apple")
+
+                const notch_apple_buy = getBuyPrice('extra', "notch_apple")
+                const notch_apple_sell = getSellPrice('extra', "notch_apple")
+
+
+
+
+                return new ActionFormData()
+                    .title('Server Market / Food')
+                    .body('Food Category' + "\n\n§c/!\\ Every button will give or take a full stack from your inventory. To Sell any item, you need to have a full stack of it!")
+                    .divider()
+                    .label(
+                        'Your Balance' +
+                        '\n\nCash: ' + cash +
+                        '\n\nBank: ' + bank
+                    )
+                    .divider()
+                    .header('Cooked Food.')
+                    .divider()
+                    .label(
+                        'Cooked Chicken' +
+                        '\n\nBuy Price: ' + cooked_chicken_buy +
+                        '\nSell Price: ' + cooked_chicken_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cooked Porkchop' +
+                        '\n\nBuy Price: ' + cooked_porkchop_buy +
+                        '\nSell Price ' + cooked_porkchop_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cooked Beef' +
+                        '\n\nBuy Price: ' + cooked_beef_buy +
+                        '\nSell Price: ' + cooked_beef_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cooked Mutton' +
+                        '\n\nBuy Price: ' + cooked_mutton_buy +
+                        '\nSell Price: ' + cooked_mutton_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cooked Rabbit' +
+                        '\n\nBuy Price: ' + cooked_rabbit_buy +
+                        '\nSell Price: ' + cooked_rabbit_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cooked Cod' +
+                        '\n\nBuy Price: ' + cooked_cod_buy +
+                        '\nSell Price: ' + cooked_cod_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cooked Salmon' +
+                        '\n\nBuy Price: ' + cooked_salmon_buy +
+                        '\nSell Price: ' + cooked_salmon_sell
+                    )
+                    .divider()
+                    .header('Miscellaneous')
+                    .divider()
+                    .label(
+                        'Bread' +
+                        '\n\nBuy Price: ' + bread_buy +
+                        '\nSell Price: ' + bread_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Mushroom Stew' +
+                        '\n\nBuy Price: ' + mushroom_stew_buy +
+                        '\nSell Price: ' + mushroom_stew_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Beetroot Soup' +
+                        '\n\nBuy Price: ' + beetroot_soup_buy +
+                        '\nSell Price: ' + beetroot_soup_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Rabbit Stew' +
+                        '\n\nBuy Price: ' + rabbit_stew_buy +
+                        '\nSell Price: ' + rabbit_stew_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Jacked Potato' +
+                        '\n\nBuy Price: ' + jacked_potato_buy +
+                        '\nSell Price: ' + jacked_potato_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cookie' +
+                        '\n\nBuy Price: ' + cookie_buy +
+                        '\nSell Price: ' + cookie_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Pumpkin Pie' +
+                        '\n\nBuy Price: ' + pumpkin_pie_buy +
+                        '\nSell Price: ' + pumpkin_pie_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Cake' +
+                        '\n\nBuy Price: ' + cake_buy +
+                        '\nSell Price: ' + cake_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Dried Kelp' +
+                        '\n\nBuy Price: ' + dried_kelp_buy +
+                        '\nSell Price: ' + dried_kelp_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .header('Extra')
+                    .divider()
+                    .label(
+                        'Golden Carrots' +
+                        '\n\nBuy Price: ' + golden_carrot_buy +
+                        '\nSell Price: ' + golden_carrot_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Golden Apple' +
+                        '\n\nBuy Price: ' + golden_apple_buy +
+                        '\nSell Price: ' + golden_apple_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .label(
+                        'Enchanted Golden Apple' +
+                        '\n\nBuy Price: ' + notch_apple_buy +
+                        '\nSell Price: ' + notch_apple_sell
+                    )
+                    .button('Buy')
+                    .button('Sell')
+                    .divider()
+                    .button('Back')
+
+
+
+            }
+
 
             function foodmarket(source) { }
 

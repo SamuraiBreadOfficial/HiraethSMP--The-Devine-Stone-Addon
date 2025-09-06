@@ -14,6 +14,7 @@
 			"minecraft:display_name": {
 				"value": "§l§eHiraethSMP§r §qMain Menu§r"
 			},
+			"minecraft:interact_button": true,
 			"minecraft:custom_components": [
 				"hsmp:ig_menu"
 			]
