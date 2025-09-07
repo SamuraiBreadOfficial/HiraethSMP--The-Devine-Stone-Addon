@@ -30,18 +30,18 @@ system.beforeEvents.startup.subscribe((e) => {
                 .body("First, let's start by choosing a faction.")
                 .divider()
                 .label('Avaible Factions')
-                .button('Sunlight Faction C0')
-                .button('Crimsonhood Faction C1')
-                .button('Witherhood Faction C2')
-                .button('Red Lotus Faction C3')
+                .button('Moonset Faction')
+                .button('Stargaze Faction')
+                .button('Sunrest Faction')
+                .button('Anemoiagaze Faction')
                 .divider()
-                .button('Cancel C4');
+                .button('Cancel');
 
             function getFactionName(source) {
-                if (source.hasTag('sunlight_faction')) return '§e§lSunlight§r';
-                if (source.hasTag('crimsonhood_faction')) return '§l§mCrimsonhood§r';
-                if (source.hasTag('witherhood_faction')) return '§5§lWitherhood§r';
-                if (source.hasTag('redlotus_faction')) return '§c§lRed Lotus§r';
+                if (source.hasTag('moonset_faction')) return '§b§lMoonset§r';
+                if (source.hasTag('stargaze_faction')) return '§l§9Stargaze§r';
+                if (source.hasTag('sunrest_faction')) return '§p§lSunrest§r';
+                if (source.hasTag('anemoiagaze_faction')) return '§t§lAnemoiagaze§r';
                 return '§7§oNo Faction Selected§r';
             }
 
@@ -398,22 +398,22 @@ system.beforeEvents.startup.subscribe((e) => {
                 play_choosefac.show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            source.addTag('sunlight_faction')
+                            source.addTag('moonset_faction')
                             faction_confirm(source)
                             break;
 
                         case 1:
-                            source.addTag('crimsonhood_faction')
+                            source.addTag('stargaze_faction')
                             faction_confirm(source)
                             break;
 
                         case 2:
-                            source.addTag('witherhood_faction')
+                            source.addTag('sunrest_faction')
                             faction_confirm(source)
                             break;
 
                         case 3:
-                            source.addTag('redlotus_faction')
+                            source.addTag('anemoiagaze_faction')
                             faction_confirm(source)
                             break;
 
@@ -438,10 +438,10 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 1:
-                            source.removeTag('sunlight_faction');
-                            source.removeTag('crimsonhood_faction');
-                            source.removeTag('witherhood_faction');
-                            source.removeTag('redlotus_faction');
+                            source.removeTag('moonset_faction');
+                            source.removeTag('stargaze_faction');
+                            source.removeTag('sunrest_faction');
+                            source.removeTag('anemoiagaze_faction');
                             play_page1(source);
                             break;
                     }
