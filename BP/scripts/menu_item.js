@@ -698,8 +698,8 @@ system.beforeEvents.startup.subscribe((e) => {
                     .button('Food')
                     .button('Crops')
                     .button('Mobs')
+                    .button('Forestry')
                     .button('Nature')
-                    .button('Wood')
                     .button('Stone')
                     .button('Other Materials')
                     .button('Weapons')
@@ -809,6 +809,41 @@ system.beforeEvents.startup.subscribe((e) => {
                     items: {
                         dried_ghast: 1999999,
                         white_harness: 1500
+                    }
+                },
+
+                wood: {
+                    modifier: 0,
+                    items: {
+                        oak_log: 40,
+                        spruce_log: 40,
+                        birch_log: 30,
+                        jungle_log: 30,
+                        acacia_log: 25,
+                        dark_oak_log: 45,
+                        mangrove_log: 45,
+                        cherry_log: 50,
+                        pale_oak_log: 60,
+                        crimson_stem: 550,
+                        warped_stem: 450
+                    }
+                },
+
+                leaves: {
+                    modifier: 0,
+                    items: {
+                        oak_leaves: 15,
+                        spruce_leaves: 16,
+                        bitch_leaves: 13,
+                        jungle_leaves: 17,
+                        acacia_leaves: 12,
+                        dark_oak_leaves: 15,
+                        mangrove_leaves: 18,
+                        cherry_leaves: 20,
+                        pale_oak_leaves: 30,
+                        nether_wart_block: 460,
+                        warped_wart_block: 390
+
                     }
                 }
             }
@@ -2169,6 +2204,155 @@ system.beforeEvents.startup.subscribe((e) => {
                     .button('Back')
             }
 
+            function mobmarket(source) {
+                const cash = getCashScore(source, 'balance')
+                const bank = getBankScore(source, 'bank')
+
+                const dried_ghast_buy = getBuyPrice('mobs_limited', 'dried_ghast')
+
+                const white_harness_buy = getBuyPrice('mobs_limited', 'white_harness')
+                const white_harness_sell = getSellPrice('mobs', 'white_harness')
+
+                const bone_buy = getBuyPrice('mobs', 'bone')
+                const bone_sell = getSellPrice('mobs', 'bone')
+
+                const sadle_buy = getBuyPrice('mobs', 'sadle')
+                const sadle_sell = getSellPrice('mobs', 'sadle')
+
+                const golden_horse_armor_buy = getBuyPrice('mobs', 'golden_horse_armor')
+                const golden_horse_armor_sell = getSellPrice('mobs', 'golden_horse_armor')
+
+                const iron_horse_armor_buy = getBuyPrice('mobs', 'iron_horse_armor')
+                const iron_horse_armor_sell = getSellPrice('mobs', 'iron_horse_armor')
+
+                const diamond_horse_armor_buy = getBuyPrice('mobs', 'diamond_horse_armor')
+                const diamond_horse_armor_sell = getSellPrice('mobs', 'diamond_horse_armor')
+
+
+                servermarketcat_mobs(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            if (cash <= dried_ghast_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${dried_ghast_buy}`)
+                                source.runCommand(`give @s dired_ghast 1`)
+                                source.sendMessage(`§aBought §e§lDried Ghast x1 §r§afor ${dried_ghast_buy}`)
+                            }
+                            break;
+
+                        case 1:
+                            if (cash <= white_harness_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${white_harness_buy}`)
+                                source.runCommand(`give @s white_harness 1`)
+                                source.sendMessage(`§aBought §e§lWhite Harness x1 §r§afor ${white_harness_buy}`)
+                            }
+                            break;
+
+
+                        case 2:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:white_harness, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:white_harness, quantity=1..}] run scoreboard players add @s balance ${white_harness_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:white_harness, quantity=1..}] run say §aSold §a§lWhite Harness x1§r §aFor §e§l${white_harness_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:white_harness, quantity=1..}] run clear @s white_harness 0 1`), 1)
+                            break;
+
+                        case 3:
+
+                            if (cash <= bone_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${bone_buy}`)
+                                source.runCommand(`give @s bone 64`)
+                                source.sendMessage(`§aBought §e§lBone x64 §r§afor ${bone_buy}`)
+                            }
+                            break;
+
+                        case 4:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:bone, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bone, quantity=64..}] run scoreboard players add @s balance ${bone_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bone, quantity=64..}] run say §aSold §a§lBone x64§r §aFor §e§l${bone_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bone, quantity=64..}] run clear @s bone 0 64`), 1)
+                            break;
+
+                        case 5:
+                            if (cash <= sadle_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${sadle_buy}`)
+                                source.runCommand(`give @s sadle 1`)
+                                source.sendMessage(`§aBought §e§Sadle x1 §r§afor ${sadle_buy}`)
+                            }
+                            break;
+
+                        case 6:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:sadle, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:sadle, quantity=1..}] run scoreboard players add @s balance ${sadle_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:sadle, quantity=1..}] run say §aSold §a§lSadle x1§r §aFor §e§l${sadle_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:sadle, quantity=1..}] run clear @s sadle 0 1`), 1)
+                            break;
+
+                        case 7:
+                            if (cash <= golden_horse_armor_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${golden_horse_armor_buy}`)
+                                source.runCommand(`give @s golden_horse_armor 1`)
+                                source.sendMessage(`§aBought §e§lGolden Horse Armor x1 §r§afor ${golden_horse_armor_buy}`)
+                            }
+                            break;
+
+                        case 6:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:golden_horse_armor, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_horse_armor, quantity=1..}] run scoreboard players add @s balance ${golden_horse_armor_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_horse_armor, quantity=1..}] run say §aSold §a§lSadle x1§r §aFor §e§l${golden_horse_armor_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_horse_armor, quantity=1..}] run clear @s golden_horse_armor 0 1`), 1)
+                            break;
+
+                        case 5:
+                            if (cash <= iron_horse_armor_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${iron_horse_armor_buy}`)
+                                source.runCommand(`give @s iron_horse_armor 1`)
+                                source.sendMessage(`§aBought §e§lIron Horse Armor x1 §r§afor ${iron_horse_armor_buy}`)
+                            }
+                            break;
+
+                        case 6:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:iron_horse_armor, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:iron_horse_armor, quantity=1..}] run scoreboard players add @s balance ${iron_horse_armor_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:iron_horse_armor, quantity=1..}] run say §aSold §a§lIron Horse Armor x1§r §aFor §e§l${iron_horse_armor_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:iron_horse_armor, quantity=1..}] run clear @s iron_horse_armor 0 1`), 1)
+                            break;
+
+                        case 5:
+                            if (cash <= diamond_horse_armor_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${diamond_horse_armor_buy}`)
+                                source.runCommand(`give @s diamond_horse_armor 1`)
+                                source.sendMessage(`§aBought §e§lDiamond Horse Armor x1 §r§afor ${diamond_horse_armor_buy}`)
+                            }
+                            break;
+
+                        case 6:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:diamond_horse_armor, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diamond_horse_armor, quantity=1..}] run scoreboard players add @s balance ${diamond_horse_armor_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diamond_horse_armor, quantity=1..}] run say §aSold §a§lSadle x1§r §aFor §e§l${diamond_horse_armor_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diamond_horse_armor, quantity=1..}] run clear @s diamond_horse_armor 0 1`), 1)
+                            break;
+
+
+
+
+
+
+                    }
+                })
+            }
 
 
             open_igmenu(source);
