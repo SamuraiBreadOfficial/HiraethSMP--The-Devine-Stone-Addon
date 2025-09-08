@@ -721,7 +721,10 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 2:
-                            servermarketcat_mobs(source).show(source);
+                            mobmarket(source);
+                            break;
+                        case 3:
+                            naturemarket(source);
                             break;
 
                         default:
@@ -834,7 +837,7 @@ system.beforeEvents.startup.subscribe((e) => {
                     items: {
                         oak_leaves: 15,
                         spruce_leaves: 16,
-                        bitch_leaves: 13,
+                        birch_leaves: 13,
                         jungle_leaves: 17,
                         acacia_leaves: 12,
                         dark_oak_leaves: 15,
@@ -844,6 +847,44 @@ system.beforeEvents.startup.subscribe((e) => {
                         nether_wart_block: 460,
                         warped_wart_block: 390
 
+                    }
+                },
+
+                nature: {
+                    modifier: 0,
+                    items: {
+
+                        dirt: 5,
+                        coarse_dirt: 8,
+                        rooted_dirt: 10,
+                        grass_block: 10,
+                        podzol: 15,
+                        mycelium: 20,
+                        sand: 3,
+                        red_sand: 3,
+                        mud: 5,
+                        packed_mud: 10,
+                        clay: 6,
+                        magma_block: 660,
+                        soul_sand: 15000
+
+                    }
+                },
+
+                stone_blocks: {
+                    modifier: 0,
+                    items: {
+                        cobblestone: 35,
+                        stone: 50,
+                        granite: 30,
+                        diorite: 30,
+                        andesite: 30,
+                        cobbled_deepslate: 40,
+                        deepslate: 50,
+                        basalt: 550,
+                        blackstone: 750,
+                        obsidian: 11559,
+                        crying_obsidian: 30559
                     }
                 }
             }
@@ -916,7 +957,83 @@ system.beforeEvents.startup.subscribe((e) => {
                         diamond_horse_armor: 1450,
                         white_harness: 550
                     }
+                },
+
+                wood: {
+                    modifier: 0,
+                    items: {
+                        oak_log: 20,
+                        spruce_log: 20,
+                        birch_log: 15,
+                        jungle_log: 20,
+                        acacia_log: 15,
+                        dark_oak_log: 35,
+                        mangrove_log: 35,
+                        cherry_log: 25,
+                        pale_oak_log: 30,
+                        crimson_stem: 220,
+                        warped_stem: 110
+                    }
+                },
+
+                leaves: {
+                    modifier: 0,
+                    items: {
+                        oak_leaves: 5,
+                        spruce_leaves: 6,
+                        birch_leaves: 3,
+                        jungle_leaves: 7,
+                        acacia_leaves: 2,
+                        dark_oak_leaves: 5,
+                        mangrove_leaves: 8,
+                        cherry_leaves: 11,
+                        pale_oak_leaves: 10,
+                        nether_wart_block: 260,
+                        warped_wart_block: 190
+
+                    }
+                },
+
+                nature: {
+                    modifier: 0,
+                    items: {
+
+                        dirt: 2,
+                        coarse_dirt: 3,
+                        rooted_dirt: 5,
+                        grass_block: 5,
+                        podzol: 10,
+                        mycelium: 10,
+                        sand: 2,
+                        red_sand: 2,
+                        mud: 1,
+                        packed_mud: 5,
+                        clay: 3,
+                        magma_block: 360,
+                        soul_sand: 5000
+
+                    }
+                },
+
+
+
+                stone_blocks: {
+                    modifier: 0,
+                    items: {
+                        cobblestone: 15,
+                        stone: 30,
+                        granite: 10,
+                        diorite: 10,
+                        andesite: 10,
+                        cobbled_deepslate: 15,
+                        deepslate: 35,
+                        basalt: 250,
+                        blackstone: 450,
+                        obsidian: 5559,
+                        crying_obsidian: 10559
+                    }
                 }
+
 
 
             }
@@ -2344,12 +2461,1251 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diamond_horse_armor, quantity=1..}] run say §aSold §a§lSadle x1§r §aFor §e§l${diamond_horse_armor_sell} Credits§r§a!`), 1)
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diamond_horse_armor, quantity=1..}] run clear @s diamond_horse_armor 0 1`), 1)
                             break;
+                    }
+                })
+            }
+
+            function servermarketcat_wood(source) {
+                const cash = getCashScore(source, "balance")
+                const bank = getBankScore(source, 'bank')
+
+
+                const oak_log_buy = getBuyPrice('wood', 'oak_log')
+                const oak_log_sell = getSellPrice('wood', 'oak_log')
+
+                const spruce_log_buy = getBuyPrice('wood', 'spruce_log')
+                const spruce_log_sell = getSellPrice('wood', 'spruce_log')
+
+                const birch_log_buy = getBuyPrice('wood', 'birch_log')
+                const birch_log_sell = getSellPrice('wood', 'birch_log')
+
+                const jungle_log_buy = getBuyPrice('wood', 'jungle_log')
+                const jungle_log_sell = getSellPrice('wood', 'jungle_log')
+
+                const acacia_log_buy = getBuyPrice('wood', 'acacia_log')
+                const acacia_log_sell = getSellPrice('wood', 'acacia_log')
+
+                const dark_oak_log_buy = getBuyPrice('wood', 'dark_oak_log')
+                const dark_oak_log_sell = getSellPrice('wood', 'dark_oak_log')
+
+                const mangrove_log_buy = getBuyPrice('wood', 'mangrove_log')
+                const mangrove_log_sell = getSellPrice('wood', 'mangrove_log')
+
+                const cherry_log_buy = getBuyPrice('wood', 'cherry_log')
+                const cherry_log_sell = getSellPrice('wood', 'cherry_log')
+
+                const pale_oak_log_buy = getBuyPrice('wood', 'pale_oak_log')
+                const pale_oak_log_sell = getSellPrice('wood', 'pale_oak_log')
+
+                const crimson_stem_buy = getBuyPrice('wood', 'crimson_stem')
+                const crimson_stem_sell = getSellPrice('wood', 'crimson_stem')
+
+                const warped_stem_buy = getBuyPrice('wood', 'warped_stem')
+                const warped_stem_sell = getSellPrice('wood', 'warped_stem')
+
+                //leaves
+                const oak_leaves_buy = getBuyPrice('leaves', 'oak_leaves')
+                const oak_leaves_sell = getSellPrice('leaves', 'oak_leaves')
+
+                const spruce_leaves_buy = getBuyPrice('leaves', 'spruce_leaves')
+                const spruce_leaves_sell = getSellPrice('leaves', 'spruce_leaves')
+
+                const birch_leaves_buy = getBuyPrice('leaves', 'bitch_leaves')
+                const birch_leaves_sell = getSellPrice('leaves', 'bitch_leaves')
+
+                const jungle_leaves_buy = getBuyPrice('leaves', 'jungle_leaves')
+                const jungle_leaves_sell = getSellPrice('leaves', 'jungle_leaves')
+
+                const acacia_leaves_buy = getBuyPrice('leaves', 'acacia_leaves')
+                const acacia_leaves_sell = getSellPrice('leaves', 'acacia_leaves')
+
+                const dark_oak_leaves_buy = getBuyPrice('leaves', 'dark_oak_leaves')
+                const dark_oak_leaves_sell = getSellPrice('leaves', 'dark_oak_leaves')
+
+                const mangrove_leaves_buy = getBuyPrice('leaves', 'mangrove_leaves')
+                const mangrove_leaves_sell = getSellPrice('leaves', 'mangrove_leaves')
+
+                const cherry_leaves_buy = getBuyPrice('leaves', 'cherry_leaves')
+                const cherry_leaves_sell = getSellPrice('leaves', 'cherry_leaves')
+
+                const pale_oak_leaves_buy = getBuyPrice('leaves', 'pale_oak_leaves')
+                const pale_oak_leaves_sell = getSellPrice('leaves', 'pale_oak_leaves')
+
+                const nether_wart_block_buy = getBuyPrice('leaves', 'nether_wart_block')
+                const nether_wart_block_sell = getSellPrice('leaves', 'nether_wart_block')
+
+                const warped_wart_block_buy = getBuyPrice('leaves', 'warped_wart_block')
+                const warped_wart_block_sell = getSellPrice('leaves', 'warped_wart_block')
+
+
+                return new ActionFormData()
+                    .title('Server Market / Forestry')
+                    .body('§l§eForestry Category§r' + "\n\n§c/!\\ Every button will give or take a full stack from your inventory. To Sell any item, you need to have a full stack of it!")
+                    .divider()
+                    .label(
+                        '§aYour Balance§r' +
+                        '\n\nCash: §e' + cash +
+                        '\n\n§rBank: §e' + bank
+                    )
+                    .divider()
+                    .header('§nLogs.')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.wood.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.wood.modifier + '%%'
+
+                    )
+                    .divider()
+                    .label(
+                        'Oak Logs' +
+                        '\n\n§aBuy Price: §e§l' + oak_log_buy +
+                        '\n§r§cSell Price: §e§l' + oak_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Spruce Logs' +
+                        '\n\n§aBuy Price: §e§l' + spruce_log_buy +
+                        '\n§r§cSell Price: §e§l' + spruce_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Birch Logs' +
+                        '\n\n§aBuy Price: §e§l' + birch_log_buy +
+                        '\n§r§cSell Price: §e§l' + birch_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Jungle Logs' +
+                        '\n\n§aBuy Price: §e§l' + jungle_log_buy +
+                        '\n§r§cSell Price: §e§l' + jungle_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Acacia Logs' +
+                        '\n\n§aBuy Price: §e§l' + acacia_log_buy +
+                        '\n§r§cSell Price: §e§l' + acacia_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Dark Oak Logs' +
+                        '\n\n§aBuy Price: §e§l' + dark_oak_log_buy +
+                        '\n§r§cSell Price: §e§l' + dark_oak_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Mangrove Logs' +
+                        '\n\n§aBuy Price: §e§l' + mangrove_log_buy +
+                        '\n§r§cSell Price: §e§l' + mangrove_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Cherry Logs' +
+                        '\n\n§aBuy Price: §e§l' + cherry_log_buy +
+                        '\n§r§cSell Price: §e§l' + cherry_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Pale Oak Logs' +
+                        '\n\n§aBuy Price: §e§l' + pale_oak_log_buy +
+                        '\n§r§cSell Price: §e§l' + pale_oak_log_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Crimson Stem' +
+                        '\n\n§aBuy Price: §e§l' + crimson_stem_buy +
+                        '\n§r§cSell Price: §e§l' + crimson_stem_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Warped Stem' +
+                        '\n\n§aBuy Price: §e§l' + warped_stem_buy +
+                        '\n§r§cSell Price: §e§l' + warped_stem_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .header('§nLeaves.')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.leaves.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.leaves.modifier + '%%'
+
+                    )
+                    .divider()
+                    .label(
+                        'Oak Leaves' +
+                        '\n\n§aBuy Price: §e§l' + oak_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + oak_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Spruce Leaves' +
+                        '\n\n§aBuy Price: §e§l' + spruce_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + spruce_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Birch Leaves' +
+                        '\n\n§aBuy Price: §e§l' + birch_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + birch_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Jungle Leaves' +
+                        '\n\n§aBuy Price: §e§l' + jungle_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + jungle_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Acacia Leaves' +
+                        '\n\n§aBuy Price: §e§l' + acacia_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + acacia_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Dark Oak Leaves' +
+                        '\n\n§aBuy Price: §e§l' + dark_oak_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + dark_oak_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Mangrove Leaves' +
+                        '\n\n§aBuy Price: §e§l' + mangrove_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + mangrove_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Cherry Leaves' +
+                        '\n\n§aBuy Price: §e§l' + cherry_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + cherry_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Pale Oak Leaves' +
+                        '\n\n§aBuy Price: §e§l' + pale_oak_leaves_buy +
+                        '\n§r§cSell Price: §e§l' + pale_oak_leaves_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Nether Wart Block' +
+                        '\n\n§aBuy Price: §e§l' + nether_wart_block_buy +
+                        '\n§r§cSell Price: §e§l' + nether_wart_block_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Warped Wart Block' +
+                        '\n\n§aBuy Price: §e§l' + warped_wart_block_buy +
+                        '\n§r§cSell Price: §e§l' + warped_wart_block_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .button('Back')
+            }
+
+            function woodmarket(source) {
+                const cash = getCashScore(source, "balance")
+                const bank = getBankScore(source, 'bank')
+
+
+                const oak_log_buy = getBuyPrice('wood', 'oak_log')
+                const oak_log_sell = getSellPrice('wood', 'oak_log')
+
+                const spruce_log_buy = getBuyPrice('wood', 'spruce_log')
+                const spruce_log_sell = getSellPrice('wood', 'spruce_log')
+
+                const birch_log_buy = getBuyPrice('wood', 'birch_log')
+                const birch_log_sell = getSellPrice('wood', 'birch_log')
+
+                const jungle_log_buy = getBuyPrice('wood', 'jungle_log')
+                const jungle_log_sell = getSellPrice('wood', 'jungle_log')
+
+                const acacia_log_buy = getBuyPrice('wood', 'acacia_log')
+                const acacia_log_sell = getSellPrice('wood', 'acacia_log')
+
+                const dark_oak_log_buy = getBuyPrice('wood', 'dark_oak_log')
+                const dark_oak_log_sell = getSellPrice('wood', 'dark_oak_log')
+
+                const mangrove_log_buy = getBuyPrice('wood', 'mangrove_log')
+                const mangrove_log_sell = getSellPrice('wood', 'mangrove_log')
+
+                const cherry_log_buy = getBuyPrice('wood', 'cherry_log')
+                const cherry_log_sell = getSellPrice('wood', 'cherry_log')
+
+                const pale_oak_log_buy = getBuyPrice('wood', 'pale_oak_log')
+                const pale_oak_log_sell = getSellPrice('wood', 'pale_oak_log')
+
+                const crimson_stem_buy = getBuyPrice('wood', 'crimson_stem')
+                const crimson_stem_sell = getSellPrice('wood', 'crimson_stem')
+
+                const warped_stem_buy = getBuyPrice('wood', 'warped_stem')
+                const warped_stem_sell = getSellPrice('wood', 'warped_stem')
+
+                //leaves
+                const oak_leaves_buy = getBuyPrice('leaves', 'oak_leaves')
+                const oak_leaves_sell = getSellPrice('leaves', 'oak_leaves')
+
+                const spruce_leaves_buy = getBuyPrice('leaves', 'spruce_leaves')
+                const spruce_leaves_sell = getSellPrice('leaves', 'spruce_leaves')
+
+                const birch_leaves_buy = getBuyPrice('leaves', 'bitch_leaves')
+                const birch_leaves_sell = getSellPrice('leaves', 'bitch_leaves')
+
+                const jungle_leaves_buy = getBuyPrice('leaves', 'jungle_leaves')
+                const jungle_leaves_sell = getSellPrice('leaves', 'jungle_leaves')
+
+                const acacia_leaves_buy = getBuyPrice('leaves', 'acacia_leaves')
+                const acacia_leaves_sell = getSellPrice('leaves', 'acacia_leaves')
+
+                const dark_oak_leaves_buy = getBuyPrice('leaves', 'dark_oak_leaves')
+                const dark_oak_leaves_sell = getSellPrice('leaves', 'dark_oak_leaves')
+
+                const mangrove_leaves_buy = getBuyPrice('leaves', 'mangrove_leaves')
+                const mangrove_leaves_sell = getSellPrice('leaves', 'mangrove_leaves')
+
+                const cherry_leaves_buy = getBuyPrice('leaves', 'cherry_leaves')
+                const cherry_leaves_sell = getSellPrice('leaves', 'cherry_leaves')
+
+                const pale_oak_leaves_buy = getBuyPrice('leaves', 'pale_oak_leaves')
+                const pale_oak_leaves_sell = getSellPrice('leaves', 'pale_oak_leaves')
+
+                const nether_wart_block_buy = getBuyPrice('leaves', 'nether_wart_block')
+                const nether_wart_block_sell = getSellPrice('leaves', 'nether_wart_block')
+
+                const warped_wart_block_buy = getBuyPrice('leaves', 'warped_wart_block')
+                const warped_wart_block_sell = getSellPrice('leaves', 'warped_wart_block')
 
 
 
+                servermarketcat_wood(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            if (cash <= oak_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${oak_log_buy}`)
+                                source.runCommand(`give @s oak_log 64`)
+                                source.sendMessage(`§aBought §e§lOak Log x64 §r§afor ${oak_log_buy}`)
+                            }
+                            break;
 
+                        case 1:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:oak_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
 
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:oak_log, quantity=64..}] run scoreboard players add @s balance ${oak_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:oak_log, quantity=64..}] run say §aSold §a§lOak Log x64§r §aFor §e§l${oak_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:oak_log, quantity=64..}] run clear @s oak_log 0 64`), 1)
+                            break;
+                        // Spruce Log
+                        case 2:
+                            if (cash <= spruce_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${spruce_log_buy}`)
+                                source.runCommand(`give @s spruce_log 64`)
+                                source.sendMessage(`§aBought §e§lSpruce Log x64 §r§afor ${spruce_log_buy}`)
+                            }
+                            break;
 
+                        case 3:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:spruce_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:spruce_log, quantity=64..}] run scoreboard players add @s balance ${spruce_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:spruce_log, quantity=64..}] run say §aSold §a§lSpruce Log x64§r §aFor §e§l${spruce_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:spruce_log, quantity=64..}] run clear @s spruce_log 0 64`), 1)
+                            break;
+
+                        // Birch Log
+                        case 4:
+                            if (cash <= birch_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${birch_log_buy}`)
+                                source.runCommand(`give @s birch_log 64`)
+                                source.sendMessage(`§aBought §e§lBirch Log x64 §r§afor ${birch_log_buy}`)
+                            }
+                            break;
+
+                        case 5:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:birch_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:birch_log, quantity=64..}] run scoreboard players add @s balance ${birch_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:birch_log, quantity=64..}] run say §aSold §a§lBirch Log x64§r §aFor §e§l${birch_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:birch_log, quantity=64..}] run clear @s birch_log 0 64`), 1)
+                            break;
+
+                        // Jungle Log
+                        case 6:
+                            if (cash <= jungle_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${jungle_log_buy}`)
+                                source.runCommand(`give @s jungle_log 64`)
+                                source.sendMessage(`§aBought §e§lJungle Log x64 §r§afor ${jungle_log_buy}`)
+                            }
+                            break;
+
+                        case 7:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:jungle_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jungle_log, quantity=64..}] run scoreboard players add @s balance ${jungle_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jungle_log, quantity=64..}] run say §aSold §a§lJungle Log x64§r §aFor §e§l${jungle_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jungle_log, quantity=64..}] run clear @s jungle_log 0 64`), 1)
+                            break;
+                        // Acacia Log
+                        case 8:
+                            if (cash <= acacia_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${acacia_log_buy}`)
+                                source.runCommand(`give @s acacia_log 64`)
+                                source.sendMessage(`§aBought §e§lAcacia Log x64 §r§afor ${acacia_log_buy}`)
+                            }
+                            break;
+
+                        case 9:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:acacia_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:acacia_log, quantity=64..}] run scoreboard players add @s balance ${acacia_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:acacia_log, quantity=64..}] run say §aSold §a§lAcacia Log x64§r §aFor §e§l${acacia_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:acacia_log, quantity=64..}] run clear @s acacia_log 0 64`), 1)
+                            break;
+
+                        // Dark Oak Log
+                        case 10:
+                            if (cash <= dark_oak_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${dark_oak_log_buy}`)
+                                source.runCommand(`give @s dark_oak_log 64`)
+                                source.sendMessage(`§aBought §e§lDark Oak Log x64 §r§afor ${dark_oak_log_buy}`)
+                            }
+                            break;
+
+                        case 11:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:dark_oak_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dark_oak_log, quantity=64..}] run scoreboard players add @s balance ${dark_oak_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dark_oak_log, quantity=64..}] run say §aSold §a§lDark Oak Log x64§r §aFor §e§l${dark_oak_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dark_oak_log, quantity=64..}] run clear @s dark_oak_log 0 64`), 1)
+                            break;
+
+                        // Mangrove Log
+                        case 12:
+                            if (cash <= mangrove_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${mangrove_log_buy}`)
+                                source.runCommand(`give @s mangrove_log 64`)
+                                source.sendMessage(`§aBought §e§lMangrove Log x64 §r§afor ${mangrove_log_buy}`)
+                            }
+                            break;
+
+                        case 13:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:mangrove_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mangrove_log, quantity=64..}] run scoreboard players add @s balance ${mangrove_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mangrove_log, quantity=64..}] run say §aSold §a§lMangrove Log x64§r §aFor §e§l${mangrove_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mangrove_log, quantity=64..}] run clear @s mangrove_log 0 64`), 1)
+                            break;
+
+                        // Cherry Log
+                        case 14:
+                            if (cash <= cherry_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cherry_log_buy}`)
+                                source.runCommand(`give @s cherry_log 64`)
+                                source.sendMessage(`§aBought §e§lCherry Log x64 §r§afor ${cherry_log_buy}`)
+                            }
+                            break;
+
+                        case 15:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cherry_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cherry_log, quantity=64..}] run scoreboard players add @s balance ${cherry_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cherry_log, quantity=64..}] run say §aSold §a§lCherry Log x64§r §aFor §e§l${cherry_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cherry_log, quantity=64..}] run clear @s cherry_log 0 64`), 1)
+                            break;
+
+                        // Pale Oak Log
+                        case 16:
+                            if (cash <= pale_oak_log_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${pale_oak_log_buy}`)
+                                source.runCommand(`give @s pale_oak_log 64`)
+                                source.sendMessage(`§aBought §e§lPale Oak Log x64 §r§afor ${pale_oak_log_buy}`)
+                            }
+                            break;
+
+                        case 17:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:pale_oak_log, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pale_oak_log, quantity=64..}] run scoreboard players add @s balance ${pale_oak_log_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pale_oak_log, quantity=64..}] run say §aSold §a§lPale Oak Log x64§r §aFor §e§l${pale_oak_log_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pale_oak_log, quantity=64..}] run clear @s pale_oak_log 0 64`), 1)
+                            break;
+                        // Crimson Stem
+                        case 18:
+                            if (cash <= crimson_stem_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${crimson_stem_buy}`)
+                                source.runCommand(`give @s crimson_stem 64`)
+                                source.sendMessage(`§aBought §e§lCrimson Stem x64 §r§afor ${crimson_stem_buy}`)
+                            }
+                            break;
+
+                        case 19:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:crimson_stem, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:crimson_stem, quantity=64..}] run scoreboard players add @s balance ${crimson_stem_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:crimson_stem, quantity=64..}] run say §aSold §a§lCrimson Stem x64§r §aFor §e§l${crimson_stem_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:crimson_stem, quantity=64..}] run clear @s crimson_stem 0 64`), 1)
+                            break;
+                        // Warped Stem
+                        case 20:
+                            if (cash <= warped_stem_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${warped_stem_buy}`)
+                                source.runCommand(`give @s warped_stem 64`)
+                                source.sendMessage(`§aBought §e§lWarped Stem x64 §r§afor ${warped_stem_buy}`)
+                            }
+                            break;
+
+                        case 21:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:warped_stem, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:warped_stem, quantity=64..}] run scoreboard players add @s balance ${warped_stem_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:warped_stem, quantity=64..}] run say §aSold §a§lWarped Stem x64§r §aFor §e§l${warped_stem_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:warped_stem, quantity=64..}] run clear @s warped_stem 0 64`), 1)
+                            break;
+                        // Oak Leaves
+                        case 22:
+                            if (cash <= oak_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${oak_leaves_buy}`)
+                                source.runCommand(`give @s oak_leaves 64`)
+                                source.sendMessage(`§aBought §e§lOak Leaves x64 §r§afor ${oak_leaves_buy}`)
+                            }
+                            break;
+
+                        case 23:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:oak_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:oak_leaves, quantity=64..}] run scoreboard players add @s balance ${oak_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:oak_leaves, quantity=64..}] run say §aSold §a§lOak Leaves x64§r §aFor §e§l${oak_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:oak_leaves, quantity=64..}] run clear @s oak_leaves 0 64`), 1)
+                            break;
+
+                        // Spruce Leaves
+                        case 24:
+                            if (cash <= spruce_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${spruce_leaves_buy}`)
+                                source.runCommand(`give @s spruce_leaves 64`)
+                                source.sendMessage(`§aBought §e§lSpruce Leaves x64 §r§afor ${spruce_leaves_buy}`)
+                            }
+                            break;
+
+                        case 25:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:spruce_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:spruce_leaves, quantity=64..}] run scoreboard players add @s balance ${spruce_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:spruce_leaves, quantity=64..}] run say §aSold §a§lSpruce Leaves x64§r §aFor §e§l${spruce_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:spruce_leaves, quantity=64..}] run clear @s spruce_leaves 0 64`), 1)
+                            break;
+
+                        // Birch Leaves
+                        case 26:
+                            if (cash <= birch_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${birch_leaves_buy}`)
+                                source.runCommand(`give @s birch_leaves 64`)
+                                source.sendMessage(`§aBought §e§lBirch Leaves x64 §r§afor ${birch_leaves_buy}`)
+                            }
+                            break;
+
+                        case 27:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:birch_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:birch_leaves, quantity=64..}] run scoreboard players add @s balance ${birch_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:birch_leaves, quantity=64..}] run say §aSold §a§lBirch Leaves x64§r §aFor §e§l${birch_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:birch_leaves, quantity=64..}] run clear @s birch_leaves 0 64`), 1)
+                            break;
+
+                        // Jungle Leaves
+                        case 28:
+                            if (cash <= jungle_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${jungle_leaves_buy}`)
+                                source.runCommand(`give @s jungle_leaves 64`)
+                                source.sendMessage(`§aBought §e§lJungle Leaves x64 §r§afor ${jungle_leaves_buy}`)
+                            }
+                            break;
+
+                        case 29:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:jungle_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jungle_leaves, quantity=64..}] run scoreboard players add @s balance ${jungle_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jungle_leaves, quantity=64..}] run say §aSold §a§lJungle Leaves x64§r §aFor §e§l${jungle_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jungle_leaves, quantity=64..}] run clear @s jungle_leaves 0 64`), 1)
+                            break;
+
+                        // Acacia Leaves
+                        case 30:
+                            if (cash <= acacia_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${acacia_leaves_buy}`)
+                                source.runCommand(`give @s acacia_leaves 64`)
+                                source.sendMessage(`§aBought §e§lAcacia Leaves x64 §r§afor ${acacia_leaves_buy}`)
+                            }
+                            break;
+
+                        case 31:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:acacia_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:acacia_leaves, quantity=64..}] run scoreboard players add @s balance ${acacia_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:acacia_leaves, quantity=64..}] run say §aSold §a§lAcacia Leaves x64§r §aFor §e§l${acacia_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:acacia_leaves, quantity=64..}] run clear @s acacia_leaves 0 64`), 1)
+                            break;
+
+                        // Dark Oak Leaves
+                        case 32:
+                            if (cash <= dark_oak_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${dark_oak_leaves_buy}`)
+                                source.runCommand(`give @s dark_oak_leaves 64`)
+                                source.sendMessage(`§aBought §e§lDark Oak Leaves x64 §r§afor ${dark_oak_leaves_buy}`)
+                            }
+                            break;
+
+                        case 33:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:dark_oak_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dark_oak_leaves, quantity=64..}] run scoreboard players add @s balance ${dark_oak_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dark_oak_leaves, quantity=64..}] run say §aSold §a§lDark Oak Leaves x64§r §aFor §e§l${dark_oak_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dark_oak_leaves, quantity=64..}] run clear @s dark_oak_leaves 0 64`), 1)
+                            break;
+
+                        // Mangrove Leaves
+                        case 34:
+                            if (cash <= mangrove_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${mangrove_leaves_buy}`)
+                                source.runCommand(`give @s mangrove_leaves 64`)
+                                source.sendMessage(`§aBought §e§lMangrove Leaves x64 §r§afor ${mangrove_leaves_buy}`)
+                            }
+                            break;
+
+                        case 35:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:mangrove_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mangrove_leaves, quantity=64..}] run scoreboard players add @s balance ${mangrove_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mangrove_leaves, quantity=64..}] run say §aSold §a§lMangrove Leaves x64§r §aFor §e§l${mangrove_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mangrove_leaves, quantity=64..}] run clear @s mangrove_leaves 0 64`), 1)
+                            break;
+
+                        // Cherry Leaves
+                        case 36:
+                            if (cash <= cherry_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${cherry_leaves_buy}`)
+                                source.runCommand(`give @s cherry_leaves 64`)
+                                source.sendMessage(`§aBought §e§lCherry Leaves x64 §r§afor ${cherry_leaves_buy}`)
+                            }
+                            break;
+
+                        case 37:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cherry_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cherry_leaves, quantity=64..}] run scoreboard players add @s balance ${cherry_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cherry_leaves, quantity=64..}] run say §aSold §a§lCherry Leaves x64§r §aFor §e§l${cherry_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cherry_leaves, quantity=64..}] run clear @s cherry_leaves 0 64`), 1)
+                            break;
+
+                        // Pale Oak Leaves
+                        case 38:
+                            if (cash <= pale_oak_leaves_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${pale_oak_leaves_buy}`)
+                                source.runCommand(`give @s pale_oak_leaves 64`)
+                                source.sendMessage(`§aBought §e§lPale Oak Leaves x64 §r§afor ${pale_oak_leaves_buy}`)
+                            }
+                            break;
+
+                        case 39:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:pale_oak_leaves, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pale_oak_leaves, quantity=64..}] run scoreboard players add @s balance ${pale_oak_leaves_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pale_oak_leaves, quantity=64..}] run say §aSold §a§lPale Oak Leaves x64§r §aFor §e§l${pale_oak_leaves_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pale_oak_leaves, quantity=64..}] run clear @s pale_oak_leaves 0 64`), 1)
+                            break;
+
+                        // Nether Wart Block
+                        case 40:
+                            if (cash <= nether_wart_block_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${nether_wart_block_buy}`)
+                                source.runCommand(`give @s nether_wart_block 64`)
+                                source.sendMessage(`§aBought §e§lNether Wart Block x64 §r§afor ${nether_wart_block_buy}`)
+                            }
+                            break;
+
+                        case 41:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:nether_wart_block, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:nether_wart_block, quantity=64..}] run scoreboard players add @s balance ${nether_wart_block_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:nether_wart_block, quantity=64..}] run say §aSold §a§lNether Wart Block x64§r §aFor §e§l${nether_wart_block_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:nether_wart_block, quantity=64..}] run clear @s nether_wart_block 0 64`), 1)
+                            break;
+
+                        // Warped Wart Block
+                        case 42:
+                            if (cash <= warped_wart_block_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            }
+                            else {
+                                source.runCommand(`scoreboard players remove @s balance ${warped_wart_block_buy}`)
+                                source.runCommand(`give @s warped_wart_block 64`)
+                                source.sendMessage(`§aBought §e§lWarped Wart Block x64 §r§afor ${warped_wart_block_buy}`)
+                            }
+                            break;
+
+                        case 43:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:warped_wart_block, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:warped_wart_block, quantity=64..}] run scoreboard players add @s balance ${warped_wart_block_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:warped_wart_block, quantity=64..}] run say §aSold §a§lWarped Wart Block x64§r §aFor §e§l${warped_wart_block_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:warped_wart_block, quantity=64..}] run clear @s warped_wart_block 0 64`), 1)
+                            break;
+
+                    }
+                })
+            }
+
+            function servermarketcat_nature(source) {
+                const cash = getCashScore(source, 'balance')
+                const bank = getBankScore(source, 'bank')
+
+                const dirt_buy = getBuyPrice('nature', 'dirt')
+                const dirt_sell = getSellPrice('nature', 'dirt')
+
+                const coarse_dirt_buy = getBuyPrice('nature', 'coarse_dirt')
+                const coarse_dirt_sell = getSellPrice('nature', 'coarse_dirt')
+
+                const rooted_dirt_buy = getBuyPrice('nature', 'rooted_dirt')
+                const rooted_dirt_sell = getSellPrice('nature', 'rooted_dirt')
+
+                const grass_block_buy = getBuyPrice('nature', 'grass_block')
+                const grass_block_sell = getSellPrice('nature', 'grass_block')
+
+                const podzol_buy = getBuyPrice('nature', 'podzol')
+                const podzol_sell = getSellPrice('nature', 'podzol')
+
+                const mycelium_buy = getBuyPrice('nature', 'mycelium')
+                const mycelium_sell = getSellPrice('nature', 'mycelium')
+
+                const sand_buy = getBuyPrice('nature', 'sand')
+                const sand_sell = getSellPrice('nature', 'sand')
+
+                const red_sand_buy = getBuyPrice('nature', 'red_sand')
+                const red_sand_sell = getSellPrice('nature', 'red_sand')
+
+                const mud_buy = getBuyPrice('nature', 'mud')
+                const mud_sell = getSellPrice('nature', 'mud')
+
+                const packed_mud_buy = getBuyPrice('nature', 'packed_mud')
+                const packed_mud_sell = getSellPrice('nature', 'packed_mud')
+
+                const clay_buy = getBuyPrice('nature', 'clay')
+                const clay_sell = getSellPrice('nature', 'clay')
+
+                const magma_block_buy = getBuyPrice('nature', 'magma_block')
+                const magma_block_sell = getSellPrice('nature', 'magma_block')
+
+                const soul_sand_buy = getBuyPrice('nature', 'soul_sand')
+                const soul_sand_sell = getSellPrice('nature', 'soul_sand')
+
+                return new ActionFormData()
+                    .title('Server Market / Nature')
+                    .body('§l§eNature Category§r' + "\n\n§c/!\\ Every button will give or take a full stack from your inventory. To Sell any item, you need to have a full stack of it!")
+                    .divider()
+                    .label(
+                        '§aYour Balance§r' +
+                        '\n\nCash: §e' + cash +
+                        '\n\n§rBank: §e' + bank
+                    )
+                    .divider()
+                    .header('§nNatural Blocks')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.nature.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.nature.modifier + '%%'
+
+                    )
+                    .divider()
+                    .label(
+                        'Dirt' +
+                        '\n\n§aBuy Price: §e§l' + dirt_buy +
+                        '\n§r§cSell Price: §e§l' + dirt_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Coarse Dirt' +
+                        '\n\n§aBuy Price: §e§l' + coarse_dirt_buy +
+                        '\n§r§cSell Price: §e§l' + coarse_dirt_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Rooted Dirt' +
+                        '\n\n§aBuy Price: §e§l' + rooted_dirt_buy +
+                        '\n§r§cSell Price: §e§l' + rooted_dirt_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Grass Block' +
+                        '\n\n§aBuy Price: §e§l' + grass_block_buy +
+                        '\n§r§cSell Price: §e§l' + grass_block_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Podzol' +
+                        '\n\n§aBuy Price: §e§l' + podzol_buy +
+                        '\n§r§cSell Price: §e§l' + podzol_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Mycelium' +
+                        '\n\n§aBuy Price: §e§l' + mycelium_buy +
+                        '\n§r§cSell Price: §e§l' + mycelium_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Sand' +
+                        '\n\n§aBuy Price: §e§l' + sand_buy +
+                        '\n§r§cSell Price: §e§l' + sand_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Red Sand' +
+                        '\n\n§aBuy Price: §e§l' + red_sand_buy +
+                        '\n§r§cSell Price: §e§l' + red_sand_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Mud' +
+                        '\n\n§aBuy Price: §e§l' + mud_buy +
+                        '\n§r§cSell Price: §e§l' + mud_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Packed Mud' +
+                        '\n\n§aBuy Price: §e§l' + packed_mud_buy +
+                        '\n§r§cSell Price: §e§l' + packed_mud_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Clay' +
+                        '\n\n§aBuy Price: §e§l' + clay_buy +
+                        '\n§r§cSell Price: §e§l' + clay_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Magma Block' +
+                        '\n\n§aBuy Price: §e§l' + magma_block_buy +
+                        '\n§r§cSell Price: §e§l' + magma_block_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+
+                    .label(
+                        'Soul Sand' +
+                        '\n\n§aBuy Price: §e§l' + soul_sand_buy +
+                        '\n§r§cSell Price: §e§l' + soul_sand_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .button('Back')
+            }
+
+            function naturemarket(source) {
+
+                const cash = getCashScore(source, 'balance')
+                const bank = getBankScore(source, 'bank')
+
+                const dirt_buy = getBuyPrice('nature', 'dirt')
+                const dirt_sell = getSellPrice('nature', 'dirt')
+
+                const coarse_dirt_buy = getBuyPrice('nature', 'coarse_dirt')
+                const coarse_dirt_sell = getSellPrice('nature', 'coarse_dirt')
+
+                const rooted_dirt_buy = getBuyPrice('nature', 'rooted_dirt')
+                const rooted_dirt_sell = getSellPrice('nature', 'rooted_dirt')
+
+                const grass_block_buy = getBuyPrice('nature', 'grass_block')
+                const grass_block_sell = getSellPrice('nature', 'grass_block')
+
+                const podzol_buy = getBuyPrice('nature', 'podzol')
+                const podzol_sell = getSellPrice('nature', 'podzol')
+
+                const mycelium_buy = getBuyPrice('nature', 'mycelium')
+                const mycelium_sell = getSellPrice('nature', 'mycelium')
+
+                const sand_buy = getBuyPrice('nature', 'sand')
+                const sand_sell = getSellPrice('nature', 'sand')
+
+                const red_sand_buy = getBuyPrice('nature', 'red_sand')
+                const red_sand_sell = getSellPrice('nature', 'red_sand')
+
+                const mud_buy = getBuyPrice('nature', 'mud')
+                const mud_sell = getSellPrice('nature', 'mud')
+
+                const packed_mud_buy = getBuyPrice('nature', 'packed_mud')
+                const packed_mud_sell = getSellPrice('nature', 'packed_mud')
+
+                const clay_buy = getBuyPrice('nature', 'clay')
+                const clay_sell = getSellPrice('nature', 'clay')
+
+                const magma_block_buy = getBuyPrice('nature', 'magma_block')
+                const magma_block_sell = getSellPrice('nature', 'magma_block')
+
+                const soul_sand_buy = getBuyPrice('nature', 'soul_sand')
+                const soul_sand_sell = getSellPrice('nature', 'soul_sand')
+
+                servermarketcat_nature(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        // DIRT
+                        case 0:
+                            if (cash < dirt_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${dirt_buy}`)
+                                source.runCommand(`give @s dirt 64`)
+                                source.sendMessage(`§aBought §e§lDirt x64 §r§afor ${dirt_buy}`)
+                            }
+                            break;
+
+                        case 1:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:dirt, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dirt, quantity=64..}] run scoreboard players add @s balance ${dirt_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dirt, quantity=64..}] run say §aSold §a§lDirt x64§r §aFor §e§l${dirt_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dirt, quantity=64..}] run clear @s dirt 0 64`), 1)
+                            break;
+
+                        // COARSE DIRT
+                        case 2:
+                            if (cash < coarse_dirt_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${coarse_dirt_buy}`)
+                                source.runCommand(`give @s coarse_dirt 64`)
+                                source.sendMessage(`§aBought §e§lCoarse Dirt x64 §r§afor ${coarse_dirt_buy}`)
+                            }
+                            break;
+
+                        case 3:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:coarse_dirt, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:coarse_dirt, quantity=64..}] run scoreboard players add @s balance ${coarse_dirt_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:coarse_dirt, quantity=64..}] run say §aSold §a§lCoarse Dirt x64§r §aFor §e§l${coarse_dirt_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:coarse_dirt, quantity=64..}] run clear @s coarse_dirt 0 64`), 1)
+                            break;
+
+                        // ROOTED DIRT
+                        case 4:
+                            if (cash < rooted_dirt_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${rooted_dirt_buy}`)
+                                source.runCommand(`give @s rooted_dirt 64`)
+                                source.sendMessage(`§aBought §e§lRooted Dirt x64 §r§afor ${rooted_dirt_buy}`)
+                            }
+                            break;
+
+                        case 5:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:rooted_dirt, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rooted_dirt, quantity=64..}] run scoreboard players add @s balance ${rooted_dirt_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rooted_dirt, quantity=64..}] run say §aSold §a§lRooted Dirt x64§r §aFor §e§l${rooted_dirt_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rooted_dirt, quantity=64..}] run clear @s rooted_dirt 0 64`), 1)
+                            break;
+
+                        // GRASS BLOCK
+                        case 6:
+                            if (cash < grass_block_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${grass_block_buy}`)
+                                source.runCommand(`give @s grass_block 64`)
+                                source.sendMessage(`§aBought §e§lGrass Block x64 §r§afor ${grass_block_buy}`)
+                            }
+                            break;
+
+                        case 7:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:grass_block, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:grass_block, quantity=64..}] run scoreboard players add @s balance ${grass_block_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:grass_block, quantity=64..}] run say §aSold §a§lGrass Block x64§r §aFor §e§l${grass_block_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:grass_block, quantity=64..}] run clear @s grass_block 0 64`), 1)
+                            break;
+
+                        // PODZOL
+                        case 8:
+                            if (cash < podzol_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${podzol_buy}`)
+                                source.runCommand(`give @s podzol 64`)
+                                source.sendMessage(`§aBought §e§lPodzol x64 §r§afor ${podzol_buy}`)
+                            }
+                            break;
+
+                        case 9:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:podzol, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:podzol, quantity=64..}] run scoreboard players add @s balance ${podzol_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:podzol, quantity=64..}] run say §aSold §a§lPodzol x64§r §aFor §e§l${podzol_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:podzol, quantity=64..}] run clear @s podzol 0 64`), 1)
+                            break;
+
+                        // MYCELIUM
+                        case 10:
+                            if (cash < mycelium_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${mycelium_buy}`)
+                                source.runCommand(`give @s mycelium 64`)
+                                source.sendMessage(`§aBought §e§lMycelium x64 §r§afor ${mycelium_buy}`)
+                            }
+                            break;
+
+                        case 11:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:mycelium, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mycelium, quantity=64..}] run scoreboard players add @s balance ${mycelium_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mycelium, quantity=64..}] run say §aSold §a§lMycelium x64§r §aFor §e§l${mycelium_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mycelium, quantity=64..}] run clear @s mycelium 0 64`), 1)
+                            break;
+
+                        // SAND
+                        case 12:
+                            if (cash < sand_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${sand_buy}`)
+                                source.runCommand(`give @s sand 64`)
+                                source.sendMessage(`§aBought §e§lSand x64 §r§afor ${sand_buy}`)
+                            }
+                            break;
+
+                        case 13:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:sand, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:sand, quantity=64..}] run scoreboard players add @s balance ${sand_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:sand, quantity=64..}] run say §aSold §a§lSand x64§r §aFor §e§l${sand_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:sand, quantity=64..}] run clear @s sand 0 64`), 1)
+                            break;
+
+                        // RED SAND
+                        case 14:
+                            if (cash < red_sand_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${red_sand_buy}`)
+                                source.runCommand(`give @s red_sand 64`)
+                                source.sendMessage(`§aBought §e§lRed Sand x64 §r§afor ${red_sand_buy}`)
+                            }
+                            break;
+
+                        case 15:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:red_sand, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:red_sand, quantity=64..}] run scoreboard players add @s balance ${red_sand_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:red_sand, quantity=64..}] run say §aSold §a§lRed Sand x64§r §aFor §e§l${red_sand_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:red_sand, quantity=64..}] run clear @s red_sand 0 64`), 1)
+                            break;
+
+                        // MUD
+                        case 16:
+                            if (cash < mud_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${mud_buy}`)
+                                source.runCommand(`give @s mud 64`)
+                                source.sendMessage(`§aBought §e§lMud x64 §r§afor ${mud_buy}`)
+                            }
+                            break;
+
+                        case 17:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:mud, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mud, quantity=64..}] run scoreboard players add @s balance ${mud_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mud, quantity=64..}] run say §aSold §a§lMud x64§r §aFor §e§l${mud_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mud, quantity=64..}] run clear @s mud 0 64`), 1)
+                            break;
+
+                        // PACKED MUD
+                        case 18:
+                            if (cash < packed_mud_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${packed_mud_buy}`)
+                                source.runCommand(`give @s packed_mud 64`)
+                                source.sendMessage(`§aBought §e§lPacked Mud x64 §r§afor ${packed_mud_buy}`)
+                            }
+                            break;
+
+                        case 19:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:packed_mud, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:packed_mud, quantity=64..}] run scoreboard players add @s balance ${packed_mud_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:packed_mud, quantity=64..}] run say §aSold §a§lPacked Mud x64§r §aFor §e§l${packed_mud_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:packed_mud, quantity=64..}] run clear @s packed_mud 0 64`), 1)
+                            break;
+
+                        // CLAY
+                        case 20:
+                            if (cash < clay_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${clay_buy}`)
+                                source.runCommand(`give @s clay 64`)
+                                source.sendMessage(`§aBought §e§lClay x64 §r§afor ${clay_buy}`)
+                            }
+                            break;
+
+                        case 21:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:clay, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:clay, quantity=64..}] run scoreboard players add @s balance ${clay_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:clay, quantity=64..}] run say §aSold §a§lClay x64§r §aFor §e§l${clay_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:clay, quantity=64..}] run clear @s clay 0 64`), 1)
+                            break;
+
+                        // MAGMA BLOCK
+                        case 22:
+                            if (cash < magma_block_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${magma_block_buy}`)
+                                source.runCommand(`give @s magma_block 64`)
+                                source.sendMessage(`§aBought §e§lMagma Block x64 §r§afor ${magma_block_buy}`)
+                            }
+                            break;
+
+                        case 23:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:magma_block, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:magma_block, quantity=64..}] run scoreboard players add @s balance ${magma_block_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:magma_block, quantity=64..}] run say §aSold §a§lMagma Block x64§r §aFor §e§l${magma_block_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:magma_block, quantity=64..}] run clear @s magma_block 0 64`), 1)
+                            break;
+
+                        // SOUL SAND
+                        case 24:
+                            if (cash < soul_sand_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${soul_sand_buy}`)
+                                source.runCommand(`give @s soul_sand 64`)
+                                source.sendMessage(`§aBought §e§lSoul Sand x64 §r§afor ${soul_sand_buy}`)
+                            }
+                            break;
+
+                        case 25:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:soul_sand, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:soul_sand, quantity=64..}] run scoreboard players add @s balance ${soul_sand_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:soul_sand, quantity=64..}] run say §aSold §a§lSoul Sand x64§r §aFor §e§l${soul_sand_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:soul_sand, quantity=64..}] run clear @s soul_sand 0 64`), 1)
+                            break;
+
+                        default:
+                            servermarket_menu(source);
+                            break;
                     }
                 })
             }
