@@ -537,7 +537,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         const input = response.formValues[0];
                         const amount = parseInt(input);
-                        if (isNaN(amount) || amount <= 0) {
+                        if (isNaN(amount) || amount < 0) {
                             source.sendMessage('Error');
                             return;
                         }
@@ -564,7 +564,7 @@ system.beforeEvents.startup.subscribe((e) => {
                         const input = response.formValues[0];
                         const amount = parseInt(input);
 
-                        if (isNaN(amount) || amount <= 0) {
+                        if (isNaN(amount) || amount < 0) {
                             source.sendMessage('§cInvalid amount. Withdrawal failed.');
                             return;
                         }
@@ -612,7 +612,7 @@ system.beforeEvents.startup.subscribe((e) => {
                         const recipientName = playerNames[selectedIndex];
                         const amount = parseInt(response.formValues[1]);
 
-                        if (isNaN(amount) || amount <= 0) {
+                        if (isNaN(amount) || amount < 0) {
                             source.sendMessage("§cIncorrect Amount. Minium amount is 1.");
                             return;
                         }
@@ -689,6 +689,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 return new ActionFormData()
                     .title('Server Market')
                     .body(
+                        'Economy Build v16\n\n' +
                         '§c/!\\ Remember! You need to have your cash withdrawed to be able to buy something!§r' +
                         '\n\nYour Cash Balance: §e' + balance +
                         '\n§rBank Balance: §e' + bank
@@ -700,11 +701,7 @@ system.beforeEvents.startup.subscribe((e) => {
                     .button('Mobs')
                     .button('Forestry')
                     .button('Nature')
-                    .button('Stone')
-                    .button('Other Materials')
-                    .button('Weapons')
-                    .button('Armours')
-                    .button('Armour Upgrades (Addon Only)')
+                    .button('Building Blocks')
                     .divider()
                     .button('Back')
             }
@@ -724,7 +721,15 @@ system.beforeEvents.startup.subscribe((e) => {
                             mobmarket(source);
                             break;
                         case 3:
+                            woodmarket(source);
+                            break;
+
+                        case 4:
                             naturemarket(source);
+                            break;
+
+                        case 4:
+                            bbmarket(source)
                             break;
 
                         default:
@@ -737,115 +742,115 @@ system.beforeEvents.startup.subscribe((e) => {
 
             const buy_food_price = {
                 cooked: {
-                    modifier: 2,
+                    modifier: 0,
                     items: {
-                        cooked_chicken: 50,
-                        cooked_porkchop: 45,
-                        cooked_beef: 60,
-                        cooked_mutton: 60,
-                        cooked_rabbit: 60,
-                        cooked_cod: 50,
-                        cooked_salmon: 50
+                        cooked_chicken: 700,
+                        cooked_porkchop: 450,
+                        cooked_beef: 600,
+                        cooked_mutton: 605,
+                        cooked_rabbit: 610,
+                        cooked_cod: 500,
+                        cooked_salmon: 505
                     }
                 },
                 miscellaneous: {
-                    modifier: 3,
+                    modifier: 0,
                     items: {
-                        bread: 20,
-                        mushroom_stew: 3,
-                        beetroot_soup: 1,
-                        rabbit_stew: 2,
-                        jacked_potato: 15,
-                        cookie: 10,
-                        pumpkin_pie: 30,
-                        cake: 105,
-                        dried_kelp: 3
+                        bread: 200,
+                        mushroom_stew: 30,
+                        beetroot_soup: 10,
+                        rabbit_stew: 20,
+                        jacked_potato: 150,
+                        cookie: 100,
+                        pumpkin_pie: 300,
+                        cake: 1050,
+                        dried_kelp: 25
                     }
                 },
                 extra: {
-                    modifier: 40,
+                    modifier: 0,
                     items: {
-                        golden_carrot: 550,
-                        golden_apple: 1119,
-                        notch_apple: 25080
+                        golden_carrot: 5500,
+                        golden_apple: 11190,
+                        notch_apple: 250800
                     }
                 },
                 crops: {
                     modifier: 0,
                     items: {
-                        wheat_seeds: 2,
-                        pumpkin_seeds: 2,
-                        melon_seeds: 2,
-                        beetroot_seeds: 1,
-                        torchflower_seeds: 10,
-                        pitcher_pod: 10
+                        wheat_seeds: 20,
+                        pumpkin_seeds: 25,
+                        melon_seeds: 30,
+                        beetroot_seeds: 10,
+                        torchflower_seeds: 100,
+                        pitcher_pod: 105
                     }
                 },
 
                 crops_grown: {
                     modifier: 0,
                     items: {
-                        wheat: 40,
-                        pumpkin: 20,
-                        melon: 20,
-                        melon_slice: 5,
-                        beetroot: 5,
-                        torchflower: 50,
-                        pitcher_plant: 50
+                        wheat: 400,
+                        pumpkin: 200,
+                        melon: 205,
+                        melon_slice: 55,
+                        beetroot: 50,
+                        torchflower: 500,
+                        pitcher_plant: 505
                     }
                 },
                 mobs: {
                     modifier: 0,
                     items: {
-                        bone: 150,
-                        dried_ghast: 1999999,
-                        sadle: 10000,
-                        golden_horse_armor: 999,
-                        iron_horse_armor: 1999,
-                        diamond_horse_armor: 3999,
-                        white_harness: 1500
+                        bone: 1500,
+                        dried_ghast: 19999990,
+                        sadle: 100000,
+                        golden_horse_armor: 9990,
+                        iron_horse_armor: 19990,
+                        diamond_horse_armor: 39990,
+                        white_harness: 15000
                     }
                 },
 
                 mobs_limited: {
-                    modifier: -50,
+                    modifier: 0,
                     items: {
-                        dried_ghast: 1999999,
-                        white_harness: 1500
+                        dried_ghast: 19999990,
+                        white_harness: 15000
                     }
                 },
 
                 wood: {
                     modifier: 0,
                     items: {
-                        oak_log: 40,
-                        spruce_log: 40,
-                        birch_log: 30,
-                        jungle_log: 30,
-                        acacia_log: 25,
-                        dark_oak_log: 45,
-                        mangrove_log: 45,
-                        cherry_log: 50,
-                        pale_oak_log: 60,
-                        crimson_stem: 550,
-                        warped_stem: 450
+                        oak_log: 400,
+                        spruce_log: 405,
+                        birch_log: 300,
+                        jungle_log: 305,
+                        acacia_log: 250,
+                        dark_oak_log: 450,
+                        mangrove_log: 455,
+                        cherry_log: 500,
+                        pale_oak_log: 600,
+                        crimson_stem: 5500,
+                        warped_stem: 4500
                     }
                 },
 
                 leaves: {
                     modifier: 0,
                     items: {
-                        oak_leaves: 15,
-                        spruce_leaves: 16,
-                        birch_leaves: 13,
-                        jungle_leaves: 17,
-                        acacia_leaves: 12,
-                        dark_oak_leaves: 15,
-                        mangrove_leaves: 18,
-                        cherry_leaves: 20,
-                        pale_oak_leaves: 30,
-                        nether_wart_block: 460,
-                        warped_wart_block: 390
+                        oak_leaves: 150,
+                        spruce_leaves: 160,
+                        birch_leaves: 130,
+                        jungle_leaves: 170,
+                        acacia_leaves: 120,
+                        dark_oak_leaves: 155,
+                        mangrove_leaves: 180,
+                        cherry_leaves: 200,
+                        pale_oak_leaves: 300,
+                        nether_wart_block: 4600,
+                        warped_wart_block: 3900
 
                     }
                 },
@@ -854,19 +859,19 @@ system.beforeEvents.startup.subscribe((e) => {
                     modifier: 0,
                     items: {
 
-                        dirt: 5,
-                        coarse_dirt: 8,
-                        rooted_dirt: 10,
-                        grass_block: 10,
-                        podzol: 15,
-                        mycelium: 20,
-                        sand: 3,
-                        red_sand: 3,
-                        mud: 5,
-                        packed_mud: 10,
-                        clay: 6,
-                        magma_block: 660,
-                        soul_sand: 15000
+                        dirt: 50,
+                        coarse_dirt: 80,
+                        rooted_dirt: 100,
+                        grass_block: 105,
+                        podzol: 150,
+                        mycelium: 200,
+                        sand: 30,
+                        red_sand: 35,
+                        mud: 55,
+                        packed_mud: 110,
+                        clay: 60,
+                        magma_block: 6600,
+                        soul_sand: 150000
 
                     }
                 },
@@ -874,167 +879,173 @@ system.beforeEvents.startup.subscribe((e) => {
                 stone_blocks: {
                     modifier: 0,
                     items: {
-                        cobblestone: 35,
-                        stone: 50,
-                        granite: 30,
-                        diorite: 30,
-                        andesite: 30,
-                        cobbled_deepslate: 40,
-                        deepslate: 50,
-                        basalt: 550,
-                        blackstone: 750,
-                        obsidian: 11559,
-                        crying_obsidian: 30559
+                        cobblestone: 350,
+                        stone: 500,
+                        granite: 300,
+                        diorite: 305,
+                        andesite: 310,
+                        cobbled_deepslate: 400,
+                        deepslate: 505,
+                        basalt: 5500,
+                        blackstone: 7500,
+                        obsidian: 115590,
+                        crying_obsidian: 305590
                     }
                 }
             }
 
             const sell_food_price = {
                 cooked: {
-                    modifier: -10,
+                    modifier: -60,
                     items: {
-                        cooked_chicken: 30,
-                        cooked_porkchop: 35,
-                        cooked_beef: 30,
-                        cooked_mutton: 30,
-                        cooked_rabbit: 30,
-                        cooked_cod: 20,
-                        cooked_salmon: 20
+                        cooked_chicken: 700,
+                        cooked_porkchop: 450,
+                        cooked_beef: 600,
+                        cooked_mutton: 605,
+                        cooked_rabbit: 610,
+                        cooked_cod: 500,
+                        cooked_salmon: 505
                     }
                 },
                 miscellaneous: {
-                    modifier: 1,
+                    modifier: -60,
                     items: {
-                        bread: 10,
-                        mushroom_stew: 1,
-                        beetroot_soup: 1,
-                        rabbit_stew: 1,
-                        jacked_potato: 7,
-                        cookie: 7,
-                        pumpkin_pie: 21,
-                        cake: 59,
-                        dried_kelp: 1
+                        bread: 200,
+                        mushroom_stew: 30,
+                        beetroot_soup: 10,
+                        rabbit_stew: 20,
+                        jacked_potato: 150,
+                        cookie: 100,
+                        pumpkin_pie: 300,
+                        cake: 1050,
+                        dried_kelp: 25
                     }
                 },
                 extra: {
-                    modifier: -2,
+                    modifier: -60,
                     items: {
-                        golden_carrot: 399,
-                        notch_apple: 3999
+                        golden_carrot: 5500,
+                        golden_apple: 11190,
+                        notch_apple: 250800
                     }
                 },
                 crops: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
-                        wheat_seeds: 1,
-                        pumpkin_seeds: 1,
-                        melon_seeds: 1,
-                        beetroot_seeds: 1,
-                        torchflower_seeds: 5,
-                        pitcher_pod: 5
+                        wheat_seeds: 20,
+                        pumpkin_seeds: 25,
+                        melon_seeds: 30,
+                        beetroot_seeds: 10,
+                        torchflower_seeds: 100,
+                        pitcher_pod: 105
                     }
                 },
 
                 crops_grown: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
-                        wheat: 25,
-                        pumpkin: 15,
-                        melon: 16,
-                        melon_slice: 3,
-                        beetroot: 2,
-                        torchflower: 25,
-                        pitcher_plant: 26
+                        wheat: 400,
+                        pumpkin: 200,
+                        melon: 205,
+                        melon_slice: 55,
+                        beetroot: 50,
+                        torchflower: 500,
+                        pitcher_plant: 505
                     }
                 },
                 mobs: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
-                        bone: 35,
-                        sadle: 500,
-                        golden_horse_armor: 333,
-                        iron_horse_armor: 858,
-                        diamond_horse_armor: 1450,
-                        white_harness: 550
+                        bone: 1500,
+                        dried_ghast: 19999990,
+                        sadle: 100000,
+                        golden_horse_armor: 9990,
+                        iron_horse_armor: 19990,
+                        diamond_horse_armor: 39990,
+                        white_harness: 15000
+                    }
+                },
+
+                mobs_limited: {
+                    modifier: -60,
+                    items: {
+                        dried_ghast: 19999990,
+                        white_harness: 15000
                     }
                 },
 
                 wood: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
-                        oak_log: 20,
-                        spruce_log: 20,
-                        birch_log: 15,
-                        jungle_log: 20,
-                        acacia_log: 15,
-                        dark_oak_log: 35,
-                        mangrove_log: 35,
-                        cherry_log: 25,
-                        pale_oak_log: 30,
-                        crimson_stem: 220,
-                        warped_stem: 110
+                        oak_log: 400,
+                        spruce_log: 405,
+                        birch_log: 300,
+                        jungle_log: 305,
+                        acacia_log: 250,
+                        dark_oak_log: 450,
+                        mangrove_log: 455,
+                        cherry_log: 500,
+                        pale_oak_log: 600,
+                        crimson_stem: 5500,
+                        warped_stem: 4500
                     }
                 },
 
                 leaves: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
-                        oak_leaves: 5,
-                        spruce_leaves: 6,
-                        birch_leaves: 3,
-                        jungle_leaves: 7,
-                        acacia_leaves: 2,
-                        dark_oak_leaves: 5,
-                        mangrove_leaves: 8,
-                        cherry_leaves: 11,
-                        pale_oak_leaves: 10,
-                        nether_wart_block: 260,
-                        warped_wart_block: 190
+                        oak_leaves: 150,
+                        spruce_leaves: 160,
+                        birch_leaves: 130,
+                        jungle_leaves: 170,
+                        acacia_leaves: 120,
+                        dark_oak_leaves: 155,
+                        mangrove_leaves: 180,
+                        cherry_leaves: 200,
+                        pale_oak_leaves: 300,
+                        nether_wart_block: 4600,
+                        warped_wart_block: 3900
 
                     }
                 },
 
                 nature: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
 
-                        dirt: 2,
-                        coarse_dirt: 3,
-                        rooted_dirt: 5,
-                        grass_block: 5,
-                        podzol: 10,
-                        mycelium: 10,
-                        sand: 2,
-                        red_sand: 2,
-                        mud: 1,
-                        packed_mud: 5,
-                        clay: 3,
-                        magma_block: 360,
-                        soul_sand: 5000
+                        dirt: 50,
+                        coarse_dirt: 80,
+                        rooted_dirt: 100,
+                        grass_block: 105,
+                        podzol: 150,
+                        mycelium: 200,
+                        sand: 30,
+                        red_sand: 35,
+                        mud: 55,
+                        packed_mud: 110,
+                        clay: 60,
+                        magma_block: 6600,
+                        soul_sand: 150000
 
                     }
                 },
 
-
-
                 stone_blocks: {
-                    modifier: 0,
+                    modifier: -60,
                     items: {
-                        cobblestone: 15,
-                        stone: 30,
-                        granite: 10,
-                        diorite: 10,
-                        andesite: 10,
-                        cobbled_deepslate: 15,
-                        deepslate: 35,
-                        basalt: 250,
-                        blackstone: 450,
-                        obsidian: 5559,
-                        crying_obsidian: 10559
+                        cobblestone: 350,
+                        stone: 500,
+                        granite: 300,
+                        diorite: 305,
+                        andesite: 310,
+                        cobbled_deepslate: 400,
+                        deepslate: 505,
+                        basalt: 5500,
+                        blackstone: 7500,
+                        obsidian: 115590,
+                        crying_obsidian: 305590
                     }
                 }
-
-
 
             }
 
@@ -1294,11 +1305,9 @@ system.beforeEvents.startup.subscribe((e) => {
                     .divider()
                     .label(
                         'Enchanted Golden Apple' +
-                        '\n\n§aBuy Price: §e§l' + notch_apple_buy + '§r Credits per 1' +
-                        '\n§r§cSell Price: §e§l' + notch_apple_sell + '§r Credits per 1'
+                        '\n\n§aBuy Price: §e§l' + notch_apple_buy + '§r Credits per 1'
                     )
                     .button('Buy x1')
-                    .button('Sell x1')
                     .divider()
                     .button('Back')
 
@@ -1364,12 +1373,11 @@ system.beforeEvents.startup.subscribe((e) => {
                 const golden_apple_buy = getBuyPrice('extra', "golden_apple");
 
                 const notch_apple_buy = getBuyPrice('extra', "notch_apple");
-                const notch_apple_sell = getSellPrice('extra', "notch_apple");
 
                 servermarketcat_food(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            if (cash <= cooked_chicken_buy) {
+                            if (cash < cooked_chicken_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1388,7 +1396,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 2:
-                            if (cash <= cooked_porkchop_buy) {
+                            if (cash < cooked_porkchop_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1408,7 +1416,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 4:
-                            if (cash <= cooked_beef_buy) {
+                            if (cash < cooked_beef_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1428,7 +1436,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 6:
-                            if (cash <= cooked_mutton_buy) {
+                            if (cash < cooked_mutton_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1448,7 +1456,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 8:
-                            if (cash <= cooked_rabbit_buy) {
+                            if (cash < cooked_rabbit_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1468,7 +1476,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 10:
-                            if (cash <= cooked_cod_buy) {
+                            if (cash < cooked_cod_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1488,7 +1496,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 12:
-                            if (cash <= cooked_salmon_buy) {
+                            if (cash < cooked_salmon_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1508,7 +1516,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 14:
-                            if (cash <= bread_buy) {
+                            if (cash < bread_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1519,7 +1527,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 14:
+                        case 15:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:bread, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bread, quantity=64..}] run scoreboard players add @s balance ${bread_sell}`), 1)
@@ -1527,8 +1535,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:bread, quantity=64..}] run clear @s bread 0 64`), 1)
                             break;
 
-                        case 15:
-                            if (cash <= mushroom_stew_buy) {
+                        case 16:
+                            if (cash < mushroom_stew_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1539,7 +1547,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 16:
+                        case 17:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1..}] run scoreboard players add @s balance ${mushroom_stew_sell}`), 1)
@@ -1547,8 +1555,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:mushroom_stew, quantity=1..}] run clear @s mushroom_stew 0 1`), 1)
                             break;
 
-                        case 17:
-                            if (cash <= beetroot_soup_buy) {
+                        case 18:
+                            if (cash < beetroot_soup_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1559,7 +1567,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 18:
+                        case 19:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1..}] run scoreboard players add @s balance ${beetroot_soup_sell}`), 1)
@@ -1567,8 +1575,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:beetroot_soup, quantity=1..}] run clear @s beetroot_soup 0 1`), 1)
                             break;
 
-                        case 19:
-                            if (cash <= rabbit_stew_buy) {
+                        case 20:
+                            if (cash < rabbit_stew_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1579,7 +1587,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 20:
+                        case 21:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1..}] run scoreboard players add @s balance ${rabbit_stew_sell}`), 1)
@@ -1587,8 +1595,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:rabbit_stew, quantity=1..}] run clear @s rabbit_stew 0 1`), 1)
                             break;
 
-                        case 21:
-                            if (cash <= jacked_potato_buy) {
+                        case 22:
+                            if (cash < jacked_potato_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1599,7 +1607,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 22:
+                        case 23:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:jacked_potato, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jacked_potato, quantity=64..}] run scoreboard players add @s balance ${jacked_potato_sell}`), 1)
@@ -1607,8 +1615,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:jacked_potato, quantity=64..}] run clear @s jacked_potato 0 64`), 1)
                             break;
 
-                        case 23:
-                            if (cash <= cookie_buy) {
+                        case 24:
+                            if (cash < cookie_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1619,7 +1627,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 24:
+                        case 25:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cookie, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cookie, quantity=64..}] run scoreboard players add @s balance ${cookie_sell}`), 1)
@@ -1627,8 +1635,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cookie, quantity=64..}] run clear @s cookie 0 64`), 1)
                             break;
 
-                        case 25:
-                            if (cash <= pumpkin_pie_buy) {
+                        case 26:
+                            if (cash < pumpkin_pie_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1638,7 +1646,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 26:
+                        case 27:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64..}] run scoreboard players add @s balance ${pumpkin_pie_sell}`), 1)
@@ -1646,8 +1654,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:pumpkin_pie, quantity=64..}] run clear @s pumpkin_pie 0 64`), 1)
                             break;
 
-                        case 27:
-                            if (cash <= cake_buy) {
+                        case 28:
+                            if (cash < cake_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1657,7 +1665,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 28:
+                        case 29:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cake, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cake, quantity=1..}] run scoreboard players add @s balance ${cake_sell}`), 1)
@@ -1665,8 +1673,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cake, quantity=1..}] run clear @s cake 0 1`), 1)
                             break;
 
-                        case 29:
-                            if (cash <= dried_kelp_buy) {
+                        case 30:
+                            if (cash < dried_kelp_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1676,7 +1684,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 30:
+                        case 31:
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:dried_kelp, quantity=64..}] run say §cYou need to have 1 of the item you want to sell!')
 
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dried_kelp, quantity=64..}] run scoreboard players add @s balance ${dried_kelp_sell}`), 1)
@@ -1684,8 +1692,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:dried_kelp, quantity=64..}] run clear @s dried_kelp 0 64`), 1)
                             break;
 
-                        case 31:
-                            if (cash <= golden_carrot_buy) {
+                        case 32:
+                            if (cash < golden_carrot_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1695,7 +1703,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 32:
+                        case 33:
 
                             source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:golden_carrot, quantity=32..}] run say §cYou need to have 32 of the item you want to sell!')
 
@@ -1704,8 +1712,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:golden_carrot, quantity=32..}] run clear @s golden_carrot 0 32`), 1)
                             break;
 
-                        case 33:
-                            if (cash <= golden_apple_buy) {
+                        case 34:
+                            if (cash < golden_apple_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1715,8 +1723,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             }
                             break;
 
-                        case 34:
-                            if (cash <= notch_apple_buy) {
+                        case 35:
+                            if (cash < notch_apple_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1724,15 +1732,6 @@ system.beforeEvents.startup.subscribe((e) => {
                                 source.runCommand(`give @s enchanted_golden_apple 1`)
                                 source.sendMessage(`§aBought §u§lEnchanted Golden Apple §ex1 §r§afor ${notch_apple_buy}`)
                             }
-                            break;
-
-                        case 35:
-
-                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1..}] run say §cYou need to have 1 of the item you want to sell!')
-
-                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1..}] run scoreboard players add @s balance ${notch_apple_sell}`), 1)
-                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1..}] run say §aSold §a§lGolden Carrot x1§r §aFor §e§l${notch_apple_sell} Credits§r§a!`), 1)
-                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:enchanted_golden_apple, quantity=1..}] run clear @s enchanted_golden_apple 0 1`), 1)
                             break;
 
                         default:
@@ -1969,7 +1968,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 servermarketcat_crops(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            if (cash <= wheat_seeds_buy) {
+                            if (cash < wheat_seeds_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -1988,7 +1987,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 2:
-                            if (cash <= pumpkin_seeds_buy) {
+                            if (cash < pumpkin_seeds_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2007,7 +2006,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 4:
-                            if (cash <= melon_seeds_buy) {
+                            if (cash < melon_seeds_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2027,7 +2026,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 6: beetroot_seeds
                         case 6:
-                            if (cash <= beetroot_seeds_buy) {
+                            if (cash < beetroot_seeds_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${beetroot_seeds_buy}`)
@@ -2045,7 +2044,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 8: torchflower_seeds
                         case 8:
-                            if (cash <= torchflower_seeds_buy) {
+                            if (cash < torchflower_seeds_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${torchflower_seeds_buy}`)
@@ -2063,7 +2062,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 10: pitcher_pod
                         case 10:
-                            if (cash <= pitcher_pod_buy) {
+                            if (cash < pitcher_pod_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${pitcher_pod_buy}`)
@@ -2081,7 +2080,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 12: wheat
                         case 12:
-                            if (cash <= wheat_buy) {
+                            if (cash < wheat_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${wheat_buy}`)
@@ -2099,7 +2098,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 14: pumpkin
                         case 14:
-                            if (cash <= pumpkin_buy) {
+                            if (cash < pumpkin_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${pumpkin_buy}`)
@@ -2117,7 +2116,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 16: melon
                         case 16:
-                            if (cash <= melon_buy) {
+                            if (cash < melon_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${melon_buy}`)
@@ -2136,7 +2135,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 17: melon_slice
                         case 18:
-                            if (cash <= melon_slice_buy) {
+                            if (cash < melon_slice_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${melon_slice_buy}`)
@@ -2154,7 +2153,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 19: beetroot
                         case 20:
-                            if (cash <= beetroot_buy) {
+                            if (cash < beetroot_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${beetroot_buy}`)
@@ -2172,7 +2171,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 21: torchflower
                         case 22:
-                            if (cash <= torchflower_buy) {
+                            if (cash < torchflower_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${torchflower_buy}`)
@@ -2190,7 +2189,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // case 23: pitcher_plant
                         case 24:
-                            if (cash <= pitcher_plant_buy) {
+                            if (cash < pitcher_plant_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${pitcher_plant_buy}`)
@@ -2349,7 +2348,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 servermarketcat_mobs(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            if (cash <= dried_ghast_buy) {
+                            if (cash < dried_ghast_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${dried_ghast_buy}`)
@@ -2359,7 +2358,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 1:
-                            if (cash <= white_harness_buy) {
+                            if (cash < white_harness_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${white_harness_buy}`)
@@ -2378,7 +2377,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         case 3:
 
-                            if (cash <= bone_buy) {
+                            if (cash < bone_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${bone_buy}`)
@@ -2395,7 +2394,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 5:
-                            if (cash <= sadle_buy) {
+                            if (cash < sadle_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${sadle_buy}`)
@@ -2412,7 +2411,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 7:
-                            if (cash <= golden_horse_armor_buy) {
+                            if (cash < golden_horse_armor_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${golden_horse_armor_buy}`)
@@ -2429,7 +2428,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 5:
-                            if (cash <= iron_horse_armor_buy) {
+                            if (cash < iron_horse_armor_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${iron_horse_armor_buy}`)
@@ -2446,7 +2445,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 5:
-                            if (cash <= diamond_horse_armor_buy) {
+                            if (cash < diamond_horse_armor_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             } else {
                                 source.runCommand(`scoreboard players remove @s balance ${diamond_horse_armor_buy}`)
@@ -2818,7 +2817,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 servermarketcat_wood(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            if (cash <= oak_log_buy) {
+                            if (cash < oak_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2837,7 +2836,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
                         // Spruce Log
                         case 2:
-                            if (cash <= spruce_log_buy) {
+                            if (cash < spruce_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2857,7 +2856,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Birch Log
                         case 4:
-                            if (cash <= birch_log_buy) {
+                            if (cash < birch_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2877,7 +2876,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Jungle Log
                         case 6:
-                            if (cash <= jungle_log_buy) {
+                            if (cash < jungle_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2896,7 +2895,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
                         // Acacia Log
                         case 8:
-                            if (cash <= acacia_log_buy) {
+                            if (cash < acacia_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2916,7 +2915,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Dark Oak Log
                         case 10:
-                            if (cash <= dark_oak_log_buy) {
+                            if (cash < dark_oak_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2936,7 +2935,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Mangrove Log
                         case 12:
-                            if (cash <= mangrove_log_buy) {
+                            if (cash < mangrove_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2956,7 +2955,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Cherry Log
                         case 14:
-                            if (cash <= cherry_log_buy) {
+                            if (cash < cherry_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2976,7 +2975,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Pale Oak Log
                         case 16:
-                            if (cash <= pale_oak_log_buy) {
+                            if (cash < pale_oak_log_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -2995,7 +2994,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
                         // Crimson Stem
                         case 18:
-                            if (cash <= crimson_stem_buy) {
+                            if (cash < crimson_stem_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3014,7 +3013,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
                         // Warped Stem
                         case 20:
-                            if (cash <= warped_stem_buy) {
+                            if (cash < warped_stem_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3033,7 +3032,7 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
                         // Oak Leaves
                         case 22:
-                            if (cash <= oak_leaves_buy) {
+                            if (cash < oak_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3052,7 +3051,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Spruce Leaves
                         case 24:
-                            if (cash <= spruce_leaves_buy) {
+                            if (cash < spruce_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3071,7 +3070,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Birch Leaves
                         case 26:
-                            if (cash <= birch_leaves_buy) {
+                            if (cash < birch_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3090,7 +3089,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Jungle Leaves
                         case 28:
-                            if (cash <= jungle_leaves_buy) {
+                            if (cash < jungle_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3109,7 +3108,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Acacia Leaves
                         case 30:
-                            if (cash <= acacia_leaves_buy) {
+                            if (cash < acacia_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3128,7 +3127,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Dark Oak Leaves
                         case 32:
-                            if (cash <= dark_oak_leaves_buy) {
+                            if (cash < dark_oak_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3147,7 +3146,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Mangrove Leaves
                         case 34:
-                            if (cash <= mangrove_leaves_buy) {
+                            if (cash < mangrove_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3166,7 +3165,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Cherry Leaves
                         case 36:
-                            if (cash <= cherry_leaves_buy) {
+                            if (cash < cherry_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3185,7 +3184,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Pale Oak Leaves
                         case 38:
-                            if (cash <= pale_oak_leaves_buy) {
+                            if (cash < pale_oak_leaves_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3204,7 +3203,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Nether Wart Block
                         case 40:
-                            if (cash <= nether_wart_block_buy) {
+                            if (cash < nether_wart_block_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3223,7 +3222,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         // Warped Wart Block
                         case 42:
-                            if (cash <= warped_wart_block_buy) {
+                            if (cash < warped_wart_block_buy) {
                                 source.sendMessage('You don\'t have enough money to buy this item!')
                             }
                             else {
@@ -3706,6 +3705,399 @@ system.beforeEvents.startup.subscribe((e) => {
                         default:
                             servermarket_menu(source);
                             break;
+                    }
+                })
+            }
+
+            function servermarketcat_bb(source) {
+                const cash = getCashScore(source, "balance")
+                const bank = getBankScore(source, "bank")
+
+                const cobblestone_buy = getBuyPrice('stone_blocks', 'cobblestone')
+                const cobblestone_sell = getSellPrice('stone_blocks', 'cobblestone')
+
+                const stone_buy = getBuyPrice('stone_blocks', 'stone')
+                const stone_sell = getSellPrice('stone_blocks', "stone")
+
+                const granite_buy = getBuyPrice('stone_blocks', 'granite')
+                const granite_sell = getSellPrice('stone_blocks', 'granite')
+
+                const diorite_buy = getBuyPrice('stone_blocks', 'diorite')
+                const diorite_sell = getSellPrice('stone_blocks', 'diorite')
+
+                const andesite_buy = getBuyPrice('stone_blocks', 'andesite')
+                const andesite_sell = getSellPrice('stone_blocks', 'andesite')
+
+                const cobbled_deepslate_buy = getBuyPrice('stone_blocks', 'cobbled_deepslate')
+                const cobbled_deepslate_sell = getSellPrice('stone_blocks', 'cobbled_deepslate')
+
+                const deepslate_buy = getBuyPrice('stone_blocks', 'deepslate')
+                const deepslate_sell = getSellPrice('stone_blocks', 'deepslate')
+
+                const basalt_buy = getBuyPrice('stone_blocks', 'basalt')
+                const basalt_sell = getSellPrice('stone_blocks', 'basalt')
+
+                const blackstone_buy = getBuyPrice('stone_blocks', 'blackstone')
+                const blackstone_sell = getSellPrice('stone_blocks', 'blackstone')
+
+                const obsidian_buy = getBuyPrice('stone_blocks', 'obsidian')
+                const obsidian_sell = getSellPrice('stone_blocks', 'obsidian')
+
+                const crying_obsidian_buy = getBuyPrice('stone_blocks', 'crying_obsidian')
+                const crying_obsidian_sell = getSellPrice('stone_blocks', 'crying_obsidian')
+
+                return new ActionFormData()
+                    .title('Server Market / Building Blocks')
+                    .body('§l§eBuilding Blocks Category§r' + "\n\n§c/!\\ Every button will give or take a full stack from your inventory. To Sell any item, you need to have a full stack of it!")
+                    .divider()
+                    .label(
+                        '§aYour Balance§r' +
+                        '\n\nCash: §e' + cash +
+                        '\n\n§rBank: §e' + bank
+                    )
+                    .divider()
+                    .header('§nStone.')
+                    .label(
+                        `§aPurchase Price Adjustment: §e§l` + buy_food_price.stone_blocks.modifier + '%%' +
+                        `\n§cSales Price Adjustment: §e§l` + sell_food_price.stone_blocks.modifier + '%%'
+
+                    )
+                    .divider()
+                    .label(
+                        'Cobblestone' +
+                        '\n\n§aBuy Price: §e§l' + cobblestone_buy +
+                        '\n§r§cSell Price: §e§l' + cobblestone_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Stone' +
+                        '\n\n§aBuy Price: §e§l' + stone_buy +
+                        '\n§r§cSell Price: §e§l' + stone_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Granite' +
+                        '\n\n§aBuy Price: §e§l' + granite_buy +
+                        '\n§r§cSell Price: §e§l' + granite_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Diorite' +
+                        '\n\n§aBuy Price: §e§l' + diorite_buy +
+                        '\n§r§cSell Price: §e§l' + diorite_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Andesite' +
+                        '\n\n§aBuy Price: §e§l' + andesite_buy +
+                        '\n§r§cSell Price: §e§l' + andesite_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Cobbled Deepslate' +
+                        '\n\n§aBuy Price: §e§l' + cobbled_deepslate_buy +
+                        '\n§r§cSell Price: §e§l' + cobbled_deepslate_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Deepslate' +
+                        '\n\n§aBuy Price: §e§l' + deepslate_buy +
+                        '\n§r§cSell Price: §e§l' + deepslate_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Basalt' +
+                        '\n\n§aBuy Price: §e§l' + basalt_buy +
+                        '\n§r§cSell Price: §e§l' + basalt_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Blackstone' +
+                        '\n\n§aBuy Price: §e§l' + blackstone_buy +
+                        '\n§r§cSell Price: §e§l' + blackstone_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Obsidian' +
+                        '\n\n§aBuy Price: §e§l' + obsidian_buy +
+                        '\n§r§cSell Price: §e§l' + obsidian_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .label(
+                        'Crying Obsidian' +
+                        '\n\n§aBuy Price: §e§l' + crying_obsidian_buy +
+                        '\n§r§cSell Price: §e§l' + crying_obsidian_sell
+                    )
+                    .button('Buy x64')
+                    .button('Sell x64')
+                    .divider()
+                    .button('Back')
+            }
+
+            function bbmarket(source) {
+                const cash = getCashScore(source, "balance")
+                const bank = getBankScore(source, "bank")
+
+                const cobblestone_buy = getBuyPrice('stone_blocks', 'cobblestone')
+                const cobblestone_sell = getSellPrice('stone_blocks', 'cobblestone')
+
+                const stone_buy = getBuyPrice('stone_blocks', 'stone')
+                const stone_sell = getSellPrice('stone_blocks', "stone")
+
+                const granite_buy = getBuyPrice('stone_blocks', 'granite')
+                const granite_sell = getSellPrice('stone_blocks', 'granite')
+
+                const diorite_buy = getBuyPrice('stone_blocks', 'diorite')
+                const diorite_sell = getSellPrice('stone_blocks', 'diorite')
+
+                const andesite_buy = getBuyPrice('stone_blocks', 'andesite')
+                const andesite_sell = getSellPrice('stone_blocks', 'andesite')
+
+                const cobbled_deepslate_buy = getBuyPrice('stone_blocks', 'cobbled_deepslate')
+                const cobbled_deepslate_sell = getSellPrice('stone_blocks', 'cobbled_deepslate')
+
+                const deepslate_buy = getBuyPrice('stone_blocks', 'deepslate')
+                const deepslate_sell = getSellPrice('stone_blocks', 'deepslate')
+
+                const basalt_buy = getBuyPrice('stone_blocks', 'basalt')
+                const basalt_sell = getSellPrice('stone_blocks', 'basalt')
+
+                const blackstone_buy = getBuyPrice('stone_blocks', 'blackstone')
+                const blackstone_sell = getSellPrice('stone_blocks', 'blackstone')
+
+                const obsidian_buy = getBuyPrice('stone_blocks', 'obsidian')
+                const obsidian_sell = getSellPrice('stone_blocks', 'obsidian')
+
+                const crying_obsidian_buy = getBuyPrice('stone_blocks', 'crying_obsidian')
+                const crying_obsidian_sell = getSellPrice('stone_blocks', 'crying_obsidian')
+
+
+                servermarketcat_bb(source).show(source).then((r) => {
+                    switch (r.selection) {
+
+                        // --- COBBLESTONE ---
+                        case 0:
+                            if (cash < cobblestone_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${cobblestone_buy}`)
+                                source.runCommand(`give @s cobblestone 64`)
+                                source.sendMessage(`§aBought §e§lCobblestone x64 §r§afor ${cobblestone_buy}`)
+                            }
+                            break;
+
+                        case 1:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cobblestone, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cobblestone, quantity=64..}] run scoreboard players add @s balance ${cobblestone_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cobblestone, quantity=64..}] run say §aSold §a§lCobblestone x64§r §aFor §e§l${cobblestone_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cobblestone, quantity=64..}] run clear @s cobblestone 0 64`), 1)
+                            break;
+
+
+                        // --- STONE ---
+                        case 2:
+                            if (cash < stone_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${stone_buy}`)
+                                source.runCommand(`give @s stone 64`)
+                                source.sendMessage(`§aBought §e§lStone x64 §r§afor ${stone_buy}`)
+                            }
+                            break;
+
+                        case 3:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:stone, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:stone, quantity=64..}] run scoreboard players add @s balance ${stone_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:stone, quantity=64..}] run say §aSold §a§lStone x64§r §aFor §e§l${stone_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:stone, quantity=64..}] run clear @s stone 0 64`), 1)
+                            break;
+
+
+                        // --- GRANITE ---
+                        case 4:
+                            if (cash < granite_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${granite_buy}`)
+                                source.runCommand(`give @s granite 64`)
+                                source.sendMessage(`§aBought §e§lGranite x64 §r§afor ${granite_buy}`)
+                            }
+                            break;
+
+                        case 5:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:granite, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:granite, quantity=64..}] run scoreboard players add @s balance ${granite_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:granite, quantity=64..}] run say §aSold §a§lGranite x64§r §aFor §e§l${granite_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:granite, quantity=64..}] run clear @s granite 0 64`), 1)
+                            break;
+
+
+                        // --- DIORITE ---
+                        case 6:
+                            if (cash < diorite_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${diorite_buy}`)
+                                source.runCommand(`give @s diorite 64`)
+                                source.sendMessage(`§aBought §e§lDiorite x64 §r§afor ${diorite_buy}`)
+                            }
+                            break;
+
+                        case 7:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:diorite, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diorite, quantity=64..}] run scoreboard players add @s balance ${diorite_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diorite, quantity=64..}] run say §aSold §a§lDiorite x64§r §aFor §e§l${diorite_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:diorite, quantity=64..}] run clear @s diorite 0 64`), 1)
+                            break;
+
+                        // --- ANDESITE ---
+                        case 8:
+                            if (cash < andesite_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${andesite_buy}`)
+                                source.runCommand(`give @s andesite 64`)
+                                source.sendMessage(`§aBought §e§lAndesite x64 §r§afor ${andesite_buy}`)
+                            }
+                            break;
+
+                        case 9:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:andesite, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:andesite, quantity=64..}] run scoreboard players add @s balance ${andesite_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:andesite, quantity=64..}] run say §aSold §a§lAndesite x64§r §aFor §e§l${andesite_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:andesite, quantity=64..}] run clear @s andesite 0 64`), 1)
+                            break;
+
+                        // --- COBBLED DEEPSLATE ---
+                        case 10:
+                            if (cash < cobbled_deepslate_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${cobbled_deepslate_buy}`)
+                                source.runCommand(`give @s cobbled_deepslate 64`)
+                                source.sendMessage(`§aBought §e§lCobbled Deepslate x64 §r§afor ${cobbled_deepslate_buy}`)
+                            }
+                            break;
+
+                        case 11:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:cobbled_deepslate, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cobbled_deepslate, quantity=64..}] run scoreboard players add @s balance ${cobbled_deepslate_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cobbled_deepslate, quantity=64..}] run say §aSold §a§lCobbled Deepslate x64§r §aFor §e§l${cobbled_deepslate_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:cobbled_deepslate, quantity=64..}] run clear @s cobbled_deepslate 0 64`), 1)
+                            break;
+
+                        // --- DEEPSLATE ---
+                        case 12:
+                            if (cash < deepslate_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${deepslate_buy}`)
+                                source.runCommand(`give @s deepslate 64`)
+                                source.sendMessage(`§aBought §e§lDeepslate x64 §r§afor ${deepslate_buy}`)
+                            }
+                            break;
+
+                        case 13:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:deepslate, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:deepslate, quantity=64..}] run scoreboard players add @s balance ${deepslate_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:deepslate, quantity=64..}] run say §aSold §a§lDeepslate x64§r §aFor §e§l${deepslate_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:deepslate, quantity=64..}] run clear @s deepslate 0 64`), 1)
+                            break;
+
+                        // --- BASALT ---
+                        case 14:
+                            if (cash < basalt_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${basalt_buy}`)
+                                source.runCommand(`give @s basalt 64`)
+                                source.sendMessage(`§aBought §e§lBasalt x64 §r§afor ${basalt_buy}`)
+                            }
+                            break;
+
+                        case 15:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:basalt, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:basalt, quantity=64..}] run scoreboard players add @s balance ${basalt_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:basalt, quantity=64..}] run say §aSold §a§lBasalt x64§r §aFor §e§l${basalt_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:basalt, quantity=64..}] run clear @s basalt 0 64`), 1)
+                            break;
+
+                        // --- BLACKSTONE ---
+                        case 16:
+                            if (cash < blackstone_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${blackstone_buy}`)
+                                source.runCommand(`give @s blackstone 64`)
+                                source.sendMessage(`§aBought §e§lBlackstone x64 §r§afor ${blackstone_buy}`)
+                            }
+                            break;
+
+                        case 17:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:blackstone, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:blackstone, quantity=64..}] run scoreboard players add @s balance ${blackstone_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:blackstone, quantity=64..}] run say §aSold §a§lBlackstone x64§r §aFor §e§l${blackstone_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:blackstone, quantity=64..}] run clear @s blackstone 0 64`), 1)
+                            break;
+
+                        // --- OBSIDIAN ---
+                        case 18:
+                            if (cash < obsidian_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${obsidian_buy}`)
+                                source.runCommand(`give @s obsidian 64`)
+                                source.sendMessage(`§aBought §e§lObsidian x64 §r§afor ${obsidian_buy}`)
+                            }
+                            break;
+
+                        case 19:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:obsidian, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:obsidian, quantity=64..}] run scoreboard players add @s balance ${obsidian_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:obsidian, quantity=64..}] run say §aSold §a§lObsidian x64§r §aFor §e§l${obsidian_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:obsidian, quantity=64..}] run clear @s obsidian 0 64`), 1)
+                            break;
+
+                        // --- CRYING OBSIDIAN ---
+                        case 20:
+                            if (cash < crying_obsidian_buy) {
+                                source.sendMessage('You don\'t have enough money to buy this item!')
+                            } else {
+                                source.runCommand(`scoreboard players remove @s balance ${crying_obsidian_buy}`)
+                                source.runCommand(`give @s crying_obsidian 64`)
+                                source.sendMessage(`§aBought §e§lCrying Obsidian x64 §r§afor ${crying_obsidian_buy}`)
+                            }
+                            break;
+
+                        case 21:
+                            source.runCommand('execute as @s unless entity @s[hasitem={item=minecraft:crying_obsidian, quantity=64..}] run say §cYou need to have 64 of the item you want to sell!')
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:crying_obsidian, quantity=64..}] run scoreboard players add @s balance ${crying_obsidian_sell}`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:crying_obsidian, quantity=64..}] run say §aSold §a§lCrying Obsidian x64§r §aFor §e§l${crying_obsidian_sell} Credits§r§a!`), 1)
+                            system.runTimeout(() => source.runCommand(`execute as @s if entity @s[hasitem={item=minecraft:crying_obsidian, quantity=64..}] run clear @s crying_obsidian 0 64`), 1)
+                            break;
+
+                        default:
+                            servermarket_menu(source);
                     }
                 })
             }

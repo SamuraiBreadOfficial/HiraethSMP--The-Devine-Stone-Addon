@@ -727,6 +727,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 finalize_settings(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
+                            play_cutscene(source);
                             break;
 
                         case 1:
@@ -752,6 +753,11 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 })
 
+            }
+
+            function play_cutscene(source) {
+                system.runTimeout(() => source.runCommand(`camera @s fade time 1 5 1`), 10)
+                system.runTimeout(() => source.runCommand(`Title @s title `), 10)
             }
 
 
