@@ -13,3 +13,6 @@ execute as @a[tag=init_join] run tellraw @a {"rawtext":[    {"text":"§e§l"},  
 replaceitem entity @a[tag=init_join] slot.hotbar 8 hsmp:hsmp_menu
 execute as @a[tag=init_join] run tag @s add joined
 execute as @a[tag=init_join] run tag @a remove init_join
+execute as @a[tag=loading] run title @a[tag=loading] times 0 10 0
+execute as @a[tag=loading] run title @a[tag=loading] title Loading...
+execute as @a[tag=loading] run title @a[tag=loading] subtitle Please Wait

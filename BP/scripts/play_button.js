@@ -749,7 +749,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 finalize_settings(source).show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            play_cutscene(source);
+                            validate_check(source);
                             break;
 
                         case 1:
@@ -777,6 +777,83 @@ system.beforeEvents.startup.subscribe((e) => {
 
             }
 
+            function validate_check(source) {
+                const isInProgress = source.hasTag("loading_check") || source.hasTag("loading");
+                const notValidated = source.hasTag("not_validated");
+
+                const audiovoltags = ["full_audiovol", "half_audiovol", "no_audiovol"];
+                const sfxvoltags = ["full_sfxvol", "half_sfxvol", "no_sfxvol"];
+                const voicevoltags = ["full_voicevol", "half_voicevol", "no_voicevol"];
+                const scaretags = ["scare_full", "scare_minimum", "scare_disable"];
+                const factiontags = ["moonset_faction", "stargaze_faction", "sunrest_faction", "anemoiagaze_faction"];
+                const racetags = ["human", "elf", "halforc"];
+
+                if (notValidated && isInProgress) {
+                    source.removeTag("not_validated");
+                    source.sendMessage("§7Setup check in progress... Tag §enot_validated§r §7removed.");
+                    return;
+                }
+
+                if (notValidated && !isInProgress) {
+                    source.sendMessage("§cSetup inconsistency detected. Resetting...");
+
+                    const allSetupTags = [
+                        "init_join", "loading_check", "loading",
+                        "joined", "init_complete", "not_validated",
+                        ...audiovoltags, ...sfxvoltags, ...voicevoltags,
+                        ...scaretags, ...factiontags, ...racetags
+                    ];
+
+                    for (const tag of allSetupTags) {
+                        if (source.hasTag(tag)) source.removeTag(tag);
+                    }
+
+                    source.addTag("init_join");
+                    source.addTag("loading_check");
+
+                    source.sendMessage("§ePlease restart setup. You have been reset.");
+                    return;
+                }
+
+                // Etapowe sprawdzanie tagów
+                const checkGroups = [
+                    { name: "Audio Volume", tags: audiovoltags },
+                    { name: "SFX Volume", tags: sfxvoltags },
+                    { name: "Voice Volume", tags: voicevoltags },
+                    { name: "Scare Level", tags: scaretags },
+                    { name: "Faction", tags: factiontags },
+                    { name: "Race", tags: racetags }
+                ];
+
+                for (const group of checkGroups) {
+                    const hasOne = group.tags.some(tag => source.hasTag(tag));
+                    if (!hasOne) {
+                        source.sendMessage(`§cMissing tag in category: §6${group.name}`);
+                        source.sendMessage("§cResetting setup due to incomplete configuration...");
+
+                        const allSetupTags = [
+                            "init_join", "loading_check", "loading",
+                            "joined", "init_complete", "not_validated",
+                            ...audiovoltags, ...sfxvoltags, ...voicevoltags,
+                            ...scaretags, ...factiontags, ...racetags
+                        ];
+
+                        for (const tag of allSetupTags) {
+                            if (source.hasTag(tag)) source.removeTag(tag);
+                        }
+
+                        source.addTag("init_join");
+                        source.addTag("loading_check");
+
+                        source.sendMessage("§ePlease restart setup. You have been reset.");
+                        return;
+                    }
+                }
+
+                // Jeśli wszystko OK
+                source.sendMessage("§aAll setup tags validated successfully.");
+                play_cutscene(source);
+            }
             function play_cutscene(source) {
                 source.runCommand('gamerule doimmediaterespawn true')
                 source.runCommand('gamerule keepinventory true')
@@ -785,8 +862,8 @@ system.beforeEvents.startup.subscribe((e) => {
                 system.runTimeout(() => source.runCommand('kill @s'), 10)
                 system.runTimeout(() => source.runCommand('gamerule doimmediaterespawn false'), 20)
                 system.runTimeout(() => source.runCommand('gamerule keepinventory false'), 20)
-            }
 
+            }
 
             function openinfo(source) {
                 info.show(source).then((r) => {
