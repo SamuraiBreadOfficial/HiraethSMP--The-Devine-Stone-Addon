@@ -129,7 +129,7 @@ system.beforeEvents.startup.subscribe((e) => {
                 .title('Addon Version')
                 .body('Bridge Build: §ev2.7.50§r')
                 .divider()
-                .label('Addon Version: §sv0.0.100§r')
+                .label('Addon Version: §2v0.0.206§r')
                 .divider()
                 .label('Colour Meaning:\n\n' +
                     '§2Green§r - Bigger update\n' + '§sCyan§r - Smaller update.\n' +
@@ -139,12 +139,28 @@ system.beforeEvents.startup.subscribe((e) => {
 
             const nerdinfo_latestupdate = new ActionFormData()
                 .title('Latest Update')
-                .body('v0.0.100 Built with "bridge. v2" v2.7.50')
+                .body('v0.0.206 Built with "bridge. v2" v2.7.50')
                 .divider()
                 .label(
-                    "What's new?\n\n" +
-                    "- Added Main Menu\n" +
-                    "- Added Play button"
+                    'v0.0.206 - What\'s New?' +
+
+                    '\n\nNew Features:' +
+                    '\n- Added §ejoin_init§r and §ejoined§r tags.' +
+                    '\n- §ejoin_init§r now triggers the join message for first-time players.' +
+                    '\n- Added Main Menu structure that spawns automatically on join.' +
+                    '\n- Added Stone Building Blocks to the economy.' +
+                    '\n- Added more info about balance and bank balance.' +
+                    '\n- Script added to replace 9th hotbar slot with §ehsmp:main_menu§r on join.' +
+
+                    '\n\nFixes:' +
+                    '\n- Fixed Golden Carrots not sellable on server market.' +
+                    '\n- Fixed "Deposit All" showing "Not enough Credits" when balance = deposit amount.' +
+                    '\n- Fixed "Not Enough Credits" error when cash = price.' +
+                    '\n- Fixed selling items not adding cash.' +
+                    '\n- Fixed crash bug in withdraw function.' +
+                    '\n- Optimized main menu.' +
+                    '\n- Economy tabs and transfer menu now return to the previous page correctly.'
+
                 )
                 .divider()
                 .button('Back');
@@ -154,38 +170,37 @@ system.beforeEvents.startup.subscribe((e) => {
                 .body('')
                 .divider()
                 .label('Faction Information')
-                .button('Sunlight Case 0')
-                .button('Crimsonhold Case 1')
-                .button('Witherhood Case 2')
-                .button('Red Lotus Case 3')
+                .button('Moonset')
+                .button('Stargaze')
+                .button('Sunrest')
+                .button('Anemoiagaze')
                 .divider()
                 .label('Go back to Main Menu')
                 .button('Back');
 
             const factioninfo_Sunlight = new ActionFormData()
-                .title('Sunlight Faction')
+                .title('Moonset Faction')
                 .body(
-                    'Sunlight Faction\n\n' +
-                    'The story is yet to be written by YOU.'
+                    'Work In Progress'
                 )
                 .divider()
                 .button('Back');
 
             const factioninfo_Crimson = new ActionFormData()
-                .title('Crimsonhold Faction')
-                .body('Crimsonhold Faction\n\n' + 'The story is yet to be written by YOU.')
+                .title('Stargaze Faction')
+                .body('Work In Progress')
                 .divider()
                 .button('Back');
 
             const factioninfo_Witherhood = new ActionFormData()
-                .title('Witherhood Faction')
-                .body('Witherhood Faction\n\n' + 'The story is yet to be written by YOU.')
+                .title('Sunrest Faction')
+                .body('Work In Progress')
                 .divider()
                 .button('Back');
 
             const factioninfo_Red = new ActionFormData()
-                .title('Red Lotus Faction')
-                .body('Red Lotus Faction\n\n' + 'The story is yet to be written by YOU.')
+                .title('Anemoiagaze Faction')
+                .body('Work In Progress')
                 .divider()
                 .button('Back');
 
@@ -194,11 +209,18 @@ system.beforeEvents.startup.subscribe((e) => {
             const credits = new ActionFormData()
                 .title('Credits')
                 .divider()
-                .body('Credits for the server and Addon itself. Without those people, the addon would not be possible :D\n\n' +
-                    'Addon Credits\n\n' +
-                    'Developed by: SamuraiBread\n\n' +
-                    'Tested by: Shadow\n\n' +
-                    'Paste more credits when needed here lol\n\n'
+                .body('')
+                .header('Credits')
+                .label(
+                    'Developed and Scripted by: SamuraiBread' +
+                    '\n\nTested by: ShadowTheBloodyWolf.' +
+                    '\n\nMusic:' +
+                    '\n\nInfinite Amethyst (Andrew Prahlow Remix) - §eMinecraft§r' +
+                    '\n\nComforting Memories (Andrew Prahlow Remix) - §eMinecraft§r' +
+                    '\n\notherside (Andrew Prahlow Remix) - §eMinecraft§r' +
+                    '\n\nAerie (Andrew Prahlow Remix) - §eMinecraft§r' +
+                    '\n\nLeft to Bloom (Andrew Prahlow Remix) - §eMinecraft§r' +
+                    '\n\nCreator (Andrew Prahlow Remix) - §eMinecraft§r'
                 )
                 .button('Back');
 
@@ -756,8 +778,13 @@ system.beforeEvents.startup.subscribe((e) => {
             }
 
             function play_cutscene(source) {
+                source.runCommand('gamerule doimmediaterespawn true')
+                source.runCommand('gamerule keepinventory true')
                 system.runTimeout(() => source.runCommand(`camera @s fade time 1 5 1`), 10)
                 system.runTimeout(() => source.runCommand(`Title @s title `), 10)
+                system.runTimeout(() => source.runCommand('kill @s'), 10)
+                system.runTimeout(() => source.runCommand('gamerule doimmediaterespawn false'), 20)
+                system.runTimeout(() => source.runCommand('gamerule keepinventory false'), 20)
             }
 
 
