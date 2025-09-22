@@ -18,6 +18,16 @@ world.afterEvents.itemStopUse.subscribe(e => {
     }
 });
 
+world.afterEvents.itemCompleteUse.subscribe(e => {
+    const p = e.source;
+    if (e.itemStack.typeId == "minecraft:bow" && p.hasTag('elf')) {
+        system.run(() => {
+            p.runCommand('camera @s fov_clear 0.1')
+        })
+
+    }
+})
+
 world.afterEvents.entityHitBlock.subscribe(e => {
     const p = e.damagingEntity;
     if (p.isSneaking && p.hasTag('elf')) {
