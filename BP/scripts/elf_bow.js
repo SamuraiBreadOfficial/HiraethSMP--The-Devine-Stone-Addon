@@ -17,3 +17,19 @@ world.afterEvents.itemStopUse.subscribe(e => {
         })
     }
 });
+
+world.afterEvents.entityHitBlock.subscribe(e => {
+    const p = e.damagingEntity;
+    if (p.isSneaking && p.hasTag('elf')) {
+        system.run(() => {
+            if (p.hasTag('focus')) {
+                p.runCommand('camera @s fov_clear 0.1')
+                p.removeTag('focus')
+            }
+            else {
+                p.runCommand('camera @s fov_set 0 0.5')
+                p.addTag('focus')
+            }
+        })
+    }
+});
