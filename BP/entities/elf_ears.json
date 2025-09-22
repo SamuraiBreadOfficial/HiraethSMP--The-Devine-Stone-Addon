@@ -1,0 +1,36 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "hsmp:elf_ears",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {},
+		"components": {
+			"minecraft:rideable": {
+				"seat_count": 1,
+				"crouching_skip_interact": true,
+				"seats": [
+					{
+						"position": [
+							0.0,
+							0.0,
+							0.0
+						]
+					}
+				]
+			},
+			"minecraft:physics": {},
+			"minecraft:collision_box": {
+				"width": 0.0,
+				"height": 0.0
+			},
+			"minecraft:scale": {
+				"value": 1
+			}
+		},
+		"events": {}
+	}
+}

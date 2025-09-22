@@ -1,0 +1,1 @@
+execute as @e[type=husk] at @a[tag=elf] run tp ~ ~ ~ ~ ~ 

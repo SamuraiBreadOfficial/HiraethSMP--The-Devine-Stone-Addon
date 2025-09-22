@@ -1,2 +1,4 @@
 tile.hsmp:start_button.name=Start Button
 item.hsmp:hsmp_menu=HSMP Menu
+item.spawn_egg.entity.hsmp:elf_ears.name=Spawn Elf Ears
+entity.hsmp:elf_ears.name=Elf Ears
