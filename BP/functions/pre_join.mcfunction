@@ -4,7 +4,7 @@ execute as @a[tag=init_join] run scoreboard objectives add bank dummy
 execute as @a[tag=init_join] run scoreboard players add @s balance 0
 execute as @a[tag=init_join] run scoreboard players add @s bank 0
 
-execute at @a[tag=init_join] run structure load mystructure:main_menu 9990 110 9990
+execute at @a[tag=init_join] run structure load mystructure:main_menu_v2 9990 110 9990
 
 execute as @a[tag=init_join] run tp @s 10000 120 10000 false
 
