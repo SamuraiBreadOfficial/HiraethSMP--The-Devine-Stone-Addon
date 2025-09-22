@@ -5,6 +5,7 @@ world.beforeEvents.itemUse.subscribe(e => {
     if (e.itemStack.typeId == "minecraft:bow" && p.hasTag('elf')) {
         system.run(() => {
             p.runCommand('camera @s fov_set 0 5')
+            p.addTag('focus')
         })
     }
 });
@@ -14,23 +15,15 @@ world.afterEvents.itemStopUse.subscribe(e => {
     if (e.itemStack.typeId == "minecraft:bow" && p.hasTag('elf')) {
         system.run(() => {
             p.runCommand('camera @s fov_clear 0.1')
+            p.removeTag('focus')
+
         })
     }
 });
 
-world.afterEvents.itemCompleteUse.subscribe(e => {
-    const p = e.source;
-    if (e.itemStack.typeId == "minecraft:bow" && p.hasTag('elf')) {
-        system.run(() => {
-            p.runCommand('camera @s fov_clear 0.1')
-        })
-
-    }
-})
-
 world.afterEvents.entityHitBlock.subscribe(e => {
     const p = e.damagingEntity;
-    if (p.isSneaking && p.hasTag('elf')) {
+    if (p.isSneaking) {
         system.run(() => {
             if (p.hasTag('focus')) {
                 p.runCommand('camera @s fov_clear 0.1')
