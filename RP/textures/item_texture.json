@@ -4,6 +4,27 @@
 	"texture_data": {
 		"hsmp_hsmp_menu": {
 			"textures": "textures/items/menu_item"
+		},
+		"hsmp_leather_with_pale_ears_helmet": {
+			"textures": "textures/items/leather_with_pale_ears_helmet"
+		},
+		"hsmp_elf_leather_armor_helmet": {
+			"textures": "textures/items/elf_leather_armor_helmet"
+		},
+		"hsmp_elf_leather_armor_chestplate": {
+			"textures": "textures/items/elf_leather_armor_chestplate"
+		},
+		"hsmp_elf_leather_armor_leggings": {
+			"textures": "textures/items/elf_leather_armor_leggings"
+		},
+		"hsmp_elf_leather_armor_boots": {
+			"textures": "textures/items/elf_leather_armor_boots"
+		},
+		"hsmp_elf_ears_helmet": {
+			"textures": "textures/items/elf_ears_helmet"
+		},
+		"hsmp_elf_ears_boots": {
+			"textures": "textures/items/elf_ears_boots"
 		}
 	}
 }
