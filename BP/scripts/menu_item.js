@@ -16,8 +16,8 @@ system.beforeEvents.startup.subscribe((e) => {
                     'What you want to check today? :D')
                 .divider()
                 .label('Player Information')
-                .button('Faction Info')
-                .button('Your Info')
+                .button('Faction')
+                .button('Race')
                 .divider()
                 .label('System')
                 .button('Settings')
@@ -438,13 +438,74 @@ system.beforeEvents.startup.subscribe((e) => {
                     .title(playerName + '\'s Info')
                     .body('Gamertag: §e' + playerName +
                         "§r\n\nBalance: §e" + cash + "$§r" + '\n\nRace: ' + race)
+                    .button("Change Race Appearance")
                     .button('Back')
+
+            }
+
+            const elfCustomizationMenu = new ActionFormData()
+                .title("Elf Customization")
+                .body("Change your Ear Colour!")
+                .button("Pale Ears")
+                .button("Dark Ears")
+                .divider()
+                .button("Back");
+
+            const halforcCustomizationMenu = new ActionFormData()
+                .title('WIP')
+                .body('Come back later. Currently Half Orc does not supports customalization')
+                .button('Ok')
+
+            function playerinfo(source) {
+                showPlayerInfo(source).show(source).then((r) => {
+                    switch (r.selection) {
+                        case 0:
+                            if (source.hasTag("elf")) {
+                                elfCustomizationMenu.show(source).then((r) => {
+                                    switch (r.selection) {
+                                        case 0:
+                                            source.addTag('elf_pale_ears');
+                                            source.removeTag('elf_dark_ears');
+                                            break;
+
+                                        case 1:
+                                            source.addTag('elf_dark_ears');
+                                            source.removeTag('elf_pale_ears')
+                                            break;
+
+                                        case 2:
+                                            open_igmenu(source);
+                                            break;
+
+                                        default:
+                                            open_igmenu(source);
+                                            break;
+                                    }
+                                })
+                            }
+                            if (source.hasTag('halforc')) {
+                                halforcCustomizationMenu.show(source)
+                            }
+                            if (source.hasTag('human')) {
+                                source.sendMessage('You don\'t have any Ears or Tails.')
+                            }
+                            break;
+
+                        case 1:
+                            open_igmenu(source);
+                            break;
+
+                        default:
+                            open_igmenu(source);
+                            break;
+
+                    }
+                })
 
             }
 
             function open_igmenu(source) {
                 const factionmenu = createPlayerFactionMenu(source)
-                const playerinfo = showPlayerInfo(source)
                 ig_menu.show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
