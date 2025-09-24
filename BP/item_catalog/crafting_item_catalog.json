@@ -1,0 +1,36 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:crafting_items_catalog": {
+        "categories": [
+            {
+                "category_name": "equipment",
+                "groups": [
+                    {
+                        "group_identifier": {
+                            "name": "hsmp:system_items",
+                            "icon": "hsmp:hsmp_menu"
+                        },
+                        "items": [
+                            "hsmp:elf_ears",
+                            "hsmp:dark_elf_ears",
+                            "hsmp:start_button",
+                            "hsmp:hsmp_menu"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "name": "hsmp:elf_armor",
+                            "icon": "hsmp:elf_leather_armor_helmet"
+                        },
+                        "items": [
+                            "hsmp:elf_leather_armor_helmet",
+                            "hsmp:elf_leather_armor_chestplate",
+                            "hsmp:elf_leather_armor_leggings",
+                            "hsmp:elf_leather_armor_boots"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
