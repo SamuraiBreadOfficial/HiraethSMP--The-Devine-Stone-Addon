@@ -4,9 +4,7 @@
 		"description": {
 			"identifier": "hsmp:elf_leather_armor_chestplate",
 			"menu_category": {
-				"category": "equipment",
-				"group": "itemGroup.name.chestplate"
-			}
+				"category": "equipment"			}
 		},
 		"components": {
 			"minecraft:max_stack_size": 1,

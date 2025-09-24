@@ -4,8 +4,7 @@
 		"description": {
 			"identifier": "hsmp:elf_leather_armor_boots",
 			"menu_category": {
-				"category": "equipment",
-				"group": "itemGroup.name.boots"
+				"category": "equipment"
 			}
 		},
 		"components": {

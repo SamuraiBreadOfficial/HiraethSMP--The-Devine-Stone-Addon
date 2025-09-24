@@ -4,8 +4,7 @@
 		"description": {
 			"identifier": "hsmp:elf_leather_armor_leggings",
 			"menu_category": {
-				"category": "equipment",
-				"group": "itemGroup.name.leggings"
+				"category": "equipment"
 			}
 		},
 		"components": {
