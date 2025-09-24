@@ -480,6 +480,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         case 1:
                             source.addTag('elf')
+                            source.addTag('elf_pale_ears')
                             race_confirm(source)
                             break;
                         case 2:
@@ -506,6 +507,8 @@ system.beforeEvents.startup.subscribe((e) => {
                             source.removeTag('human')
                             source.removeTag('elf')
                             source.removeTag('halforc')
+                            source.removeTag('elf_pale_ears')
+                            source.runCommand('clear @s hsmp:elf_ears')
                             choose_race(source)
                             break;
 
