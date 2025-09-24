@@ -1,1 +1,2 @@
-execute as @e[type=husk] at @a[tag=elf] run tp ~ ~ ~ ~ ~ 
+execute as @a[tag=elf_dark_ears] unless entity @s[hasitem={location=slot.armor.head,item=hsmp:elf_leather_armor_helmet}] unless entity @s[hasitem={location=slot.weapon.mainhand,item=hsmp:elf_leather_armor_helmet}] run replaceitem entity @s slot.armor.head 0 hsmp:dark_elf_ears 1 0 {"minecraft:item_lock": {"mode": "lock_in_slot"},"minecraft:keep_on_death": {}}
+execute as @a[tag=elf_pale_ears] unless entity @s[hasitem={location=slot.armor.head,item=hsmp:elf_leather_armor_helmet}] unless entity @s[hasitem={location=slot.weapon.mainhand,item=hsmp:elf_leather_armor_helmet}] run replaceitem entity @s slot.armor.head 0 hsmp:elf_ears 1 0 {"minecraft:item_lock": {"mode": "lock_in_slot"}, "minecraft:keep_on_death": {}}
