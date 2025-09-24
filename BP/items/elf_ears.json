@@ -4,8 +4,7 @@
 		"description": {
 			"identifier": "hsmp:elf_ears",
 			"menu_category": {
-				"category": "equipment",
-				"group": "minecraft:itemGroup.name.helmet"
+				"category": "equipment"
 			}
 		},
 		"components": {
