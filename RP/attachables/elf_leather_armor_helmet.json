@@ -1,5 +1,5 @@
 {
-	"format_version": "1.20.80",
+	"format_version": "1.21.80",
 	"minecraft:attachable": {
 		"description": {
 			"identifier": "hsmp:elf_leather_armor_helmet",
@@ -9,19 +9,34 @@
 				"enchanted": "armor_enchanted"
 			},
 			"textures": {
-				"default": "textures/models/armor/elf_leather_armor_1",
-				"ears": "textures/entity/ears_elf",
+				"default": "textures/models/armor/elf_leather_armor",
 				"enchanted": "textures/misc/enchanted_item_glint"
 			},
 			"geometry": {
-				"default": "geometry.elf_player.armor.helmet:geometry.elf_player.armor1"
+				"default": "geometry.elf_armor_helmet"
 			},
 			"scripts": {
-				"parent_setup": "variable.helmet_layer_visible = 0.0;"
+				"parent_setup": "variable.helmet_layer_visible = 0.0;",
+				"animate": [
+					{
+						"ears_wiggle": "query.is_moving"
+					},
+					{
+						"random_wiggle": "math.random(0, 1) < 0.01"
+					},
+					{
+						"default_position": 1
+					}
+				]
 			},
 			"render_controllers": [
 				"controller.render.armor"
-			]
+			],
+			"animations": {
+				"ears_wiggle": "animation.elf_armor.ears_wiggle",
+				"random_wiggle": "animation.elf_armor.random_wiggle",
+				"default_position": "animation.elf_armor.default_position"
+			}
 		}
 	}
 }

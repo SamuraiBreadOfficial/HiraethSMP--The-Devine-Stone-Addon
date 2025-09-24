@@ -1,0 +1,24 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.elf_armor.ears": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"animations": ["default_position"],
+					"transitions": [
+						{"walking": "q.ground_speed > 1.0"}
+					],
+					"blend_transition": 0.2
+				},
+				"walking": {
+					"animations": ["ears_wiggle"],
+					"transitions": [
+						{"idle": "q.ground_speed < 0.5"}
+					],
+					"blend_transition": 0.4
+				}
+			}
+		}
+	}
+}
