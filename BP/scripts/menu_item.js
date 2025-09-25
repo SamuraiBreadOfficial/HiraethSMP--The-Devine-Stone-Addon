@@ -509,15 +509,15 @@ system.beforeEvents.startup.subscribe((e) => {
                 ig_menu.show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
-                            factionmenu.show(source)
+                            factionmenu.show(source);
                             break;
 
                         case 1:
-                            playerinfo.show(source)
+                            playerinfo(source);
                             break;
 
                         case 2:
-                            settingsmenu_main(source)
+                            settingsmenu_main(source);
                             break;
 
                         case 3:
