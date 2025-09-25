@@ -41,5 +41,10 @@ world.afterEvents.itemUse.subscribe(e => {
             inv.setItem(slot, elfHelmet);
             console.warn("Set Helmet to Race Defined")
         });
+    };
+    if (p.hasTag('halforc') && i == "minecraft:leather_armor") {
+        system.run(() => {
+            p.sendMessage("§cThis Function is Not Yet Supported in Your Case. Please come back later!")
+        })
     }
 });
