@@ -25,6 +25,9 @@
 		},
 		"hsmp_elf_ears_boots": {
 			"textures": "textures/items/elf_ears_boots"
+		},
+		"hsmp_half_orc_fne": {
+			"textures": "textures/items/half_orc_fne"
 		}
 	}
 }

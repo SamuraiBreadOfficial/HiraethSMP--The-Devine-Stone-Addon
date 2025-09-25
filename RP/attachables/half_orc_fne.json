@@ -1,0 +1,23 @@
+{
+	"format_version": "1.21.80",
+	"minecraft:attachable": {
+		"description": {
+			"identifier": "hsmp:half_orc_fne",
+			"materials": {
+				"default": "entity_alphablend"
+			},
+			"textures": {
+				"default": "textures/entity/half_orc_head"
+			},
+			"geometry": {
+				"default": "geometry.half_orc"
+			},
+			"scripts": {
+				"pre_animation": []
+			},
+			"render_controllers": [
+				"controller.render.elf_ears"
+			]
+		}
+	}
+}
