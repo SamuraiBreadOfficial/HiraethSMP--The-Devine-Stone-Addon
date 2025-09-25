@@ -12,9 +12,7 @@
 			"geometry": {
 				"default": "geometry.half_orc"
 			},
-			"scripts": {
-				"pre_animation": []
-			},
+			"scripts": {},
 			"render_controllers": [
 				"controller.render.elf_ears"
 			]
