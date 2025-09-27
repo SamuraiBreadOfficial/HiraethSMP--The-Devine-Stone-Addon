@@ -10,6 +10,7 @@
 		"components": {
 			"minecraft:icon": "hsmp_hsmp_menu",
 			"minecraft:glint": true,
+			"minecraft:max_stack_size": 1,
 			"minecraft:can_destroy_in_creative": false,
 			"minecraft:display_name": {
 				"value": "§l§eHiraethSMP§r §qMain Menu§r"
