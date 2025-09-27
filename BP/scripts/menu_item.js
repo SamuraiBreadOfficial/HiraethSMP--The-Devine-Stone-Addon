@@ -454,7 +454,10 @@ system.beforeEvents.startup.subscribe((e) => {
             const halforcCustomizationMenu = new ActionFormData()
                 .title('WIP')
                 .body('Come back later. Currently Half Orc does not supports customalization')
-                .button('Ok')
+                .button('Pale Ears')
+                .button('Dark Ears')
+                .divider()
+                .button('Back')
 
             function playerinfo(source) {
                 showPlayerInfo(source).show(source).then((r) => {

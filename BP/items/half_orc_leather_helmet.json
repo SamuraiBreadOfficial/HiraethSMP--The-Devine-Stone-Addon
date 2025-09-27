@@ -1,5 +1,5 @@
 {
-	"format_version": "1.20.80",
+	"format_version": "1.21.80",
 	"minecraft:item": {
 		"description": {
 			"identifier": "hsmp:half_orc_leather_helmet",
@@ -21,8 +21,8 @@
 			"minecraft:durability": {
 				"max_durability": 244,
 				"damage_chance": {
-					"min": 0.5,
-					"max": 1
+					"min": 1,
+					"max": 5
 				}
 			},
 			"minecraft:repairable": {
@@ -42,7 +42,10 @@
 						"repair_amount": "math.random(10, 40)"
 					}
 				]
-			}
+			},
+			"minecraft:custom_components": [
+				"hsmp:helmet_use"
+			]
 		}
 	}
 }
