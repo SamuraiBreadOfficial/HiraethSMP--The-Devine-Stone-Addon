@@ -7,4 +7,4 @@ item.hsmp:elf_leather_armor_chestplate=Elf Leather Chestplate\n\n§3Elf Only Ite
 item.hsmp:elf_leather_armor_leggings=Elf Leather Leggings\n\n§3Elf Only Item!\n§cThis item is Eperimental and might not be in the final version!
 item.hsmp:elf_leather_armor_boots=Elf Leather Boots\n\n§3Elf Only Item!\n§cThis item is Eperimental and might not be in the final version!
 hsmp:system_items=§e§lHSMP System Items\n\n§cCREATIVE ONLY!
-item.hsmp:half_orc_fne=Half Orc Fangs And Ears§aHalf Orc Only Item!\n§cLocked in Helmet Slot unless holding an Half Orc helmet!
+item.hsmp:half_orc_fne=Half Orc Fangs And Ears\n\n§aHalf Orc Only Item!\n§cLocked in Helmet Slot unless holding an Half Orc helmet!

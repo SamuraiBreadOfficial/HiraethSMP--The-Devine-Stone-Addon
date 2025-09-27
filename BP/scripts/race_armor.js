@@ -1,13 +1,13 @@
 import { system, world, ItemStack } from "@minecraft/server";
 
-const p = e.source
-const elf = p.hasTag("elf")
-const halforc = p.hasTag('halforc')
-const human = p.hasTag('human')
-
 system.beforeEvents.startup.subscribe((e) => {
     e.itemComponentRegistry.registerCustomComponent('hsmp:helmet_use', {
         onUse(e) {
+            const p = e.source
+            const elf = p.hasTag("elf")
+            const halforc = p.hasTag('halforc')
+            const human = p.hasTag('human')
+
             if (elf) {
 
                 p.runCommand('clear @s hsmp:elf_ears')
