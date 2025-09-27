@@ -9,9 +9,11 @@ system.beforeEvents.startup.subscribe((e) => {
             const human = p.hasTag('human')
 
             if (elf) {
-
                 p.runCommand('clear @s hsmp:elf_ears')
                 p.runCommand('clear @s hsmp:dark_elf_ears')
+            }
+            if (halforc) {
+                p.runCommand('clear @s hsmp:half_orc_fne')
             }
         }
     })

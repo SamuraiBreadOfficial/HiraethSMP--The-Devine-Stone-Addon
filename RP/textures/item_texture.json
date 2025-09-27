@@ -28,6 +28,9 @@
 		},
 		"hsmp_half_orc_fne": {
 			"textures": "textures/items/half_orc_fne"
+		},
+		"hsmp_half_orc_leather_helmet": {
+			"textures": "textures/items/half_orc_leather_helmet"
 		}
 	}
 }
