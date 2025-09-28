@@ -31,6 +31,9 @@
 		},
 		"hsmp_half_orc_leather_helmet": {
 			"textures": "textures/items/half_orc_leather_helmet"
+		},
+		"hsmp_half_orc_iron_helmet": {
+			"textures": "textures/items/half_orc_iron_helmet"
 		}
 	}
 }

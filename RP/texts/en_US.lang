@@ -9,3 +9,4 @@ item.hsmp:elf_leather_armor_boots=Elf Leather Boots\n\n§3Elf Only Item!\n§cThi
 hsmp:system_items=§e§lHSMP System Items\n\n§cCREATIVE ONLY!
 item.hsmp:half_orc_fne=Half Orc Fangs And Ears\n\n§aHalf Orc Only Item!\n§cLocked in Helmet Slot unless holding an Half Orc helmet!
 item.hsmp:half_orc_leather_helmet=§a[HO]§r Leather Helmet\n\n§4This Item is Experimental and Might change in the future!
+item.hsmp:half_orc_iron_helmet=§a[ HO ]§r Iron Helmet\n\n§cThis item is Experimental and might change in the future!
