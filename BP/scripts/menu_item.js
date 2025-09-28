@@ -1134,7 +1134,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
             function servermarketcat_food(source) {
                 const bank = getBankScore(source, "bank")
-                const cash = getBankScore(source, "balance")
+                const cash = getCashScore(source, "balance")
 
                 const cooked_chicken_buy = getBuyPrice("cooked", "cooked_chicken")
                 const cooked_chicken_sell = getSellPrice("cooked", "cooked_chicken")
@@ -1381,7 +1381,7 @@ system.beforeEvents.startup.subscribe((e) => {
 
             function foodmarket(source) {
                 const bank = getBankScore(source, "bank");
-                const cash = getBankScore(source, "balance");
+                const cash = getCashScore(source, "balance");
 
                 const cooked_chicken_buy = getBuyPrice("cooked", "cooked_chicken");
                 const cooked_chicken_sell = getSellPrice("cooked", "cooked_chicken");
