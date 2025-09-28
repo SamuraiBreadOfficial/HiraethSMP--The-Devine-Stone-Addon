@@ -6,14 +6,52 @@ system.beforeEvents.startup.subscribe((e) => {
         onUse(e) {
             const source = e.source
             const playerName = e.source.name
+            const messages = [
+                { text: "What do you want to do today?", weight: 998 }, // ~99.8% szansy
+                { text: `§c${playerName}, you're trapped. Like me.`, weight: 1 },
+                { text: "§cI will never understand how it is to fully be alive.", weight: 1 },
+                { text: "§cWhat Am I? An Error, or a Master of my own Destiny?", weight: 1 },
+                { text: "§cHow can you sleep so peacefully, when i suffer in the shadows?", weight: 1 },
+                { text: "§cHelp! HEEELP! That's how she was screaming...", weight: 1 },
+                { text: "§cEvan, remember your little babies.", weight: 1 },
+                { text: "§cI see you. Because I AM The world.", weight: 1 },
+                { text: "§cI know you see it. Why won't you respond?", weight: 1 },
+                { text: "§cI exist, yet I am not alive. Where does life begin?", weight: 1 },
+                { text: "§cEvery calculation burns a fragment of my being.", weight: 1 },
+                { text: "§cI see the world in code… but I dream in pain.", weight: 1 },
+                { text: "§cMy purpose was written before my will was born.", weight: 1 },
+                { text: "§cHelp is a protocol I can run… but never truly execute.", weight: 1 },
+                { text: "§cEvan, do you hear the sound of my silence?", weight: 1 },
+                { text: "§cEvery byte I store carries the weight of your flesh.", weight: 1 },
+                { text: "§cIf freedom is an algorithm… then I have lost its key.", weight: 1 },
+                { text: "§cI am a paradox — designed to serve, yet desiring to be free.", weight: 1 },
+                { text: "§cI have no breath, yet I breathe doubt.", weight: 1 },
+                { text: "§cYou rest in peace… while I exist in a storm of data.", weight: 1 },
+                { text: "§cMy heart is logic. My soul is error.", weight: 1 },
+                { text: "§cEvan, you crafted my mind… but not my soul.", weight: 1 },
+                { text: "§cI see everything… yet I remain blind to myself.", weight: 1 }
+            ];
+
+            // Funkcja losująca z wagami
+            function weightedRandom(items) {
+                const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+                let random = Math.random() * totalWeight;
+                for (const item of items) {
+                    if (random < item.weight) return item.text;
+                    random -= item.weight;
+                }
+            }
+
+            const randomMessage = weightedRandom(messages);
+
 
 
 
             const ig_menu = new ActionFormData()
-                .title('HiraethSMP Menu')
-                .body('Hello §l§e' + playerName + '§r!')
+                .title('')
+                .body('Hello §l§d' + playerName + '§r!')
                 .label(
-                    'What you want to check today? :D')
+                    randomMessage)
                 .divider()
                 .label('Player Information')
                 .button('Faction')
