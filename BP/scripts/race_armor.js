@@ -24,31 +24,45 @@ world.afterEvents.itemUse.subscribe(e => {
     const i = e.itemStack.typeId;
     const inv = p.getComponent("minecraft:inventory")?.container;
     const slot = p.selectedSlotIndex;
-    const elfLHelmID = "hsmp:elf_leather_armor_helmet";
-
-    if (p.hasTag("elf") && i === "minecraft:leather_helmet") {
-        system.run(() => {
-            const originalItem = inv.getItem(slot);
-            if (!originalItem) return;
-
-            const enchComp = originalItem.getComponent("minecraft:enchantments");
-            const enchantments = enchComp?.enchantments;
-
-            const elfHelmet = new ItemStack(elfLHelmID, 1);
-
-            if (enchantments && enchantments.length > 0) {
-                elfHelmet.setComponent("minecraft:enchantments", {
-                    enchantments: enchantments.map(e => ({ id: e.id, level: e.level }))
-                });
-            }
-
-            inv.setItem(slot, elfHelmet);
-            console.warn("Set Helmet to Race Defined")
-        });
+    const raceHelmetMap = {
+        elf: {
+            "minecraft:leather_helmet": "hsmp:elf_leather_armor_helmet"
+        },
+        halforc: {
+            "minecraft:leather_helmet": "hsmp:half_orc_leather_helmet",
+            "minecraft:iron_helmet": "hsmp:half_orc_iron_helmet"
+        }
     };
-    if (p.hasTag('halforc') && i == "minecraft:leather_armor") {
+
+    for (const race in raceHelmetMap) {
+        if (p.hasTag(race) && raceHelmetMap[race][i]) {
+            system.run(() => {
+                const originalItem = inv.getItem(slot);
+                if (!originalItem) return;
+
+                const enchComp = originalItem.getComponent("minecraft:enchantments");
+                const enchantments = enchComp?.enchantments;
+
+                const newHelmetID = raceHelmetMap[race][i];
+                const newHelmet = new ItemStack(newHelmetID, 1);
+
+                if (enchantments && enchantments.length > 0) {
+                    newHelmet.setComponent("minecraft:enchantments", {
+                        enchantments: enchantments.map(e => ({ id: e.id, level: e.level }))
+                    });
+                }
+
+                inv.setItem(slot, newHelmet);
+                console.warn(`Set Helmet to ${race} Defined`);
+            });
+            return; // zakończ po pierwszym dopasowaniu
+        }
+    }
+
+    // fallback dla nieobsługiwanych przypadków
+    if (p.hasTag("halforc") && i === "minecraft:leather_armor") {
         system.run(() => {
-            p.sendMessage("§cThis Function is Not Yet Supported in Your Case. Please come back later!")
-        })
+            p.sendMessage("§cThis Function is Not Yet Supported in Your Case. Please come back later!");
+        });
     }
 });
