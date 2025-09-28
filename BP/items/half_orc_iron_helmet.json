@@ -42,6 +42,7 @@
 					}
 				]
 			},
+			"minecraft:interact_button": true,
 			"minecraft:custom_components": [
 				"hsmp:helmet_use"
 			]
