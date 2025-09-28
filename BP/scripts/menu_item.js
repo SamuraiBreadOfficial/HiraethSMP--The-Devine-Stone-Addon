@@ -321,7 +321,7 @@ system.beforeEvents.startup.subscribe((e) => {
             }
 
             function changesettings_scare(source) {
-                const scare = getSettingsJumpscareToogle
+                const scare = getSettingsJumpscareToogle(source)
 
                 return new ActionFormData()
                     .title('Change Music Volume')
