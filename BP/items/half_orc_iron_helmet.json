@@ -1,5 +1,5 @@
 {
-	"format_version": "1.20.80",
+	"format_version": "1.21.80",
 	"minecraft:item": {
 		"description": {
 			"identifier": "hsmp:half_orc_iron_helmet",
@@ -8,7 +8,43 @@
 			}
 		},
 		"components": {
-			"minecraft:icon": "hsmp_half_orc_iron_helmet"
+			"minecraft:icon": "hsmp_half_orc_iron_helmet",
+			"minecraft:wearable": {
+				"protection": 2,
+				"slot": "slot.armor.head"
+			},
+			"minecraft:enchantable": {
+				"slot": "armor_head",
+				"value": 16
+			},
+			"minecraft:durability": {
+				"max_durability": 165,
+				"damage_chance": {
+					"max": 1,
+					"min": 0
+				}
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:repairable": {
+				"repair_items": [
+					{
+						"items": [
+							"iron_helmet",
+							"hsmp:half_orc_iron_helmet"
+						],
+						"repair_amount": "context.other->query.remaining_durability + 0.12 * context.other->query.max_durability"
+					},
+					{
+						"items": [
+							"iron_ingot"
+						],
+						"repair_amount": "math.random(10, 50) + 0.12"
+					}
+				]
+			},
+			"minecraft:custom_components": [
+				"hsmp:helmet_use"
+			]
 		}
 	}
 }
