@@ -30,7 +30,9 @@ world.afterEvents.itemUse.subscribe(e => {
         },
         halforc: {
             "minecraft:leather_helmet": "hsmp:half_orc_leather_helmet",
-            "minecraft:iron_helmet": "hsmp:half_orc_iron_helmet"
+            "minecraft:iron_helmet": "hsmp:half_orc_iron_helmet",
+            "minecaft:chain_helmet": "hsmp:half_orc_chain_helmet",
+            'minecraft:golden_helmet': "hsmp:half_orc_gold_helmet"
         }
     };
 
