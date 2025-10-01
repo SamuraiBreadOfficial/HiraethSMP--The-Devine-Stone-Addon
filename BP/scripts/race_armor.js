@@ -63,7 +63,7 @@ world.afterEvents.itemUse.subscribe(e => {
     }
 
     // fallback dla nieobsługiwanych przypadków
-    if (p.hasTag('halforc') || p.hasTag('elf') && i == "minecraft:netherite_helmet") {
+    if (p.hasTag('halforc') && i == "minecraft:netherite_helmet") {
         p.sendMessage('This is not supported in this version of the addon.')
     }
 });

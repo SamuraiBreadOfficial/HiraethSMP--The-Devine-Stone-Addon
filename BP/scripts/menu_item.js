@@ -73,6 +73,26 @@ system.beforeEvents.startup.subscribe((e) => {
                 if (source.hasTag('nature')) return `Nature's Blessing`;
             }
 
+            function getRaceMTypeInfo(source) {
+                if (source.hasTag('human'))
+                    return `Human: Starts with 20 Mana Points.`;
+
+                if (source.hasTag('elf'))
+                    return `Elf: 
+- Starting Mana: 40 (normal: 20) 
+- Normal spells: cost 5 Mana 
+- Heavy spells: cost 10–15 Mana 
+- Can access "Heavy Magic": may consume 30+ Mana`;
+
+                if (source.hasTag('halforc'))
+                    return `Half-Orc: 
+- Starting Mana: 10 (normal: 20) 
+- Normal spells: cost 5 Mana 
+- Heavy spells: cost 10–15 Mana 
+- Cannot use heavy magic skills unless under a Mana Boost effect`;
+            }
+
+
             function getFactionName(source) {
                 if (source.hasTag('moonset_faction')) return '§b§lMoonset§r';
                 if (source.hasTag('stargaze_faction')) return '§l§9Stargaze§r';
@@ -555,9 +575,6 @@ system.beforeEvents.startup.subscribe((e) => {
             //Main Menu Buttons
             function open_igmenu(source) {
                 const factionmenu = createPlayerFactionMenu(source)
-                const magicMap = [
-                    'fire', 'air', 'soil', 'nature'
-                ]
 
                 ig_menu.show(source).then((r) => {
                     switch (r.selection) {
@@ -582,21 +599,49 @@ system.beforeEvents.startup.subscribe((e) => {
                             break;
 
                         case 5:
-                            if (source.hasTag(magicMap)) {
+                            if (source.hasTag('mage')) {
                                 source.sendMessage('You already chose your magic.')
                                 break;
                             }
                             else {
                                 //Tutaj funkcja otwierania okna naszej magii.
-                            }
-
-                            break;
+                                selectionMagicWindow(source)
+                                break;
+                            };
 
 
                         default:
                             break;
                     }
                 })
+            }
+
+            function newMagicWindow(source) {
+                const race = getRace(source);
+                const raceMInfo = getRaceMTypeInfo(source);
+
+                return new ActionFormData()
+                    .title('')
+                    .body('Work in Progress')
+                    .header('Choose your magic.')
+                    .label(`Your race (${race}§r) allows you to use magic.` + `\nImportant:\n\n${raceMInfo}
+
+Warning! You will not be able to unlock Race Special Skills!`)
+                    .button('Proceed')
+                    .button('Cancel')
+            }
+
+            function selectionMagicWindow(source) {
+                newMagicWindow(source).show(source).then(r => {
+                    switch (r.selection) {
+                        case 0:
+                            source.sendMessage('< HSMP System > §7§oThis is not yet supported in this version. Ask SamuraiBread via Discord to get more info :)')
+                            break;
+
+                        default:
+                            break;
+                    }
+                });
             }
 
             //Economy Part
@@ -4226,8 +4271,6 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 })
             }
-
-            function registerMagic
 
 
             open_igmenu(source);
