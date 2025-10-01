@@ -31,8 +31,9 @@ world.afterEvents.itemUse.subscribe(e => {
         halforc: {
             "minecraft:leather_helmet": "hsmp:half_orc_leather_helmet",
             "minecraft:iron_helmet": "hsmp:half_orc_iron_helmet",
-            "minecaft:chain_helmet": "hsmp:half_orc_chain_helmet",
-            'minecraft:golden_helmet': "hsmp:half_orc_gold_helmet"
+            "minecaft:chainmail_helmet": "hsmp:half_orc_chain_helmet",
+            'minecraft:golden_helmet': "hsmp:half_orc_gold_helmet",
+            "minecraft:diamond_helmet": "hsmp:half_orc_diamond_helmet"
         }
     };
 
@@ -62,9 +63,7 @@ world.afterEvents.itemUse.subscribe(e => {
     }
 
     // fallback dla nieobsługiwanych przypadków
-    if (p.hasTag("halforc") && i === "minecraft:leather_armor") {
-        system.run(() => {
-            p.sendMessage("§cThis Function is Not Yet Supported in Your Case. Please come back later!");
-        });
+    if (p.hasTag('halforc') || p.hasTag('elf') && i == "minecraft:netherite_helmet") {
+        p.sendMessage('This is not supported in this version of the addon.')
     }
 });
