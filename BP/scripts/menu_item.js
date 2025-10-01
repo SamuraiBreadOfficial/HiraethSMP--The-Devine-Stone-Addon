@@ -63,7 +63,15 @@ system.beforeEvents.startup.subscribe((e) => {
                 .label('Economy')
                 .button('Your Balance')
                 .button('Server Market')
-                .button('Player Market')
+                .divider()
+                .button('Become a Mage')
+
+            function getMagicType(source) {
+                if (source.hasTag('fire')) return 'Dance Of The Flames';
+                if (source.hasTag('air')) return `Breath of The Titan`;
+                if (source.hasTag(`soil`)) return `Touch of the Soil`;
+                if (source.hasTag('nature')) return `Nature's Blessing`;
+            }
 
             function getFactionName(source) {
                 if (source.hasTag('moonset_faction')) return '§b§lMoonset§r';
@@ -544,9 +552,13 @@ system.beforeEvents.startup.subscribe((e) => {
                 })
 
             }
-
+            //Main Menu Buttons
             function open_igmenu(source) {
                 const factionmenu = createPlayerFactionMenu(source)
+                const magicMap = [
+                    'fire', 'air', 'soil', 'nature'
+                ]
+
                 ig_menu.show(source).then((r) => {
                     switch (r.selection) {
                         case 0:
@@ -567,6 +579,17 @@ system.beforeEvents.startup.subscribe((e) => {
 
                         case 4:
                             servermarket_menu(source);
+                            break;
+
+                        case 5:
+                            if (source.hasTag(magicMap)) {
+                                source.sendMessage('You already chose your magic.')
+                                break;
+                            }
+                            else {
+                                //Tutaj funkcja otwierania okna naszej magii.
+                            }
+
                             break;
 
 
@@ -4203,6 +4226,8 @@ system.beforeEvents.startup.subscribe((e) => {
                     }
                 })
             }
+
+            function registerMagic
 
 
             open_igmenu(source);
