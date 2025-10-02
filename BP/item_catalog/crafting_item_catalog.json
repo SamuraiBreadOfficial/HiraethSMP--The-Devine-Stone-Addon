@@ -20,14 +20,17 @@
                     },
                     {
                         "group_identifier": {
-                            "name": "hsmp:elf_armor",
-                            "icon": "hsmp:elf_leather_armor_helmet"
+                            "name": "hsmp:race_defined_helmets",
+                            "icon": "hsmp:half_orc_diamond_helmet"
                         },
                         "items": [
-                            "hsmp:elf_leather_armor_helmet",
-                            "hsmp:elf_leather_armor_chestplate",
-                            "hsmp:elf_leather_armor_leggings",
-                            "hsmp:elf_leather_armor_boots"
+                            "hsmp:half_orc_diamond_helmet",
+                            "hsmp:half_orc_gold_helmet",
+                            "hsmp:half_orc_iron_helmet",
+                            "hsmp:half_orc_leather_helmet",
+                            "hsmp:elf_gold_helmet",
+                            "hsmp:elf_iron_helmet",
+                            "hsmp:elf_leather_helmet"
                         ]
                     }
                 ]

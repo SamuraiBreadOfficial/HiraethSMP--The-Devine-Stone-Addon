@@ -8,7 +8,7 @@
 			}
 		},
 		"components": {
-			"minecraft:icon": "hsmp_half_orc_iron_helmet",
+			"minecraft:icon": "hsmp:ho_iron_helmet",
 			"minecraft:wearable": {
 				"protection": 2,
 				"slot": "slot.armor.head"

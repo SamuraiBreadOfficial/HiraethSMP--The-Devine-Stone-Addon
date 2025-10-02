@@ -2,26 +2,29 @@
 	"resource_pack_name": "The Devine Stone",
 	"texture_name": "atlas.items",
 	"texture_data": {
-		"hsmp_hsmp_menu": {
+		"hsmp:hsmp_menu": {
 			"textures": "textures/items/menu_item"
 		},
-		"hsmp_leather_with_pale_ears_helmet": {
-			"textures": "textures/items/leather_with_pale_ears_helmet"
+		"hsmp:elf_leather_helmet": {
+			"textures": "textures/items/leather_helmet"
 		},
-		"hsmp_elf_leather_armor_helmet": {
-			"textures": "textures/items/elf_leather_armor_helmet"
+		"hsmp:elf_iron_helmet": {
+			"textures": "textures/items/iron_helmet"
 		},
-		"hsmp_elf_ears_helmet": {
-			"textures": "textures/items/elf_ears_helmet"
+		"hsmp:elf_golden_helmet": {
+			"textures": "textures/items/gold_helmet"
 		},
-		"hsmp_half_orc_fne": {
-			"textures": "textures/items/half_orc_fne"
+		"hsmp:ho_leather_helmet": {
+			"textures": "textures/items/leather_helmet"
 		},
-		"hsmp_half_orc_leather_helmet": {
-			"textures": "textures/items/half_orc_leather_helmet"
+		"hsmp:ho_iron_helmet": {
+			"textures": "textures/items/iron_helmet"
 		},
-		"hsmp_half_orc_iron_helmet": {
-			"textures": "textures/items/half_orc_iron_helmet"
+		"hsmp:ho_gold_helmet": {
+			"textures": "textures/items/gold_helmet"
+		},
+		"hsmp:ho_diamond_helmet": {
+			"textures": "textures/items/diamond_helmet"
 		}
 	}
 }

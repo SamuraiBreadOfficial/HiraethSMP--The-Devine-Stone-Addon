@@ -8,7 +8,7 @@
 			}
 		},
 		"components": {
-			"minecraft:icon": "hsmp_half_orc_iron_helmet",
+			"minecraft:icon": "hsmp:ho_diamond_helmet",
 			"minecraft:wearable": {
 				"protection": 3,
 				"slot": "slot.armor.head"
@@ -29,14 +29,14 @@
 				"repair_items": [
 					{
 						"items": [
-							"iron_helmet",
-							"hsmp:half_orc_iron_helmet"
+							"minecraft:diamond_helmet",
+							"hsmp:half_orc_diamond_helmet"
 						],
 						"repair_amount": "context.other->query.remaining_durability + 0.12 * context.other->query.max_durability"
 					},
 					{
 						"items": [
-							"iron_ingot"
+							"minecraft:diamond"
 						],
 						"repair_amount": "math.random(10, 50) + 0.12"
 					}

@@ -8,7 +8,7 @@
 			}
 		},
 		"components": {
-			"minecraft:icon": "hsmp_half_orc_iron_helmet",
+			"minecraft:icon": "hsmp:ho_gold_helmet",
 			"minecraft:wearable": {
 				"protection": 2,
 				"slot": "slot.armor.head"
@@ -37,7 +37,7 @@
 					},
 					{
 						"items": [
-							"iron_ingot"
+							"gold_ingot"
 						],
 						"repair_amount": "math.random(10, 50) + 0.12"
 					}

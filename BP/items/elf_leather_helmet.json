@@ -20,7 +20,7 @@
 					"max": 100
 				}
 			},
-			"minecraft:icon": "hsmp_elf_leather_armor_helmet",
+			"minecraft:icon": "hsmp:elf_leather_helmet",
 			"minecraft:wearable": {
 				"slot": "slot.armor.head",
 				"protection": 2
@@ -29,13 +29,15 @@
 				"repair_items": [
 					{
 						"items": [
-							"minecraft:iron_ingot"
+							"minecraft:leather"
 						],
 						"repair_amount": "query.max_durability * 0.25"
 					},
 					{
 						"items": [
-							"hsmp:elf_leather_armor_helmet"
+							"hsmp:elf_leather_helmet",
+							"hsmp:half_orc_leather_helmet",
+							"minecraft:leather_helmet"
 						],
 						"repair_amount": "context.other->query.remaining_durability + 0.12 * context.other->query.max_durability"
 					}
