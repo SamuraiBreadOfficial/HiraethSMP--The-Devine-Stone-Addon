@@ -6,7 +6,7 @@ execute as @a[tag=init_join] run scoreboard players add @s bank 0
 
 execute at @a[tag=init_join] run structure load mystructure:main_menu_v2 9990 110 9990
 
-execute as @a[tag=init_join] run tp @s 10009 115 10002.55 facing 10012.00 111.11 10002.55 
+execute as @a[tag=init_join] run tp @s 10009 125 10002.55 facing 10012.00 111.11 10002.55 
 execute at @a[tag=init_join] run kill @e[type=armor_stand, r=200]
 execute at @a[tag=init_join] run kill @e[type=item, r=200]
 
