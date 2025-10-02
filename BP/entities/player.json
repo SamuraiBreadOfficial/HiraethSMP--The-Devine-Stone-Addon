@@ -1,5 +1,5 @@
 {
-	"format_version": "1.21.0",
+	"format_version": "1.21.90",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "minecraft:player",
@@ -129,21 +129,23 @@
 				"days_until_insomnia": 3
 			},
 			"minecraft:rideable": {
-				"seat_count": 2,
+				"seat_count": 3,
 				"family_types": [
-					"parrot_tame"
+					"parrot_tame",
+					"player",
+					"armor_stand"
 				],
 				"pull_in_entities": true,
 				"seats": [
 					{
 						"position": [
-							0.4,
-							-0.2,
-							-0.1
+							0,
+							0,
+							0
 						],
 						"min_rider_count": 0,
 						"max_rider_count": 0,
-						"lock_rider_rotation": 0
+						"camera_relax_distance_smoothing": 1
 					},
 					{
 						"position": [
@@ -152,6 +154,16 @@
 							-0.1
 						],
 						"min_rider_count": 1,
+						"max_rider_count": 1,
+						"lock_rider_rotation": 0
+					},
+					{
+						"position": [
+							0.4,
+							-0.2,
+							0.1
+						],
+						"min_rider_count": 2,
 						"max_rider_count": 2,
 						"lock_rider_rotation": 0
 					}
