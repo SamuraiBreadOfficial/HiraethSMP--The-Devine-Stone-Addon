@@ -478,6 +478,13 @@ system.beforeEvents.startup.subscribe((e) => {
                 return 'Error Found: No race detected. Contact SamuraiBread.';
             }
 
+            function getScoreForBalance(source) {
+                const bank = getBankScore(source, 'bank');
+                const cash = getCashScore(source, "balance");
+                return cash + bank;
+
+            }
+
 
             function getCashScore(source, objectiveName) {
                 const objective = world.scoreboard.getObjective(objectiveName);
@@ -803,6 +810,7 @@ Warning! You will not be able to unlock Race Special Skills!`)
             function economy_BalanceInfo(source) {
                 const cash = getCashScore(source, "balance")
                 const bank = getBankScore(source, "bank")
+                const bal = getScoreForBalance(source)
 
                 return new ActionFormData()
                     .title('§l§e' + playerName + '\'s§r Balance')
@@ -811,6 +819,7 @@ Warning! You will not be able to unlock Race Special Skills!`)
                     .header('Balance')
                     .label('Cash: ' + cash)
                     .label('Bank: ' + bank)
+                    .label('Full Balance: ' + bal)
                     .divider()
                     .header('Bank Control')
                     .button('Deposit Amount')
