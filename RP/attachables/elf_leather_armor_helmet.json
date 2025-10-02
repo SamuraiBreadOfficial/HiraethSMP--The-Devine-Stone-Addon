@@ -9,7 +9,7 @@
 				"enchanted": "armor_enchanted"
 			},
 			"textures": {
-				"default": "textures/models/armor/elf_leather_armor",
+				"default": "textures/models/armor/leather_elf",
 				"enchanted": "textures/misc/enchanted_item_glint"
 			},
 			"geometry": {
