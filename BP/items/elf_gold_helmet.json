@@ -1,8 +1,8 @@
 {
-	"format_version": "1.21.80",
+	"format_version": "1.21.90",
 	"minecraft:item": {
 		"description": {
-			"identifier": "hsmp:elf_iron_helmet",
+			"identifier": "hsmp:elf_gold_helmet",
 			"menu_category": {
 				"category": "equipment"
 			}
@@ -41,9 +41,7 @@
 					}
 				]
 			},
-			"minecraft:custom_components": [
-				"hsmp:helmet_use"
-			]
+			"hsmp:helmet_use": {}
 		}
 	}
 }

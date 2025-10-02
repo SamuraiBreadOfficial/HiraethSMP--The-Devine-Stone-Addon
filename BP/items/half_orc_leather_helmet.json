@@ -1,5 +1,5 @@
 {
-	"format_version": "1.21.80",
+	"format_version": "1.21.90",
 	"minecraft:item": {
 		"description": {
 			"identifier": "hsmp:half_orc_leather_helmet",
@@ -11,18 +11,18 @@
 			"minecraft:icon": "hsmp_half_orc_leather_helmet",
 			"minecraft:max_stack_size": 1,
 			"minecraft:wearable": {
-				"protection": 2,
+				"protection": 1,
 				"slot": "slot.armor.head"
 			},
 			"minecraft:enchantable": {
 				"slot": "armor_head",
-				"value": 14
+				"value": 15
 			},
 			"minecraft:durability": {
-				"max_durability": 244,
+				"max_durability": 56,
 				"damage_chance": {
 					"min": 1,
-					"max": 5
+					"max": 1
 				}
 			},
 			"minecraft:repairable": {
@@ -44,9 +44,7 @@
 				]
 			},
 			"minecraft:interact_button": true,
-			"minecraft:custom_components": [
-				"hsmp:helmet_use"
-			]
+			"hsmp:helmet_use": {}
 		}
 	}
 }

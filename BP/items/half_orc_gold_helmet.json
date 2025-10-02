@@ -1,5 +1,5 @@
 {
-	"format_version": "1.21.80",
+	"format_version": "1.21.90",
 	"minecraft:item": {
 		"description": {
 			"identifier": "hsmp:half_orc_gold_helmet",
@@ -15,13 +15,13 @@
 			},
 			"minecraft:enchantable": {
 				"slot": "armor_head",
-				"value": 16
+				"value": 25
 			},
 			"minecraft:durability": {
-				"max_durability": 165,
+				"max_durability": 78,
 				"damage_chance": {
 					"max": 1,
-					"min": 0
+					"min": 1
 				}
 			},
 			"minecraft:max_stack_size": 1,
@@ -29,8 +29,9 @@
 				"repair_items": [
 					{
 						"items": [
-							"iron_helmet",
-							"hsmp:half_orc_iron_helmet"
+							"minecraft:golden_helmet",
+							"hsmp:half_orc_gold_helmet",
+							"hsmp:elf_gold_helmet"
 						],
 						"repair_amount": "context.other->query.remaining_durability + 0.12 * context.other->query.max_durability"
 					},
@@ -43,9 +44,7 @@
 				]
 			},
 			"minecraft:interact_button": true,
-			"minecraft:custom_components": [
-				"hsmp:helmet_use"
-			]
+			"hsmp:helmet_use": {}
 		}
 	}
 }

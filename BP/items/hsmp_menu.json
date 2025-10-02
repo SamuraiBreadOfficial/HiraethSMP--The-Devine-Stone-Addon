@@ -1,5 +1,5 @@
 {
-	"format_version": "1.21.80",
+	"format_version": "1.21.90",
 	"minecraft:item": {
 		"description": {
 			"identifier": "hsmp:hsmp_menu",
@@ -16,9 +16,7 @@
 				"value": "§l§eHiraethSMP§r §qMain Menu§r"
 			},
 			"minecraft:interact_button": true,
-			"minecraft:custom_components": [
-				"hsmp:ig_menu"
-			]
+			"hsmp:ig_menu": {}
 		}
 	}
 }
