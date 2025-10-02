@@ -518,12 +518,14 @@ system.beforeEvents.startup.subscribe((e) => {
                 .button("Back");
 
             const halforcCustomizationMenu = new ActionFormData()
-                .title('WIP')
-                .body('Come back later. Currently Half Orc does not supports customalization')
-                .button('Pale Ears')
-                .button('Dark Ears')
+                .title('Race Appearance / Half-Orc')
+                .body('Work In Progress...')
+                .header('Change your appearance')
+                .label(`Here, you will be able to change your ear colour, type of wings or horns.
+                
+§c:solid_star: This feauture is not yet supported by §e§lHalf-Orc§r§c. Please come back later.`)
                 .divider()
-                .button('Back')
+                .button('Close')
 
             function playerinfo(source) {
                 showPlayerInfo(source).show(source).then((r) => {
