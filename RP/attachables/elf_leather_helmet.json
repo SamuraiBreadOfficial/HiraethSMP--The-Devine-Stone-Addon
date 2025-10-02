@@ -2,7 +2,7 @@
 	"format_version": "1.21.80",
 	"minecraft:attachable": {
 		"description": {
-			"identifier": "hsmp:elf_leather_armor_helmet",
+			"identifier": "hsmp:elf_leather_helmet",
 			"materials": {
 				"default": "armor",
 				"ears": "entity",
