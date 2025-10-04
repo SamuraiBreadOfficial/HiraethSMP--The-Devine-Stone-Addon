@@ -25,6 +25,9 @@
 		},
 		"hsmp:ho_diamond_helmet": {
 			"textures": "textures/items/diamond_helmet"
+		},
+		"hsmp_spell_book": {
+			"textures": "textures/items/spell_book"
 		}
 	}
 }
