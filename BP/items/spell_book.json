@@ -1,0 +1,15 @@
+{
+	"format_version": "1.21.90",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hsmp:spell_book",
+			"menu_category": {
+				"category": "nature"
+			}
+		},
+		"components": {
+			"minecraft:icon": "hsmp_spell_book",
+			"hsmp:spell_book": {}
+		}
+	}
+}
