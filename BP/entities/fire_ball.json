@@ -1,0 +1,46 @@
+{
+	"format_version": "1.21.90",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "hsmp:fire_ball",
+			"is_summonable": true,
+			"is_spawnable": true
+		},
+		"component_groups": {},
+		"components": {
+			"minecraft:projectile": {
+				"catch_fire": true,
+				"is_dangerous": true,
+				"destroy_on_hurt": false,
+				"on_hit": {
+					"event": "explode"
+				},
+				"power": 1.3,
+				"gravity": 0.05
+			},
+			"minecraft:collision_box": {
+				"height": 1,
+				"width": 1
+			},
+			"minecraft:physics": {
+				"has_gravity": false,
+				"has_collision": true,
+				"push_towards_closest_space": false
+			},
+			"minecraft:movement": {
+				"value": 0.5
+			},
+			"minecraft:pushable": {
+				"is_pushable": true
+			},
+			"minecraft:explode": {}
+		}
+	},
+	"events": {
+		"hsmp:explode": {
+			"run_command": {
+				"command": "summon tnt ~ ~ ~"
+			}
+		}
+	}
+}
