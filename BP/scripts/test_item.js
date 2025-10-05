@@ -94,6 +94,35 @@ Your permission level: ${perm}`)
                         .button(`Silent TP`)
                         .button(`Vanish`)
                         .button(`Fake Leave`)
+                        .button(`Owner Actions`)
+
+                        .show(source).then(r => {
+                            switch (r.selection) {
+                                case 0:
+                                    log_menu(source).show(source)
+                                    break;
+                            }
+                        })
+
+                }
+                owner_menu(source)
+            }
+
+            if (ifAdmin && menuPerm) {
+                function admin_menu(source) {
+                    const perm = getPermission(source);
+                    return new ActionFormData()
+                        .title(`${perm} Menu`)
+                        .body(`WIP You sucko!`)
+                        .header(`${perm} Menu`)
+                        .label(`Welcome ${pName}!
+Your permission level: ${perm}`)
+                        .button(`Logs`)
+                        .button('Actions')
+                        .button(`Silent TP`)
+                        .button(`Vanish`)
+                        .button(`Fake Leave`)
+                        .button(`Owner Actions`)
 
                         .show(source).then(r => {
                             switch (r.selection) {
@@ -103,22 +132,27 @@ Your permission level: ${perm}`)
                             }
                         })
                 }
-
-                function log_menu(source) {
-                    return new ActionFormData()
-                        .title('Logs')
-                        .body(`WIP`)
-                        .button('Clear logs')
-                        .button('Back')
-                        .header('Logs')
-                        .label(
-                            `Last 5 Logs:\n\n${logBuffer.slice(-5).reverse().join('\n\n')}`
-                        )
-                        .label(`Antigrief last 20 Logs:\n${antiGrief.slice(-20).reverse().join('\n')}`)
-                }
-
-                owner_menu(source)
+                admin_menu(source)
             }
+
+
+            function log_menu(source) {
+                return new ActionFormData()
+                    .title('Logs')
+                    .body(`WIP`)
+                    .button('Clear logs')
+                    .button('Back')
+                    .header('Logs')
+                    .label(
+                        `Last 5 Logs:\n\n${logBuffer.slice(-5).reverse().join('\n\n')}`
+                    )
+                    .label(`Antigrief last 20 Logs:\n${antiGrief.slice(-20).reverse().join('\n')}`)
+            }
+
+
         }
+
+
     })
+
 })
