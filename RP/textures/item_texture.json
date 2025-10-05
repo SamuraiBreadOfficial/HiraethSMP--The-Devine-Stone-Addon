@@ -28,6 +28,9 @@
 		},
 		"hsmp_spell_book": {
 			"textures": "textures/items/spell_book"
+		},
+		"hsmp_test_item": {
+			"textures": "textures/items/test_item"
 		}
 	}
 }
