@@ -6,7 +6,7 @@
 		],
 		"generated_with": {
 			"bridge": [
-				"2.7.50"
+				"2.7.51"
 			],
 			"dash": [
 				"0.11.7"
@@ -66,6 +66,14 @@
 		{
 			"module_name": "@minecraft/server-ui",
 			"version": "2.0.0"
+		},
+		{
+			"module_name": "@minecraft/server-gametest",
+			"version": "1.0.0-beta"
+		},
+		{
+			"module_name": "@minecraft/common",
+			"version": "1.0.0"
 		}
 	]
 }
