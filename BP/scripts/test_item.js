@@ -4,7 +4,28 @@ import { ActionFormData } from "@minecraft/server-ui";
 const logBuffer = []
 const antiGrief = []
 
+function saveLogs() {
+    world.setDynamicProperty("logBuffer", JSON.stringify(logBuffer));
+    world.setDynamicProperty('antiGrief', JSON.stringify(antiGrief));
+}
+
+function loadLogs() {
+    const savedlogBuffer = world.getDynamicProperty("logBuffer");
+    const savedAntiGrief = world.getDynamicProperty('antiGrief');
+
+    logBuffer.length = 0; // czyści tablicę
+    antiGrief.length = 0;
+
+    if (typeof savedlogBuffer == "string") {
+        logBuffer.push(...JSON.parse(savedlogBuffer));
+    }
+    if (typeof savedAntiGrief == "string") {
+        antiGrief.push(...JSON.parse(savedAntiGrief));
+    }
+}
+
 world.afterEvents.blockExplode.subscribe(e => {
+    loadLogs()
     const block = e.block;
 
     const x = block.location.x;
@@ -14,7 +35,9 @@ world.afterEvents.blockExplode.subscribe(e => {
     const timestampt = new Date().toLocaleTimeString();
     const logEntry = `§4[ ANTIGRIEF ] §c< ${timestampt} > Explosion §e${block.typeId} §mat §2${x} §e${y} §m${z}.`
 
+
     antiGrief.push(logEntry)
+    saveLogs()
 
     console.warn(logEntry)
 })
@@ -33,6 +56,7 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
         const logEntry = `§4[ ANTIGRIEF ] §c< ${timestampt} > ${pName}§r placed an TNT on  §2X: ${x} §eY: ${y} §mZ: ${z}`
 
         logBuffer.push(logEntry)
+        saveLogs();
 
         console.warn(logEntry)
 
@@ -42,9 +66,11 @@ world.afterEvents.playerPlaceBlock.subscribe(e => {
 })
 
 system.beforeEvents.startup.subscribe(e => {
+
     e.itemComponentRegistry.registerCustomComponent('hsmp:testing_menu', {
 
         onUse: e => {
+            loadLogs()
             const source = e.source
             const i = e.itemStack.typeId
             const pName = e.source.nameTag
@@ -74,6 +100,7 @@ system.beforeEvents.startup.subscribe(e => {
 Indentify from where did he got the item, and clear his inventory to avoid the use of the item again!`;
 
                 logBuffer.push(logEntry)
+                saveLogs()
 
                 source.sendMessage(`You don't have a permission to use this item!
 Online Admins have been notified. To avoid getting banned, please stay on the server.`)

@@ -31,6 +31,9 @@
 		},
 		"hsmp_test_item": {
 			"textures": "textures/items/test_item"
+		},
+		"hsmp_admin_tool": {
+			"textures": "textures/items/admin_tool"
 		}
 	}
 }
