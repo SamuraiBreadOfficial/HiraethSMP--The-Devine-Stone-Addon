@@ -1,30 +1,7 @@
 import { world, system } from "@minecraft/server"
 import { ActionFormData } from "@minecraft/server-ui"
 
-import { logBuffer, loadLogs, saveLogs, antiGriefBuffer } from "../index.js"
-
-const isOwner = [
-    "SamuraiBreadI"
-]
-// --| Admins |--
-
-const adminList = [
-    "Shadowthew0lf5", "FatalCurse3858"
-]
-
-// --| Mods |--
-
-const modList = [
-    "tammyterrence1"
-]
-
-// --| Perms |--
-
-const adminMenuPerm = [
-    "Shadowthew0lf5", "FatalCurse3858", "tammyterrence1", "SamuraiBreadI"
-]
-
-
+import { logBuffer, loadLogs, saveLogs, antiGriefBuffer, isOwner, adminList, adminMenuPerm, modList } from "../index.js"
 
 // Admin Menu
 system.beforeEvents.startup.subscribe(ev => {
@@ -61,6 +38,8 @@ system.beforeEvents.startup.subscribe(ev => {
 
                 // Push Logs
                 console.warn(logEntry);
+                logBuffer.push(logEntry);
+                saveLogs();
             }
             if (menuperm && owner) {
                 return new ActionFormData()
