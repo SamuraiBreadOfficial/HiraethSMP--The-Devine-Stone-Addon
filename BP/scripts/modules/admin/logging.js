@@ -31,6 +31,14 @@ export function loadLogs() {
     }
 }
 
+export function clearLogs() {
+    world.setDynamicProperty('logBuffer', JSON.stringify([]));
+    world.setDynamicProperty('antiGriefBuffer', JSON.stringify([]));
+
+    logBuffer.length = 0;
+    antiGriefBuffer.length = 0;
+}
+
 // Explosion Logs
 world.afterEvents.blockExplode.subscribe(ev => {
     // Register Exploded Block
