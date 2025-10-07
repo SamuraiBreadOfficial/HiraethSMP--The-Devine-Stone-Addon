@@ -10,7 +10,7 @@ export const adminList = [
 // --| Mods |--
 
 export const modList = [
-    "tammyterrence1"
+    "tammyterrence1", "DR0WWSY"
 ]
 
 // --| Perms |--
