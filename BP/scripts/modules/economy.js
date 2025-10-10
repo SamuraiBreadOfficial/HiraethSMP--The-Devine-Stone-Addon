@@ -309,6 +309,8 @@ export const sellFoodPrice = {
 
 }
 
-export function getBuyPrice(itemID) {
-
+export function getBuyPrice(itemId) {
+    for (const category of Object.values(buyFoodPrice)) {
+        if (itemId in category.items)
+    }
 }
