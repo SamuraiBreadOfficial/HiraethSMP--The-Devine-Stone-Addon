@@ -13,7 +13,7 @@
 				"value": 9,
 				"slot": "armor_head"
 			},
-			"minecraft:icon": "hsmp_elf_ears_helmet",
+			"minecraft:icon": "hsmp:elf_leather_helmet",
 			"minecraft:wearable": {
 				"slot": "slot.armor.head",
 				"protection": 0
