@@ -6,9 +6,5 @@
 	],
 	"hsmp:start_button": {
 		"sound": "stone"
-	},
-	"hsmp:spell_book": {
-		"sound": "stone",
-		"textures": "hsmp_spell_book"
 	}
 }
