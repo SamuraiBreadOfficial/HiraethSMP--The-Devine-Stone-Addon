@@ -1,0 +1,1 @@
+export * from "./menu/page1-joinmenu.js";
