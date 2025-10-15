@@ -11,10 +11,7 @@
 					"texture": "hsmp_start_button",
 					"render_method": "alpha_test"
 				}
-			},
-			"minecraft:custom_components": [
-				"hsmp:playmenu"
-			]
+			}
 		}
 	}
 }
