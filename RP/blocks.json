@@ -6,5 +6,8 @@
 	],
 	"hsmp:start_button": {
 		"sound": "stone"
+	},
+	"hsmp:cr_food": {
+		"sound": "stone"
 	}
 }
