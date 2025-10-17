@@ -1,0 +1,227 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.hsmp_NPC",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [
+					0,
+					1.25,
+					0
+				]
+			},
+			"bones": [
+				{
+					"name": "Torso",
+					"pivot": [
+						0,
+						11,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								-4,
+								11,
+								-2
+							],
+							"size": [
+								8,
+								11,
+								4
+							],
+							"uv": [
+								0,
+								32
+							]
+						},
+						{
+							"origin": [
+								-4,
+								11,
+								-2
+							],
+							"size": [
+								8,
+								11,
+								4
+							],
+							"inflate": 0.2,
+							"uv": [
+								0,
+								47
+							]
+						}
+					]
+				},
+				{
+					"name": "Head",
+					"parent": "Torso",
+					"pivot": [
+						0,
+						22,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								-4,
+								22,
+								-4
+							],
+							"size": [
+								8,
+								8,
+								8
+							],
+							"uv": [
+								0,
+								0
+							]
+						}
+					]
+				},
+				{
+					"name": "Hair",
+					"parent": "Head",
+					"pivot": [
+						0,
+						30,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								-4,
+								22,
+								-4
+							],
+							"size": [
+								8,
+								8,
+								8
+							],
+							"inflate": 0.2,
+							"uv": [
+								0,
+								16
+							]
+						}
+					]
+				},
+				{
+					"name": "Legr",
+					"parent": "Torso",
+					"pivot": [
+						-2,
+						11,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								-4,
+								0,
+								-2
+							],
+							"size": [
+								4,
+								11,
+								4
+							],
+							"uv": [
+								32,
+								15
+							]
+						}
+					]
+				},
+				{
+					"name": "Legl",
+					"parent": "Torso",
+					"pivot": [
+						2,
+						11,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								0,
+								0,
+								-2
+							],
+							"size": [
+								4,
+								11,
+								4
+							],
+							"uv": [
+								32,
+								0
+							]
+						}
+					]
+				},
+				{
+					"name": "Arml",
+					"parent": "Torso",
+					"pivot": [
+						4,
+						21,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								4,
+								11,
+								-2
+							],
+							"size": [
+								4,
+								11,
+								4
+							],
+							"uv": [
+								40,
+								30
+							]
+						}
+					]
+				},
+				{
+					"name": "Armr",
+					"parent": "Torso",
+					"pivot": [
+						-4,
+						21,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								-8,
+								11,
+								-2
+							],
+							"size": [
+								4,
+								11,
+								4
+							],
+							"uv": [
+								24,
+								32
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
