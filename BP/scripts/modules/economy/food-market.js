@@ -8,38 +8,40 @@ import {
     buyMenu
 } from "./core.js"
 
+import { formatCurrency } from "../../formats.js"
+
 export const foodPrices = {
     modifier: 0,
     items: {
         cooked: {
-            chicken: 1299,
-            porkchop: 1399,
-            beef: 1499,
-            mutton: 1232,
-            rabbit: 1029,
-            cod: 744,
-            salmon: 599
+            chicken: 1999,
+            porkchop: 2750,
+            beef: 2500,
+            mutton: 2049,
+            rabbit: 2399,
+            cod: 899,
+            salmon: 999
         },
         raw: {
-            chicken: 322,
-            porkchop: 142,
-            beef: 143,
-            mutton: 250,
-            rabbit: 55,
-            cod: 30,
-            salmon: 33,
-            tropical: 140
+            chicken: 1799,
+            porkchop: 1599,
+            beef: 1599,
+            mutton: 1955,
+            rabbit: 1500,
+            cod: 599,
+            salmon: 530,
+            tropical: 99
         },
         misc: {
-            bread: 200,
-            mstew: 111,
-            bsoup: 100,
-            rsoup: 0,
-            jpotato: 0,
-            cookie: 0,
-            ppie: 0,
-            cake: 0,
-            dkelp: 0
+            bread: 700,
+            mstew: 1011,
+            bsoup: 1000,
+            rsoup: 1000,
+            jpotato: 599,
+            cookie: 399,
+            ppie: 1500,
+            cake: 2000,
+            dkelp: 99
         }
     },
     id: {
@@ -147,6 +149,7 @@ export const foodSell = {
 }
 
 export function restaurantMarket(player) {
+
     const translatedOptions = {
         "Cooked Chicken": "chicken",
         "Cooked Porkchop": "porkchop",
@@ -154,39 +157,123 @@ export function restaurantMarket(player) {
         "Cooked Mutton": "mutton",
         "Cooked Rabbit": "rabbit",
         "Cooked Cod": "cod",
-        "Cooked Salmon": "salmon"
+        "Cooked Salmon": "salmon",
 
     }
 
-    const options = [
-        "Cooked Chicken",
-        "Cooked Porkchop",
-        "Cooked Beef",
-        "Cooked Mutton",
-        "Cooked Rabbit",
-        "Cooked Cod",
-        "Cooked Salmon"
+    let options = [
+        `Cooked Chicken ${formatCurrency(getTotalPrice(foodPrices, "cooked", "chicken"))}\$`,
+        `Cooked Porkchop ${formatCurrency(getTotalPrice(foodPrices, "cooked", "porkchop"))}\$`,
+        `Cooked  Beef ${formatCurrency(getTotalPrice(foodPrices, "cooked", "beef"))}\$`,
+        `Cooked Mutton ${formatCurrency(getTotalPrice(foodPrices, "cooked", "mutton"))}\$`,
+        `Cooked Rabbit ${formatCurrency(getTotalPrice(foodPrices, "cooked", "rabbit"))}\$`,
+        `Cooked Cod ${formatCurrency(getTotalPrice(foodPrices, "cooked", "cod"))}\$`,
+        `Cooked Salmon ${formatCurrency(getTotalPrice(foodPrices, "cooked", "salmon"))}\$`
 
     ]
 
 
     return new ModalFormData()
         .title(`Restaurant`)
-        .dropdown(`Items`, options)
+        .header(`Restaurant`)
+        .label(`Buy all cooked food here.
+
+Be aware that price and total price are diffrent!
+
+Price = Normal Price without modifier.
+Total Price = Price + Modifier
+
+Total Final Price = (Price + Modifier) * Amount!
+
+Before buying you need to withdraw yout money too!`)
+        .dropdown(`Items | Total Price`, options)
         .show(player)
         .then(r => {
-            const selectedIndex = r.formValues[0]
-            const selectedOption = options[selectedIndex]
 
-            player.sendMessage(`${selectedOption} ${translatedOptions[selectedOption]}`)
-            buyMenu(selectedOption, foodPrices, "cooked", translatedOptions[selectedOption], player)
+            if (r.canceled) return;
+
+            const selectedIndex = r.formValues[2]
+            const selectedLabel = options[selectedIndex];
+
+            const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]
+            const foodType = translatedOptions[baseName]
+
+            player.sendMessage(`${selectedLabel} -> ${foodType}`)
+            buyMenu(baseName, foodPrices, "cooked", foodType, player)
+
         })
 }
 
-world.beforeEvents.playerInteractWithBlock.subscribe(e => {
-    if (e.block.typeId == "minecraft:spruce_button") {
-        system.run(() => {
+system.beforeEvents.startup.subscribe(e => {
+    e.blockComponentRegistry.registerCustomComponent('hsmp:restaurant', {
+        onPlayerInteract(e) {
             restaurantMarket(e.player)
-        })
+        }
+    })
+})
+
+export function butcherMarket(player) {
+    const translatedOptions = {
+        "Raw Chicken": "chicken",
+        "Raw Porkchop": "porkchop",
+        "Raw Beef": "beef",
+        "Raw Mutton": "mutton",
+        "Raw Rabbit": "rabbit",
+        "Raw Cod": "cod",
+        "Raw Salmon": "salmon",
+        "Tropical Fish": "tropical"
+
     }
+
+    let options = [
+        `Raw Chicken ${formatCurrency(getTotalPrice(foodPrices, "raw", "chicken"))}\$`,
+        `Raw Porkchop ${formatCurrency(getTotalPrice(foodPrices, "raw", "porkchop"))}\$`,
+        `Raw  Beef ${formatCurrency(getTotalPrice(foodPrices, "raw", "beef"))}\$`,
+        `Raw Mutton ${formatCurrency(getTotalPrice(foodPrices, "raw", "mutton"))}\$`,
+        `Raw Rabbit ${formatCurrency(getTotalPrice(foodPrices, "raw", "rabbit"))}\$`,
+        `Raw Cod ${formatCurrency(getTotalPrice(foodPrices, "raw", "cod"))}\$`,
+        `Raw Salmon ${formatCurrency(getTotalPrice(foodPrices, "raw", "salmon"))}\$`,
+        `Tropical Fish ${formatCurrency(getTotalPrice(foodPrices, "raw", "tropical"))}\$`
+
+    ]
+
+
+    return new ModalFormData()
+        .title(`Butcher`)
+        .header(`Butcher`)
+        .label(`Buy all raw food here.
+
+Be aware that price and total price are diffrent!
+
+Price = Normal Price without modifier.
+Total Price = Price + Modifier
+
+Total Final Price = (Price + Modifier) * Amount!
+
+Before buying you need to withdraw yout money too!`)
+        .dropdown(`Items`, options)
+        .show(player)
+        .then(r => {
+
+            if (r.canceled) return;
+
+            const selectedIndex = r.formValues[2]
+            const selectedLabel = options[selectedIndex];
+
+            const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]
+            const foodType = translatedOptions[baseName]
+
+            player.sendMessage(`${selectedOption} ${translatedOptions[selectedOption]}`)
+            buyMenu(baseName, foodPrices, "raw", foodType, player)
+
+        })
+}
+
+
+system.beforeEvents.startup.subscribe(e => {
+    e.blockComponentRegistry.registerCustomComponent('hsmp:butcher', {
+        onPlayerInteract(e) {
+            butcherMarket(e.player)
+        }
+    })
 })
