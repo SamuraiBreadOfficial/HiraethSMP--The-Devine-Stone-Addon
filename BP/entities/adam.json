@@ -1,0 +1,26 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "hsmp:adam",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": true
+		},
+		"component_groups": {},
+		"components": {
+			"minecraft:physics": {},
+			"minecraft:behavior.look_at_player": {
+				"look_distance": 8,
+				"priority": 1,
+				"look_time": [
+					5,
+					10
+				],
+				"probability": 1,
+				"target_distance": 4
+			}
+		},
+		"events": {}
+	}
+}
