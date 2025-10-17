@@ -10,18 +10,9 @@ system.runInterval(() => {
     // Wywołaj update tylko raz, gdy dayTick osiągnie 1000
     if (dayTick == 0) {
         updateModifiers();
-        world.sendMessage(`§6[Market Update]§r triggered at §bdayTick ${dayTick}§r on day §b${currentDay}`);
+        world.sendMessage(`§6[Market Update]§r §aPrices has changed and new §l§emodifiers§r§a are now avaible!`);
     }
 }, 1); // co tick
-
-world.afterEvents.playerSpawn.subscribe(e => {
-    const player = e.player;
-
-
-    updateModifiers();
-    player.runCommand(`tell @a New day = price change.`)
-
-})
 
 export function updateModifiers() {
     const newBuyModifier = Math.floor(Math.random() * 401) - 200
@@ -36,7 +27,7 @@ export function updateModifiers() {
 
     foodSell.modifier = Math.max(-200, Math.min(200, newSellModifier));
 
-    world.sendMessage(`[Food Prices Modified.] Buy: ${foodPrices.modifier}, Sell: ${foodSell.modifier}`)
+    world.sendMessage(`[ Food Price Change ] New Buy Modifiers: ${foodPrices.modifier}, New Sell Modifiers: ${foodSell.modifier}`)
 }
 
 export function forceModifier(value) {
@@ -73,15 +64,15 @@ export function buy(globalCat, localCat, item, player, amount) {
     const cash = world.scoreboard.getObjective("balance").getScore(player);
 
     if (bank >= finalPrice && cash < finalPrice) {
-        player.sendMessage(`[ ECONOMY ] Your cash balance is not enough, but you can withdraw enough from your bank to afford this item!`)
+        player.sendMessage(`§c§l[ ECONOMY ]§r§c Your cash balance is not enough, but you can withdraw enough from your bank to afford this item!`)
         return;
     }
     if (cash < finalPrice) {
-        player.sendMessage(`[ ECONOMY ] You don't have enough money to buy this item!`)
+        player.sendMessage(`§c§l[ ECONOMY ]§r§c You don't have enough money to buy this item!`)
         return;
     }
     if (cash >= finalPrice) {
-        player.sendMessage(`Successfully bought ${itemId} for ${formatCurrency(finalPrice)}`)
+        player.sendMessage(`§l§e[ ECONOMY ]§r§a Successfully bought §e${itemId}§a for §e${formatCurrency(finalPrice)}\$`)
         world.scoreboard.getObjective('balance').addScore(player, -finalPrice)
         player.runCommand(`give @s ${itemId} ${amount}`)
     }
@@ -92,15 +83,6 @@ export function getTotalPrice(globalCat, localCat, item) {
     const totalPrice = Math.max(0, price + globalCat.modifier)
     return totalPrice ?? 0;
 }
-
-world.afterEvents.playerInteractWithBlock.subscribe(e => {
-    const id = e.block.typeId
-    const player = e.player
-    if (id == 'minecraft:stone_button') {
-        buyMenu("Cooked Chicken", foodPrices, "cooked", "chicken", player)
-    }
-
-})
 
 export function buyMenu(title, globalCat, localCat, item, player) {
     const itemId = globalCat.id[localCat]?.[item];
