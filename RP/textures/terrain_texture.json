@@ -6,6 +6,9 @@
 	"texture_data": {
 		"hsmp_start_button": {
 			"textures": "textures/blocks/start_button"
+		},
+		"hsmp_cr_food": {
+			"textures": "textures/blocks/cr_food"
 		}
 	}
 }
