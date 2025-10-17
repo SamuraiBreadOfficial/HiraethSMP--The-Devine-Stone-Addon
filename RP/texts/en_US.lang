@@ -13,3 +13,6 @@ tile.hsmp:spell_book.name=Spell Book
 item.hsmp:spell_book=Spell Book
 item.hsmp:test_item=[ OP ONLY ] Test Item
 item.hsmp:admin_tool=[ OP ONLY ] Admin Tool
+tile.hsmp:cr_food.name=Cash Register Restaurant
+item.spawn_egg.entity.hsmp:adam.name=Spawn Adam
+entity.hsmp:adam.name=Adam
