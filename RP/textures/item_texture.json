@@ -34,6 +34,9 @@
 		},
 		"hsmp_admin_tool": {
 			"textures": "textures/items/admin_tool"
+		},
+		"hsmp_adam_egg": {
+			"textures": "textures/items/Adam"
 		}
 	}
 }
