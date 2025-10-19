@@ -9,6 +9,15 @@
 		},
 		"hsmp_cr_food": {
 			"textures": "textures/blocks/cr_food"
+		},
+		"hsmp_bottom_butcher_door": {
+			"textures": "textures/blocks/butcher_door"
+		},
+		"hsmp_top_butcher_door": {
+			"textures": "textures/blocks/butcher_door"
+		},
+		"hsmp_restaurant_door_handle": {
+			"textures": "textures/blocks/restaurant_handle"
 		}
 	}
 }
