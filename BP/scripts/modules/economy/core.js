@@ -75,6 +75,7 @@ export function buy(globalCat, localCat, item, player, amount) {
         player.sendMessage(`§l§e[ ECONOMY ]§r§a Successfully bought §e${itemId}§a for §e${formatCurrency(finalPrice)}\$`)
         world.scoreboard.getObjective('balance').addScore(player, -finalPrice)
         player.runCommand(`give @s ${itemId} ${amount}`)
+        player.runCommand(`bal`)
     }
 }
 
