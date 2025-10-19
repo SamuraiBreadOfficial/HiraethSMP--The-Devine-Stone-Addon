@@ -19,3 +19,5 @@ import "./modules/playerinfo/registered-tags.js";
 import "./modules/playerinfo/utils.js";
 import "./modules/economy/core.js"
 import "./modules/economy/food-market.js"
+import "./blocks/store_doors.js"
+import "./town/church_bell_system.js"
