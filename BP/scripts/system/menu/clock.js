@@ -15,7 +15,7 @@ system.runInterval(() => {
             const tick = world.getTimeOfDay();
             const hour = Math.floor((tick % 24000) / 1000);
             const minute = Math.floor(((tick % 1000) / 1000) * 60);
-            const timeLabel = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+            const timeLabel = getClockTime(tick);
 
             player.runCommand(`title ${player.name} actionbar "[ Clock ] §7${timeLabel}"`);
         }
