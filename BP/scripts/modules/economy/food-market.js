@@ -263,8 +263,9 @@ Before buying you need to withdraw yout money too!`)
             const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]
             const foodType = translatedOptions[baseName]
 
-            player.sendMessage(`${selectedOption} ${translatedOptions[selectedOption]}`)
+            player.sendMessage(`${selectedLabel} -> ${translatedOptions[foodType]}`)
             buyMenu(baseName, foodPrices, "raw", foodType, player)
+            player.runCommand(`bal`)
 
         })
 }
