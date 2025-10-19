@@ -9,5 +9,14 @@
 	},
 	"hsmp:cr_food": {
 		"sound": "stone"
+	},
+	"hsmp:bottom_butcher_door": {
+		"sound": "stone"
+	},
+	"hsmp:top_butcher_door": {
+		"sound": "stone"
+	},
+	"hsmp:restaurant_door_handle": {
+		"sound": "stone"
 	}
 }
