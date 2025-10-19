@@ -9,41 +9,45 @@ import { formatCurrency } from "../../formats.js"
 const mainmenuBuild = `Main Menu v2 || Build v0.1`
 
 export function hsmpMenu_MAIN(player) {
-    return new ActionFormData()
-        .title(hiraethLOGO)
-        .body(mainmenuBuild)
-        .divider()
-        .header(`Main Menu`)
-        .label(`Hello ${player.name}!
+    if (!player.hasTag(`revokedAccess`)) {
+        return new ActionFormData()
+            .title(hiraethLOGO)
+            .body(mainmenuBuild)
+            .divider()
+            .header(`Main Menu`)
+            .label(`Hello ${player.name}!
 This is your own Main Menu! YAAAY!`)
-        .divider()
-        .label(`Your Information:
+            .divider()
+            .label(`Your Information:
 
 Race: ${getRaceTags(player)}
 Magic Type: ${getMagicTags(player)}
 Level: WIP.`)
-        .button(`§lECONOMY`)
-        .button(`§lTUTORIEL`)
-        .button('Close')
-        .show(player)
-        .then(r => {
-            const selection = r.selection
+            .button(`§lECONOMY`)
+            .button(`§lTUTORIEL`)
+            .button('Close')
+            .show(player)
+            .then(r => {
+                const selection = r.selection
 
-            if (r.canceled) return;
+                if (r.canceled) return;
 
-            if (selection == 0) {
-                if (!isScoreRegistered(player, "balance")) {
-                    hsmpMenu_BALnotSettedUp(player)
+                if (selection == 0) {
+                    if (!isScoreRegistered(player, "balance")) {
+                        hsmpMenu_BALnotSettedUp(player)
 
-                } else {
-                    hsmpMenu_BAL(player)
+                    } else {
+                        hsmpMenu_BAL(player)
+                    }
                 }
-            }
 
-            if (selection == 1) {
-                tutorial_1(player)
-            }
-        })
+                if (selection == 1) {
+                    tutorial_1(player)
+                }
+            })
+    } else {
+        player.sendMessage(`You don't have an Access to this command. Your Access to the server is Revoked!`)
+    }
 }
 
 export function hsmpMenu_BALnotSettedUp(player) {
