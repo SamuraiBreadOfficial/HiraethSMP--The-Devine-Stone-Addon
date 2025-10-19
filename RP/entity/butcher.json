@@ -1,0 +1,34 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hsmp:butcher",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/butcher"
+			},
+			"geometry": {
+				"default": "geometry.hsmp_NPC"
+			},
+			"animations": {
+				"look_at_target": "animation.adam.look_at_target",
+				"idle": "animation.adam.idle"
+			},
+			"scripts": {
+				"animate": [
+					"look_at_target",
+					"idle"
+				]
+			},
+			"render_controllers": [
+				"controller.render.adam"
+			],
+			"spawn_egg": {
+				"texture": "hsmp_adam_egg",
+				"texture_index": 0
+			}
+		}
+	}
+}
