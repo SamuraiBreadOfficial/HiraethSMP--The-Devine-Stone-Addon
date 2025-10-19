@@ -1,0 +1,80 @@
+{
+	"format_version": "1.21.90",
+	"minecraft:block": {
+		"description": {
+			"identifier": "hsmp:bottom_butcher_door",
+			"traits": {
+				"minecraft:placement_direction": {
+					"enabled_states": [
+						"minecraft:cardinal_direction"
+					],
+					"y_rotation_offset": 180
+				}
+			}
+		},
+		"components": {
+			"minecraft:geometry": "geometry.bottom_butcher_door",
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "hsmp_bottom_butcher_door",
+					"render_method": "alpha_test"
+				}
+			},
+			"hsmp:butcher_door": {}
+		},
+		"permutations": [
+			// Facing north
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							0,
+							0
+						]
+					}
+				}
+			},
+			// Facing west
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							90,
+							0
+						]
+					}
+				}
+			},
+			// Facing south
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							180,
+							0
+						]
+					}
+				}
+			},
+			// Facing east
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							-90,
+							0
+						]
+					}
+				}
+			}
+		]
+	}
+}
