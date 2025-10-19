@@ -1,0 +1,34 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hsmp:restaurant_worker",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/Restaurant_Worker"
+			},
+			"geometry": {
+				"default": "geometry.restaurant_worker"
+			},
+			"animations": {
+				"look_at_target": "animation.adam.look_at_target",
+				"idle": "animation.adam.idle"
+			},
+			"scripts": {
+				"animate": [
+					"idle",
+					"look_at_target"
+				]
+			},
+			"render_controllers": [
+				"controller.render.restaurant_worker"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}
