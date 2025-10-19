@@ -306,152 +306,286 @@ export function join_MenuTUTORIALREQUEST(player) {
 }
 
 export function tutorial_1(player) {
-    player.sendMessage(`[ §b§lTUTORIAL§r ] §eGreat!`)
-    player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
+    player.sendMessage(`
+§l§e[ TUTORIAL ]§r
+Great! Welcome to HiraethSMP!`)
 
     system.runTimeout(() => {
-        player.sendMessage(`[§b§lTUTORIAL§r] §eWelcome to §d§lHiraethSMP!`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
+        player.sendMessage(`§l§e[ TUTORIAL ]§r
+§lNote:§r The tutorial will show Menus. So no rush to read it quicker.
+    
+Everytime you click §e§lCONTINUE§r, new tutorial step will show up :)`)
     }, 40)
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eThis §lTutorial§r§e will show you the basic §dcommands §r§eand §a§lfeautures§r§e of §dHiraethSMP`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
 
+    system.runTimeout(() => {
+        tutorial_1_menu(player)
+    }, 160)
+}
+
+function tutorial_1_menu(player) {
+    return new ActionFormData()
+        .title(`§l§e[ TUTORIAL ]§r`)
+        .body(`Are you ready to Continue?`)
+        .divider()
+        .button(`§lYES`)
+        .button(`§lCANCEL`)
+        .show(player)
+        .then(r => {
+            if (r.canceled) return;
+
+            if (r.selection == 0) {
+                player.sendMessage(`yes`)
+                tutorial_2(player)
+                return;
+            }
+
+            if (r.selection == 1) {
+                player.sendMessage(`Canceled`)
+                return;
+            }
+        })
+}
+
+function tutorial_2(player) {
+    player.sendMessage(`
+§l§e[ TUTORIAL ]§r
+Alright! So First step is §a§oshowing you around!`)
+
+    system.runTimeout(() => {
+        player.sendMessage(`
+§l§e[ TUTORIAL ]§r
+But first, let's §cdisable your movement§r and make you §ainvincible§r so we can Continue with the §aCutscene§r ;P`)
+        player.runCommand(`gamemode spectator`)
+    }, 40)
+
+    system.runTimeout(() => {
+        player.sendMessage(`§l§e[ TUTORIAL ]§r
+Alright! All set and ready to go!`)
+    }, 80)
+
+    system.runTimeout(() => {
+        player.sendMessage(`
+§c§l[ CONTENT WARNING ]§r
+Server might contain: §l§cBlood, Gore, Slurs, Toxic and Mature topics§r.
+
+Whole server is built around §e16+ Community§r. Before Events, all those §ccontent warnings§r for the event will be §llisted in the Event Description§r.
+§l§cPlayer Discretion is Advised.§r`)
+    }, 160)
+
+    system.runTimeout(() => {
+        tutorial_2_menu(player)
+    }, 260)
+}
+
+function tutorial_2_menu(player) {
+    return new ActionFormData()
+        .title(`§l§c[ CONTENT WARNING ]`)
+        .body(`Server might contain: §cBlood, Gore, Slurs, Toxic and Mature topics§r.
+
+Whole server is built around §e16+ Community§r. Before Events, all those §ccontent warnings§r for the event will be listed in the §aEvent Description§r.
+§lPlayer Discretion is Advised§r.`)
+        .divider()
+        .label(`§§cI agree that clicking §aCONTINUE§c will confirm that i'm §e16 or more years old§c and i aknowledge that server contains §4mature themes§c which i will be warned about.`)
+        .button(`CONTINUE`)
+        .button(`Cancel And Leave the Server.`)
+        .show(player)
+        .then(r => {
+            if (r.canceled) {
+                player.sendMessage(`§e§l[ SYSTEM ]§r
+§4You disagreed with the content warning.
+
+Your server access has been revoked.
+
+If you believe it's a mistake, contact our staff team on our server.`)
+                player.addTag(`revokedAccess`)
+
+                system.runTimeout(() => {
+                    player.runCommand('kick @s Access Revoked.')
+                }, 260)
+            }
+
+            if (r.selection == 0) {
+                player.sendMessage(`Yes`)
+                tutorial_3(player)
+            }
+
+            if (r.selection == 1) {
+                player.sendMessage(`
+§e§l[ SYSTEM ]§r
+§4You disagreed with the content warning.
+
+Your server access has been revoked.
+
+If you believe it's a mistake, contact our staff team on our server.`)
+                player.addTag(`revokedAccess`)
+                system.runTimeout(() => {
+                    player.runCommand('kick @s Access Revoked.')
+                }, 260)
+
+            }
+        })
+}
+
+function tutorial_3(player) {
+    player.sendMessage(`
+[ TUTORIAL ]
+Alright NOW we can proceed. Tehee ^^
+    `)
+
+    system.runTimeout(() => {
+        player.sendMessage(`
+[ TURORIAL ]
+Yeah... No. Never using "tehee" EVER again`)
+    }, 160)
+
+    system.runTimeout(() => {
+        player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 221 85 1947 rot 30 0`)
+    }, 250)
+
+    system.runTimeout(() => {
+        tutorial_tavern(player);
+    }, 360)
+}
+
+function tutorial_tavern(player) {
+    return new ActionFormData()
+        .title(`THE TAVERN`)
+        .body(`The Tavern is the Heart of the entire server.
+        
+Here, you can meet with your friends for an Roleplay, Buy Alkohol, Accept Quests, Collect Reward and meet with others when this place is labeled as an Event Meeting Point.`)
+        .divider()
+        .button(`Continue`)
+        .show(player)
+        .then(r => {
+            if (r.canceled) {
+                tutorial_tavern_2(player)
+            }
+
+            if (r.selection == 0) {
+                tutorial_tavern_2(player)
+            }
+        })
+}
+
+function tutorial_tavern_2(player) {
+    player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 223.90 68 1969 rot 0 0`)
+
+    system.runTimeout(() => {
+        return new ActionFormData()
+            .title(`QUEST BOARD`)
+            .body(`Quest board allows you to accept quests.
+        
+There are multiple types of quests:
+1) Collect and Transport (C&T):
+C&T quest require you to collect blocks, items or materials and transport them back to the tavern.
+Those quests are least rewardable as the reward of those quests can wage from 200\$ to 500\$.
+
+2) Hunt And Transport(H&T):
+More rewardable Quests which require you to hunt down given amount of mobs.
+The reward can wage from 899\$ to even 15k\$
+
+3) Special Quests:
+Those Quests are given by moderators, with special command. It can be a random quest, when people are online, or quest that has been prepared by an Admin.
+The rewards can wage from: 5k to even 115k when done right. The more rewardable the more dangerous it is.`)
+            .button(`CONTINUE`)
+            .show(player)
+            .then(r => {
+                if (r.canceled) {
+                    tuto_economy_1(player)
+                }
+                if (r.selection == 0) {
+                    tuto_economy_1(player)
+                }
+            })
+    }, 60)
+}
+
+function tuto_economy_1(player) {
+    player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 193 90 1955 rot 30 0`)
+
+    system.runTimeout(() => {
+        return new ActionFormData()
+            .title(`RESTARUANT`)
+            .body(`Server Market from Alpha build is no more!
+To make the Gameplay Immersive as much as possible, the only way you can buy stuff is now in this town's markets!
+
+For example THE RESTAURANT.
+This shop is the only way to use your money to buy food. This store has it's own unique Items which you can buy! For example:
+
+Fire Cake which gives you Fire Immunity for 30 minutes!`)
+            .button(`CONTINUE`)
+            .show(player)
+            .then(r => {
+                if (r.canceled) {
+                    tuto_economy_2(player)
+                }
+
+                if (r.selection == 0) {
+                    tuto_economy_2(player)
+                }
+            })
+    }, 60)
+}
+
+function tuto_economy_2(player) {
+    player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 195 72.6 1972 rot 0 0`)
+
+    system.runTimeout(() => {
+        return new ActionFormData()
+            .title(`ENTERING THE STORES`)
+            .body(`To enter stores, you need to interact with special Blocks.
+
+For example, this handle. Just use your interact button ( short click on mobile ) on the block to enter the store.`)
+            .show(player)
+            .then(r => {
+                if (r.canceled) {
+                    tuto_economy_3(player)
+                }
+                if (r.selection == 0) {
+                    tuto_economy_3(player)
+                }
+            })
     })
-    system.runTimeout(() => {
-        player.sendMessage(`[§b§lTUTORIAL§r] §eBut first, §blet's show you around! §eShall we?`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
+}
 
-    }, 140)
-
-    system.runTimeout(() => {
-        player.runCommand('camera @s set minecraft:free ease 1 in_out_sine pos 224 89 1950 facing 223 71 1973')
-        player.runCommand(`hud @s hide all`)
-    }, 240)
+function tuto_economy_3(player) {
+    player.runCommand(`camera @s fade time 1 1 1`)
 
     system.runTimeout(() => {
-        player.sendMessage('[ §b§lTUTORIAL§r ] §eThis is a §l§aTavern§r§e! Here, players meet each others, gain §lQUESTS§r§e or meet before events. This place is the §dheart of entire server.')
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
-    }, 340)
+        player.runCommand(`camera @s set minecraft:free pos 187 30 1974 rot 0 -90`)
+    }, 20)
 
     system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 218 75 1985 facing 214 71 1985`)
-    }, 440)
+        player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 204 30 1970 rot 0 180`)
+    }, 30)
 
     system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eThis is §lAdam§r§e. An NPC who is here to help! Or give you a drink.
+        return new ActionFormData()
+            .title(`BUYING THE PRODUCTS`)
+            .body(`To buy a product, you need to enter the store and interact with the block.
         
-He sells alcohol drinks. Such as §lBeers, Vodka, Wine and simple Drinks§r§e. But he also can help you with §dnewest information about the server!`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-    }, 540)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eTo speak to him, simply click the §lSERVICE BELL§r§e and he will be here to help yuh!... §oOr make you drunk.`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-    }, 640)
-
-    system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free ease 2 in_out_sine pos 207 100 1990 facing 207 78 1931`)
-    }, 740)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eThis is a §lchurch§r§e!
-
-Here you can view your §amagic level§r§e, or learn new magic types!`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-    }, 840)
-
-    system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free ease 2 in_out_circ pos 207 72 1908 facing 207 68 1904`)
-    }, 940)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eMagic depends fully on §lScoreboard named MAGIC_EXP§r§e.
+Withing the Block's menu, you will have an dropdown option where you choose an item. Each item's Total Price* is described next to the item's name.
         
-To learn new spells and make them more powerfull, you need to gain special items to make your exp go up.
+The normal price is the price without modifier. It is an Hard Coded price for the item which is used to count the value of the total price.
 
-Items such us:
-- Nether Star: 2k EXP
-- Lost One Soul: 500 EXP
-- Sculc ShardL 1k EXP
-- Sculk Cayalyst: 2k EXP`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
+Total price is price + modifier, which allows the prices to change every day. Modifier changes every game day at 6:00.
 
-    }, 1040)
+Total Final Price is (Price + Modifier) * amount. If amount = 0, the Total Final Price is equal to Total Price.
 
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §e§lAll levels have their own EXP limit§r§e.
+The Items have their own Categories, and those categories have their own stores. This is the list of those stores and their open and close time:
+1) Cooked Food: Restaurant 9:00 - 19:00
+2) Raw food: Butcher 7:00 - 19:00 & Store 9:00 - 23:00 
+3) Misc Food: Store 9:00 - 23:00
+5) Stone Blocks: Stonemason 5:00 - 23:00
+6) Wooden Blocks: Lumberjack 5:00 - 18:00
+8) Special Block (Dimension Blocks): Witch's Tower 3:00 - 1:00
+9) Spell Books: Witch's Tower 3:00 - 1:00
+10) Alkohol Drinks: Tavern 24/7
+11) Materials (Ores): Miner 5:00 - 20:00
+12) Mob Loots: Guard Tower 24/7
+13) Ores: Miner 5:00 - 20:00
 
-- Level 0: 0EXP
-- Level 1: 1k EXP
-- Level 2: 2k EXP
-- Level 3: 3.5k EXP
-- Level 4: 5k EXP
-- Level 5: 10k EXP
-
-Level 5 is the maximum given magic category level. §lThere are no plans to make more levels.`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
-    }, 1140)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[§b§lTUTORIAL§r] §eYou can check your §aMagic Level§r§e by click this block. It is the only way to check or unlock your skills.`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
-    }, 1240)
-
-    system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 194 98 1850 rot 30 180`)
-    }, 1340)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eOn the server, we have an §lFAST TRAVEL§r§e.
-You can swim out to the unknown with just a one §lclick of a button§r§e!
-Sometimes, In diffrent events, this feauture is §llocked.`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
-    }, 1450)
-
-    system.runTimeout(() => {
-        player.runCommand('camera @s set minecraft:free ease 5 in_out_sine pos 194 98 1850 rot 40 -30')
-    }, 1540)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eYou can use §lFast Travel§r§e in builds like this!
-        
-To see where those builds are, you can simply type §a§o/fasttravel§r§ein your chat, and know where you are. It will give you all Fast Travel building positions in the world. §lJust go to the nearest one.`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
-    }, 1640)
-
-    system.runTimeout(() => {
-        player.sendMessage(`[ §b§lTUTORIAL§r ] §eThat's it for now!
-You can reopen this tutorial in your menu by typing §l§a/hmenu or /hsmp:hmenu§r§e in your commands!
-This tutorial will change with versions, so it's important to revisit it from time to time.
-§c§l/!\ Important! To view tutorial you need to be in the town! Otherwise it will not work.§r§e 
-
-Thanks, and Enjoy our little server! - §dSamuraiBread (Owner of HSMP)`)
-        player.runCommand(`playsound random.click @s ~ ~ ~ 1 2 1000`)
-
-    }, 1740)
-
-    system.runTimeout(() => {
-        player.runCommand(`camera @s fade time 3 5 3`)
-    }, 1840)
-
-    system.runTimeout(() => {
-        player.runCommand(`camera @s clear`)
-        player.runCommand(`hud @s reset`)
-    }, 1920)
-
-
-
-
-
-
-
-
-
+Each store has it's unique open and close time, some of them are active 24/7. Use it to your advantage as every 100 buys the price is changed.`)
+            .show(player)
+    }, 60)
 }
