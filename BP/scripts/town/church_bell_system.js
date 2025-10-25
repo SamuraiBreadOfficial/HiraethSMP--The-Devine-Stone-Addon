@@ -3,7 +3,6 @@ import { world, system } from "@minecraft/server";
 
 system.runInterval(() => {
     const time = world.getTimeOfDay();
-    const strike3 = `hsmp.church.3`
     const strike6 = `hsmp.church.6`
     const strike12 = `hsmp.church.12`
     const overworld = world.getDimension('overworld')

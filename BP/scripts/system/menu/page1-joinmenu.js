@@ -15,6 +15,7 @@ import { getRaceTags, getMagicTags } from "../../modules/playerinfo/registered-t
 
 import { hiraethLOGO } from "../../modules/playerinfo/utils.js";
 
+import { waitTicks, formatCurrency } from "../../formats.js"
 
 const menuBuild = `Main Menu v2 || Build 0.1 (WIP)`
 
@@ -305,287 +306,385 @@ export function join_MenuTUTORIALREQUEST(player) {
         })
 }
 
-export function tutorial_1(player) {
-    player.sendMessage(`
-§l§e[ TUTORIAL ]§r
-Great! Welcome to HiraethSMP!`)
 
-    system.runTimeout(() => {
-        player.sendMessage(`§l§e[ TUTORIAL ]§r
-§lNote:§r The tutorial will show Menus. So no rush to read it quicker.
-    
-Everytime you click §e§lCONTINUE§r, new tutorial step will show up :)`)
-    }, 40)
 
-    system.runTimeout(() => {
-        tutorial_1_menu(player)
-    }, 160)
-}
+export async function cwAgreedment(player) {
+    system.run(() => player.runCommand("playsound random.door_open @s ~ ~ ~ 1 0.5 1"))
+    system.run(() => player.runCommand(`inputpermission set @s movement disabled`))
+    system.run(() => player.runCommand(`gamemode spectator`))
+    await waitTicks(40)
+    player.sendMessage(`§a[ §lSYSTEM ]§r Hello there! Welcome to HiraethSMP!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(40)
+    player.sendMessage(`§a[ §lSYSTEM ]§r Before you play, you need to agree to §cContent Warnings§r and §cServer Rules§r.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(40)
+    player.sendMessage(`§a[ §lSYSTEM ]§r §cOtherwise you will not be able to play on the server.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
-function tutorial_1_menu(player) {
-    return new ActionFormData()
-        .title(`§l§e[ TUTORIAL ]§r`)
-        .body(`Are you ready to Continue?`)
-        .divider()
-        .button(`§lYES`)
-        .button(`§lCANCEL`)
-        .show(player)
-        .then(r => {
-            if (r.canceled) return;
-
-            if (r.selection == 0) {
-                player.sendMessage(`yes`)
-                tutorial_2(player)
-                return;
-            }
-
-            if (r.selection == 1) {
-                player.sendMessage(`Canceled`)
-                return;
-            }
-        })
-}
-
-function tutorial_2(player) {
-    player.sendMessage(`
-§l§e[ TUTORIAL ]§r
-Alright! So First step is §a§oshowing you around!`)
-
-    system.runTimeout(() => {
-        player.sendMessage(`
-§l§e[ TUTORIAL ]§r
-But first, let's §cdisable your movement§r and make you §ainvincible§r so we can Continue with the §aCutscene§r ;P`)
-        player.runCommand(`gamemode spectator`)
-    }, 40)
-
-    system.runTimeout(() => {
-        player.sendMessage(`§l§e[ TUTORIAL ]§r
-Alright! All set and ready to go!`)
-    }, 80)
-
-    system.runTimeout(() => {
-        player.sendMessage(`
-§c§l[ CONTENT WARNING ]§r
-Server might contain: §l§cBlood, Gore, Slurs, Toxic and Mature topics§r.
-
-Whole server is built around §e16+ Community§r. Before Events, all those §ccontent warnings§r for the event will be §llisted in the Event Description§r.
-§l§cPlayer Discretion is Advised.§r`)
-    }, 160)
-
-    system.runTimeout(() => {
-        tutorial_2_menu(player)
-    }, 260)
-}
-
-function tutorial_2_menu(player) {
-    return new ActionFormData()
+    await waitTicks(60)
+    const r = await new ActionFormData()
         .title(`§l§c[ CONTENT WARNING ]`)
-        .body(`Server might contain: §cBlood, Gore, Slurs, Toxic and Mature topics§r.
+        .body(`${menuBuild}`)
+        .label(`/!\\ §l§cWarning!§r
+Server events may contain: §cBlood, Gore, Possible Triggers, Strong Language, and Mature Themes§r
 
-Whole server is built around §e16+ Community§r. Before Events, all those §ccontent warnings§r for the event will be listed in the §aEvent Description§r.
-§lPlayer Discretion is Advised§r.`)
-        .divider()
-        .label(`§§cI agree that clicking §aCONTINUE§c will confirm that i'm §e16 or more years old§c and i aknowledge that server contains §4mature themes§c which i will be warned about.`)
-        .button(`CONTINUE`)
-        .button(`Cancel And Leave the Server.`)
+By accepting this, 
+§lyou acknowledge that you are joining the events 
+at your own risk§r.
+The server owner and staff members are §lnot responsible§r for any potential mental or emotional distress you may experience.
+
+By clicking §eContinue§r, you confirm that you are §o§l16 years of age or older§r and that you §lwill§r be notified about specific content warnings in each event's description.
+`)
+        .button(`§lCONTINUE`)
+        .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
+        .button(`§l§cLEAVE THE SERVER`)
         .show(player)
-        .then(r => {
-            if (r.canceled) {
-                player.sendMessage(`§e§l[ SYSTEM ]§r
-§4You disagreed with the content warning.
+    if (r.canceled || r.selection == 1) lockAccess(player);
 
-Your server access has been revoked.
-
-If you believe it's a mistake, contact our staff team on our server.`)
-                player.addTag(`revokedAccess`)
-
-                system.runTimeout(() => {
-                    player.runCommand('kick @s Access Revoked.')
-                }, 260)
-            }
-
-            if (r.selection == 0) {
-                player.sendMessage(`Yes`)
-                tutorial_3(player)
-            }
-
-            if (r.selection == 1) {
-                player.sendMessage(`
-§e§l[ SYSTEM ]§r
-§4You disagreed with the content warning.
-
-Your server access has been revoked.
-
-If you believe it's a mistake, contact our staff team on our server.`)
-                player.addTag(`revokedAccess`)
-                system.runTimeout(() => {
-                    player.runCommand('kick @s Access Revoked.')
-                }, 260)
-
-            }
-        })
+    if (r.selection == 0) {
+        rules(player)
+    }
 }
 
-function tutorial_3(player) {
-    player.sendMessage(`
-[ TUTORIAL ]
-Alright NOW we can proceed. Tehee ^^
-    `)
+export async function unlockAfterTutorial(player) {
+    system.run(() => player.runCommand(`inputpermission set @s movement enabled`))
+    system.run(() => player.runCommand(`gamemode s`))
+    system.run(() => player.runCommand(`camera @s clear`))
 
-    system.runTimeout(() => {
-        player.sendMessage(`
-[ TURORIAL ]
-Yeah... No. Never using "tehee" EVER again`)
-    }, 160)
-
-    system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 221 85 1947 rot 30 0`)
-    }, 250)
-
-    system.runTimeout(() => {
-        tutorial_tavern(player);
-    }, 360)
 }
 
-function tutorial_tavern(player) {
-    return new ActionFormData()
-        .title(`THE TAVERN`)
-        .body(`The Tavern is the Heart of the entire server.
-        
-Here, you can meet with your friends for an Roleplay, Buy Alkohol, Accept Quests, Collect Reward and meet with others when this place is labeled as an Event Meeting Point.`)
+async function lockAccess(player) {
+    player.sendMessage(`§c§l[ SYSTEM ]§r Your access HAS been denied. If you think that it's an missunderstanding, contact us via support ticket, by selecting [ SERVER ACCESS ].
+    
+This ticket category is used when: You are banned or kicked from the server.
+    
+What you need to do:
+1) Go to HiraethSMP Discord Server;
+2) Go to Support Tickets;
+3) Click button to create a ticket;
+4) Fill the form, give as much details as you can;
+5) Wait till someone responds;`)
+    await waitTicks(200)
+    player.sendMessage(`§c§l[ SYSTEM ]§r You will be now kicked from the server. Thank you for joining, and see you next time!`)
+    await waitTicks(200)
+    system.run(() => player.runCommand(`tag @s add accessLocked`))
+}
+
+async function rules(player) {
+    system.run(() => player.runCommand("playsound random.levelup @s ~ ~ ~ 1 1 1"))
+    player.sendMessage(`§c§l[ SYSTEM ]§r You have accepted our Content Warning!
+    
+You can always check content warning agreedment by going into your menu (/hmenu) and clicking Info button.`)
+    await waitTicks(60)
+    player.sendMessage(`§c§l[ SYSTEM ]§r Rules are also important. You can find them on our server or typing out command /rules.
+    
+
+Please accept rules before we continue into the tutorial.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    const r = await new ActionFormData()
+        .title(`§4§l[ RULES / COMMUNITY ]`)
+        .body(menuBuild)
         .divider()
-        .button(`Continue`)
+        .header(`Community`)
+        .label(`
+1. Do not spam.
+
+2. Keep chats clean and use them for their intended purpose.
+
+3. Do not harass or bully anyone - in public chats or DMs.
+
+4. Respect others. Treat people how you'd like to be treated.
+
+5. Don't ask for staff roles. We open staff applications when needed.
+
+6. No NSFW content anywhere.
+
+7. Slurs are not outright banned but should not be overused. Be mindful.
+
+8. Avoid political, religious, or other sensitive topics that could cause arguments.
+
+9. No advertising other servers, links, or social media without permission.
+
+10. Keep drama private. If there's an issue, report it to staff instead of escalating it.
+
+11. Don't impersonate staff or other members.
+
+12. English is the main language. Please stick to it unless you're in a designated language-specific channel.
+
+13. No AI content anywhere. Including Deepfakes, Ai-generated Art or any content generated fully by an AI
+`)
+        .button('NEXT')
+        .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
+        .button(`§l§cLEAVE THE SERVER`)
         .show(player)
-        .then(r => {
-            if (r.canceled) {
-                tutorial_tavern_2(player)
-            }
 
-            if (r.selection == 0) {
-                tutorial_tavern_2(player)
-            }
-        })
-}
+    if (r.canceled || r.selection == 1) lockAccess(player);
 
-function tutorial_tavern_2(player) {
-    player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 223.90 68 1969 rot 0 0`)
+    if (r.selection == 0) {
+        const rulesVC = await new ActionFormData()
+            .title(`§4§l[ RULES / VC ]`)
+            .body(menuBuild)
+            .divider()
+            .header(`Voice Chat`)
+            .label(`
+14. Keep your voice at a comfortable volume. No mic torture, please.
 
-    system.runTimeout(() => {
-        return new ActionFormData()
-            .title(`QUEST BOARD`)
-            .body(`Quest board allows you to accept quests.
-        
-There are multiple types of quests:
-1) Collect and Transport (C&T):
-C&T quest require you to collect blocks, items or materials and transport them back to the tavern.
-Those quests are least rewardable as the reward of those quests can wage from 200\$ to 500\$.
+15. Soundboards are allowed, but don't overuse them or use them to annoy others.
 
-2) Hunt And Transport(H&T):
-More rewardable Quests which require you to hunt down given amount of mobs.
-The reward can wage from 899\$ to even 15k\$
+16. Slurs aren't banned in VC, but don't go overboard.
 
-3) Special Quests:
-Those Quests are given by moderators, with special command. It can be a random quest, when people are online, or quest that has been prepared by an Admin.
-The rewards can wage from: 5k to even 115k when done right. The more rewardable the more dangerous it is.`)
-            .button(`CONTINUE`)
+17. Don't blast music unless everyone in the VC agrees.
+
+18. Don't join VC just to troll, scream, or be disruptive.
+
+19. Do not record others in VC without their clear consent.
+`)
+            .button(`NEXT`)
+            .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
+            .button(`§l§cLEAVE THE SERVER`)
             .show(player)
-            .then(r => {
-                if (r.canceled) {
-                    tuto_economy_1(player)
-                }
-                if (r.selection == 0) {
-                    tuto_economy_1(player)
-                }
-            })
-    }, 60)
+
+        if (rulesVC.canceled || rulesVC.selection == 1) lockAccess(player);
+
+        if (rulesVC.selection == 0) {
+            const rulesMC = await new ActionFormData()
+                .title(`§4§l[ RULES / MC ]`)
+                .body(menuBuild)
+                .divider()
+                .header(`MC:BE (REALM RULES)`)
+                .label(`
+20. No griefing
+
+21. No cheating
+
+22. PvP Rules:
+
+- For the first 2 weeks, a global peace pact is active – no PvP is allowed anywhere.
+- After the peace period:
+
+  - PvP is allowed in the wilderness (unclaimed/unprotected land).
+  - PvP inside bases is not allowed, unless the base owner asks the intruder to leave and they refuse.
+- Entering someone's base without permission may be considered provocation.
+
+23. Faction Territories:
+
+- Factions claim land by placing banners on stone blocks every \~30 blocks.
+- Claimed areas must be visibly marked (walls, fences, etc.) to indicate territory boundaries.
+- Claimed zones are treated as PvP-free bases, unless point 21 conditions are met.
+- Claim banners must be purchased from faction vendors using a special item from the Discord economy system.
+- Each faction starts with 128 claim banners at the start of the season.
+- Abuse or bypassing of this system (e.g., fake claims, invisible boundaries) will be punished.
+
+24. No offensive or inappropriate builds
+
+25. Avoid lag-inducing builds
+
+26. Don't claim large areas and leave them unused.
+
+27. Follow staff instructions - fix, move, or remove your builds if asked.
+
+28. Use common sense. If unsure, ask
+`)
+                .button(`Accept`)
+                .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
+                .button(`§l§cLEAVE THE SERVER`)
+
+                .show(player)
+
+            if (rulesMC.canceled || rulesMC.selection == 1) lockAccess(player);
+
+        }
+
+    }
 }
 
-function tuto_economy_1(player) {
-    player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 193 90 1955 rot 30 0`)
+export async function tutorial_main(player) {
+    system.run(() => player.runCommand(`inputpermission set @s movement disabled`))
+    system.run(() => player.runCommand(`gamemode spectator`))
 
-    system.runTimeout(() => {
-        return new ActionFormData()
-            .title(`RESTARUANT`)
-            .body(`Server Market from Alpha build is no more!
-To make the Gameplay Immersive as much as possible, the only way you can buy stuff is now in this town's markets!
+    system.run(() => player.runCommand("playsound random.levelup @s ~ ~ ~ 1 1 1"))
+    player.sendMessage(`§c§l[ SYSTEM ]§r You have accepted our Rules!
+    
+You can always check rules by going into Discord or your menu (/hmenu) and clicking Rules button.`)
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Hello §a${player.name}§r! Welcome to HiraethSMP!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
-For example THE RESTAURANT.
-This shop is the only way to use your money to buy food. This store has it's own unique Items which you can buy! For example:
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This §eTutorial§r will show you the basics of our server.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
-Fire Cake which gives you Fire Immunity for 30 minutes!`)
-            .button(`CONTINUE`)
-            .show(player)
-            .then(r => {
-                if (r.canceled) {
-                    tuto_economy_2(player)
-                }
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It will be showed only once.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
-                if (r.selection == 0) {
-                    tuto_economy_2(player)
-                }
-            })
-    }, 60)
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Let's start the adventure!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    system.run(() => player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 222 87 1944 rot 20 0`))
+    system.run(() => player.runCommand(`tp 222 83 1944`))
+
+    await waitTicks(100)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the tavern.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is a heart of the server.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r If you're into exploring, or quests: You will visit it very often.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 223 68 1969 rot 0 0"))
+    system.run(() => player.runCommand(`tp 223 65 1969`))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is a quest board.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r In here you will be able to Accept Quests...`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r ...While inside the tavern, you will be able to collect rewards.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are 3 types of quests:`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Delivery, which offers from \$1k to \$5k.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r C&T, which offer from \$3k to \$10k.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r And H&T, offering from \$10k to even \$100k`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are also Admin Quest.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Special quests made by admins. Which are the most profitable quests out there!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 223 68 1971 rot -20 -90"))
+    await waitTicks(59)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 228 71 1971 rot -20 -90"))
+    await waitTicks(59)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 1 in_out_sine pos 228 71 1971 rot 0 -90"))
+    await waitTicks(19)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 233.5 71.5 1971 rot 0 -90"))
+    await waitTicks(59)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 1 linear pos 233.5 71.5 1971 rot 0 0"))
+    await waitTicks(19)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 233.5 71.5 1978 rot 0 0"))
+    await waitTicks(59)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 233.5 71.5 1978 rot 0 90"))
+    await waitTicks(59)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 219.5 71.5 1978 rot 0 90"))
+    await waitTicks(59)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 out_sine pos 216.5 71.5 1985 rot 0 90"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is Adam!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r You can interact him by clicking the service bell!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r With him, you will be able to:`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Collect Rewards from Quests`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Buy Alkohol Drinks`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Check newest information.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Fun Fact:`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Some drinks have historical name!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r For example: One wine has a name of an hybrid boy who`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r dicovered the continent and`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r allowed Silvi (City you're in now) to exist!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_sine rot 0 180"))
+    await waitTicks(100)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 208 84 1964 rot 20 180"))
+
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the Church.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here you can check your XP, Mana, Magic and Level!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Simply interact with a block inside of it to check your stats!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
 }
 
-function tuto_economy_2(player) {
-    player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 195 72.6 1972 rot 0 0`)
+system.runInterval(() => {
+    const server = world.getDimension(`overworld`);
 
-    system.runTimeout(() => {
-        return new ActionFormData()
-            .title(`ENTERING THE STORES`)
-            .body(`To enter stores, you need to interact with special Blocks.
+    for (const player of server.getPlayers()) {
+        if (player.hasTag('accessLocked')) {
+            return new ActionFormData()
+                .title(`§l§cBANNED`)
+                .body(``)
+                .divider()
+                .header(`You are Banned.`)
+                .label(`§cYou cannot access the server as you are currently banned.§r
 
-For example, this handle. Just use your interact button ( short click on mobile ) on the block to enter the store.`)
-            .show(player)
-            .then(r => {
-                if (r.canceled) {
-                    tuto_economy_3(player)
-                }
-                if (r.selection == 0) {
-                    tuto_economy_3(player)
-                }
-            })
-    })
-}
+This may have occurred due to one of the following reasons:
 
-function tuto_economy_3(player) {
-    player.runCommand(`camera @s fade time 1 1 1`)
+1) Denying the Content Warning or Server Rules.
 
-    system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free pos 187 30 1974 rot 0 -90`)
-    }, 20)
+2) Violating our Server Rules.
 
-    system.runTimeout(() => {
-        player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 204 30 1970 rot 0 180`)
-    }, 30)
+If you believe this ban was a mistake or unjustified, please contact us via Discord.
+If you are also banned on Discord, you can submit an appeal at: §bhttps://appeals.wickbot.com§r
 
-    system.runTimeout(() => {
-        return new ActionFormData()
-            .title(`BUYING THE PRODUCTS`)
-            .body(`To buy a product, you need to enter the store and interact with the block.
-        
-Withing the Block's menu, you will have an dropdown option where you choose an item. Each item's Total Price* is described next to the item's name.
-        
-The normal price is the price without modifier. It is an Hard Coded price for the item which is used to count the value of the total price.
+Please note: every 25 seconds, our system will automatically kick you to free up player slots.
 
-Total price is price + modifier, which allows the prices to change every day. Modifier changes every game day at 6:00.
+Thank you, and we hope to hear from you soon.`)
+                .button(`Leave The Server`)
 
-Total Final Price is (Price + Modifier) * amount. If amount = 0, the Total Final Price is equal to Total Price.
+                .show(player)
+        }
+    }
+}, 80)
 
-The Items have their own Categories, and those categories have their own stores. This is the list of those stores and their open and close time:
-1) Cooked Food: Restaurant 9:00 - 19:00
-2) Raw food: Butcher 7:00 - 19:00 & Store 9:00 - 23:00 
-3) Misc Food: Store 9:00 - 23:00
-5) Stone Blocks: Stonemason 5:00 - 23:00
-6) Wooden Blocks: Lumberjack 5:00 - 18:00
-8) Special Block (Dimension Blocks): Witch's Tower 3:00 - 1:00
-9) Spell Books: Witch's Tower 3:00 - 1:00
-10) Alkohol Drinks: Tavern 24/7
-11) Materials (Ores): Miner 5:00 - 20:00
-12) Mob Loots: Guard Tower 24/7
-13) Ores: Miner 5:00 - 20:00
-
-Each store has it's unique open and close time, some of them are active 24/7. Use it to your advantage as every 100 buys the price is changed.`)
-            .show(player)
-    }, 60)
-}
+system.runInterval(() => {
+    world.getDimension(`overworld`).runCommand(`kick @a[tag=accessLocked] You have been banned from this server.`)
+    console.warn(`Tried to kick players.`)
+}, 500)

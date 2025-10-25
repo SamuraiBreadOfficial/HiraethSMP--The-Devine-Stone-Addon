@@ -21,3 +21,7 @@ entity.hsmp:restaurant_worker.name=Restaurant Worker
 tile.hsmp:bottom_butcher_door.name=bottom_butcher_door
 tile.hsmp:top_butcher_door.name=top_butcher_door
 tile.hsmp:restaurant_door_handle.name=restaurant_door_handle
+tile.hsmp:coin_box_re.name=[ RE ] Coint Box
+tile.hsmp:service_bell.name=service_bell
+item.spawn_egg.entity.hsmp:service_bell_entity.name=Spawn service_bell_entity
+entity.hsmp:service_bell_entity.name=service_bell_entity

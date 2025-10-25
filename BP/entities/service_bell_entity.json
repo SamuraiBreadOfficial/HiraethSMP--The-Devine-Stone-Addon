@@ -1,0 +1,26 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "hsmp:service_bell_entity",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {},
+		"components": {
+			"minecraft:physics": {
+				"has_collision": false,
+				"has_gravity": false,
+				"push_towards_closest_space": false
+			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"cause": "all",
+					"deals_damage": false
+				}
+			}
+		},
+		"events": {}
+	}
+}

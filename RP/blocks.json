@@ -18,5 +18,11 @@
 	},
 	"hsmp:restaurant_door_handle": {
 		"sound": "stone"
+	},
+	"hsmp:coin_box_re": {
+		"sound": "stone"
+	},
+	"hsmp:service_bell": {
+		"sound": "stone"
 	}
 }

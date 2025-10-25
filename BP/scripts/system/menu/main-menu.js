@@ -2,7 +2,6 @@ import { world, system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { getRaceTags, getMagicTags } from "../../modules/playerinfo/registered-tags.js";
 import { hiraethLOGO } from "../../modules/playerinfo/utils.js";
-import { tutorial_1 } from "./page1-joinmenu.js";
 import { getScore, hasScore, isScoreRegistered } from "../../modules/economy/economy-scoreboards.js"
 import { formatCurrency } from "../../formats.js"
 
@@ -24,7 +23,8 @@ Race: ${getRaceTags(player)}
 Magic Type: ${getMagicTags(player)}
 Level: WIP.`)
             .button(`§lECONOMY`)
-            .button(`§lTUTORIEL`)
+            .button(`§lACHIEVEMENTS`)
+            .button(`§lCREDITS`)
             .button('Close')
             .show(player)
             .then(r => {
@@ -40,9 +40,8 @@ Level: WIP.`)
                         hsmpMenu_BAL(player)
                     }
                 }
-
-                if (selection == 1) {
-                    tutorial_1(player)
+                if (selection == 2) {
+                    credits(player)
                 }
             })
     } else {
@@ -140,4 +139,50 @@ Whole Balance: ${formatCurrency(all)}
                 hsmpMenu_MAIN(player)
             }
         })
+}
+
+async function credits(player) {
+
+    const r = await new ActionFormData()
+        .title(`§lCREDITS`)
+        .body(mainmenuBuild)
+        .divider()
+        .header(`Server`)
+        .label(`Created by: SamuraiBread
+Help with ideas:
+- Fafik
+- AkuCrestfallen`)
+        .divider()
+        .header(`§lADDON`)
+        .label(`Made & Designed by SamuraiBread`)
+        .divider()
+        .header(`Voice Actors`)
+        .label(`
+Evan - SamuraiBread (@samuraibread)
+
+Special Thanks to all of those members who voiced special characters:
+
+Alex:
+Luka §o§c(@lukasrbalj)§r
+
+Witch:
+MINI §o§d(@_gloopy_soupy)§r
+
+Lumberjack:
+CyoVolt_ §o§9(@cryo_volt)§r
+
+Restaurant Worker:
+r1tual §o§u(@sacrificial_vessel)§r
+    [F: Wemmbu/August]
+`)
+        .divider()
+        .header(`§lTESTERS`)
+        .label(`
+- Shadow §o§2(@shadowthebloodywolf)§r
+- Crestfallen Aku §o§p(@rebirthaku)§r
+- Luka §o§c(@lukasrbalj)§r`)
+        .show(player)
+
+    if (r.canceled) hsmpMenu_MAIN(player);
+
 }

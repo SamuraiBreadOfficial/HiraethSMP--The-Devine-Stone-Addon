@@ -1,0 +1,120 @@
+{
+	"format_version": "1.21.90",
+	"minecraft:block": {
+		"description": {
+			"identifier": "hsmp:lumber_jack_handle",
+			"traits": {
+				"minecraft:placement_direction": {
+					"enabled_states": [
+						"minecraft:cardinal_direction"
+					],
+					"y_rotation_offset": 180
+				}
+			}
+		},
+		"components": {
+			"minecraft:geometry": "geometry.restaurant_door_handle",
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "hsmp_restaurant_door_handle",
+					"render_method": "alpha_test",
+					"ambient_occlusion": true,
+					"face_dimming": true,
+					"isotropic": false,
+					"tint_method": "none"
+				}
+			},
+			"minecraft:placement_filter": {
+				"conditions": [
+					{
+						"allowed_faces": [
+							"east",
+							"north",
+							"south",
+							"west"
+						]
+					}
+				]
+			},
+			"minecraft:collision_box": {
+				"origin": [
+					-7,
+					6,
+					6
+				],
+				"size": [
+					8,
+					3,
+					1
+				]
+			},
+			"minecraft:selection_box": {
+				"origin": [
+					-7,
+					6,
+					6
+				],
+				"size": [
+					8,
+					3,
+					1
+				]
+			},
+			"hsmp:lumber_jack_door": {}
+		},
+		"permutations": [
+			// Facing north
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							0,
+							0
+						]
+					}
+				}
+			},
+			// Facing west
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							90,
+							0
+						]
+					}
+				}
+			},
+			// Facing south
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							180,
+							0
+						]
+					}
+				}
+			},
+			// Facing east
+			{
+				"condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							-90,
+							0
+						]
+					}
+				}
+			}
+		]
+	}
+}

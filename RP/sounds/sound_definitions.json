@@ -24,6 +24,12 @@
 			"sounds": [
 				"sounds/church/church_strike_12"
 			]
+		},
+		"hsmp.service_bell": {
+			"category": "block",
+			"sounds": [
+				"sounds/store_sound/service_bell"
+			]
 		}
 	}
 }

@@ -124,3 +124,80 @@ system.beforeEvents.startup.subscribe(e => {
         }
     })
 })
+
+system.beforeEvents.startup.subscribe(e => {
+    e.blockComponentRegistry.registerCustomComponent('hsmp:lumber_jack_door', {
+        onPlayerInteract(e) {
+            const inLocation = { x: 76, y: 66, z: 1882 };
+            const inRotation = { x: 90, y: 0 };
+            const outLocation = { x: 76, y: 66, z: 1886 };
+            const outRotatiom = { x: 180, y: 0 };
+            const player = e.player;
+
+            const dimension = world.getDimension('overworld');
+            const locationTag = 'inLumberLocation';
+            const time = world.getTimeOfDay();
+
+            if (!player.hasTag(locationTag)) {
+                if (time >= 3000 && time <= 16000) {
+                    player.addTag(locationTag);
+                    player.runCommand('hud @s hide all');
+                    player.playSound("random.door_open", {
+                        pitch: 0.5,
+                        volume: 1
+                    })
+                    player.camera.fade({
+                        fadeTime: {
+                            fadeInTime: 1,
+                            holdTime: 1,
+                            fadeOutTime: 1
+                        }
+                    })
+
+                    system.runTimeout(() => {
+                        player.teleport(inLocation, dimension)
+                    }, 20)
+
+                    system.runTimeout(() => {
+                        player.playSound("random.door_close", {
+                            pitch: 0.5,
+                            volume: 1
+                        })
+                        player.runCommand('hud @s reset')
+                    }, 40)
+                } else {
+                    player.sendMessage(`Restaurant currently Closed. Come back at 9:00`)
+                }
+            } else if (player.hasTag(locationTag)) {
+                player.removeTag(locationTag);
+                player.runCommand('hud @s hide all');
+                player.playSound("random.door_open", {
+                    pitch: 0.5,
+                    volume: 1
+                })
+                player.camera.fade({
+                    fadeTime: {
+                        fadeInTime: 1,
+                        holdTime: 1,
+                        fadeOutTime: 1
+                    }
+                })
+
+                system.runTimeout(() => {
+                    player.teleport(outLocation, dimension)
+                }, 20)
+
+                system.runTimeout(() => {
+                    player.playSound("random.door_close", {
+                        pitch: 0.5,
+                        volume: 1
+                    })
+                    player.runCommand('hud @s reset');
+                    player.setRotation(outRotatiom)
+
+                }, 40)
+
+            }
+        }
+    })
+})

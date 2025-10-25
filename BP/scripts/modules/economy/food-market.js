@@ -8,6 +8,49 @@ import {
     buyMenu
 } from "./core.js"
 
+const resMessages = [
+    "< Hiyah > Welcome to \"Under The Copper Bolt\"!",
+    "< Hiyah > Welcome! What can i get for you?",
+    "< Hiyah > Hello again! What can i get for you?",
+    "< Hiyah > Welcome to 'Under The Copper Bolt'! What brings you in today?",
+    "< Hiyah > Good day, traveler! Care for a meal or a drink?",
+    "< Hiyah > Hungry? We've got the finest stew in town!",
+    "< Hiyah > Welcome! Sit wherever you like!",
+    "< Hiyah > Oh! A new face! What can I get for you?",
+    "< Hiyah > Back again, eh? The usual?",
+    "< Hiyah > Hello again! Hungry already?",
+    "< Hiyah > Welcome, friend. Warm food, cold ale, take your pick!",
+    "< Hiyah > Step right in! You look like you could use a hot meal.",
+    "< Hiyah > Evening! We've just finished roasting the boar!",
+    "< Hiyah > Welcome to 'Under The Copper Bolt', where hunger meets its match!",
+    "< Hiyah > Hello there! The chef just made something special today.",
+    "< Hiyah > Hey, traveler! Fancy something to drink?",
+    "< Hiyah > Hah! You again! I saved your favorite spot.",
+    "< Hiyah > Oh, it's you! Care for the same as last time?",
+    "< Hiyah > Welcome, wanderer! We've got stew, bread, and a story or two.",
+    "< Hiyah > Step closer! You won't find better food in this whole district.",
+    "< Hiyah > What'll it be? Ale? Stew? Or both?",
+    "< Hiyah > Hey there! You smell like adventure, and you look hungry.",
+    "< Hiyah > Glad to see you made it through the storm. Warm yourself up with some soup!",
+    "< Hiyah > Ah, welcome! The fire's warm, and so's the mead!",
+    "< Hiyah > Haven't seen you in a while! Still chasing monsters or just meals?",
+    "< Hiyah > Hey! I just baked fresh bread, want some?",
+    "< Hiyah > Welcome back! The Copper Bolt always has a place for you.",
+    "< Hiyah > Sit down, traveler. The night's young, and the ale's flowing!"
+
+];
+
+function randomRestaurantMessage() {
+    const index = Math.floor(Math.random() * resMessages.length);
+    const time = world.getTimeOfDay()
+
+    if (time >= 3000 && time <= 16000) {
+        return resMessages[index];
+    } else {
+        return "We are closing soon, please leave."
+    }
+}
+
 import { formatCurrency } from "../../formats.js"
 
 export const foodPrices = {
@@ -174,25 +217,25 @@ export function restaurantMarket(player) {
 
 
     return new ModalFormData()
-        .title(`Restaurant`)
-        .header(`Restaurant`)
-        .label(`Buy all cooked food here.
+        .title(`§lRESTAURANT`)
+        .header(`§l§eRestaurant`)
+        .label(`${randomRestaurantMessage()}`)
+        .divider()
+        .label(`
+§a[ i ]§r Restaurant sells only cooked food. It has special items too.
 
-Be aware that price and total price are diffrent!
+§c[ ! ]§r Before buying, you need to withdraw money from your bank.
 
-Price = Normal Price without modifier.
-Total Price = Price + Modifier
+§c[ ! ]§r Price is not the same 24/7. Modifiers for the price updates each day at 6:00 (Day tick 0)
 
-Total Final Price = (Price + Modifier) * Amount!
-
-Before buying you need to withdraw yout money too!`)
+§a[ i ]§r Current Modifiers: §e${foodPrices.modifier}%%`)
         .dropdown(`Items | Total Price`, options)
         .show(player)
         .then(r => {
 
             if (r.canceled) return;
 
-            const selectedIndex = r.formValues[2]
+            const selectedIndex = r.formValues[4]
             const selectedLabel = options[selectedIndex];
 
             const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]

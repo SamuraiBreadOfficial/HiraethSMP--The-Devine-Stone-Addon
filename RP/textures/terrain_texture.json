@@ -18,6 +18,12 @@
 		},
 		"hsmp_restaurant_door_handle": {
 			"textures": "textures/blocks/restaurant_handle"
+		},
+		"hsmp_coin_box_re": {
+			"textures": "textures/blocks/restaurant"
+		},
+		"hsmp_service_bell": {
+			"textures": "textures/blocks/service_bell_tavern"
 		}
 	}
 }
