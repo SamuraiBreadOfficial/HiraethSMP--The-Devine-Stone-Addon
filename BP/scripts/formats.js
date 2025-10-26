@@ -18,3 +18,17 @@ export function waitTicks(ticks) {
         system.runTimeout(resolve, ticks)
     })
 }
+
+export async function typeActionbar(player, character, text, delay = 1) {
+    for (let i = 1; i <= text.length; i++) {
+        const fragment = text.slice(0, i);
+        system.run(() => player.runCommand(`title @s actionbar < ${character} > ${fragment}`));
+
+        const char = text[i - 1];
+        if (char === "." || char === ",") {
+            await waitTicks(delay + 6); // pauza rytualna
+        } else {
+            await waitTicks(delay);
+        }
+    }
+}

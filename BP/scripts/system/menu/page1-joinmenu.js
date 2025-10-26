@@ -190,15 +190,39 @@ export function joinMenu_RACECONFIRM(player) {
 export function joinMenu_MAGIC(player) {
     return new ActionFormData()
         .title('')
-        .body(menuBuild)
+        .body(menuBuild + ` || Still Under Development.`)
         .divider()
         .header('Magic Selection')
         .divider()
-        .label('Fuck off Luka')
+        .label('Choose your Magic Type and begin your adventure with powerfull spells.')
         .divider()
         .header('§l§cFIRE')
         .divider()
-        .label('')
+        .label(`Fire Magic is the most powerfull magic, it offers fire and thunder spells.
+        
+Spells included in this Magic Type:
+
+1) Fireball - Deals damage + sets player which was hit on fire.
+
+Levels: 5
+HSMP Levels to unlock: 0
+HSMP Levels to upgrade:
+Level 1: 5LVL (+20%% Damage)
+Level 2: 10LVL (+40%% Damage)
+Level 3: 20LVL ( Less Mana Use )
+Level 4: 40LVL ( +50%% Damage + Less Mana Use )
+Level 5: 60LVL ( +80%% Damage + -90% Mana Use )
+
+2) Area Fire - Sets the area on fire for 30seconds
+
+Levels: 3
+HSMP Levels to Unlock: 20
+HSMP Levels to Upgrade:
+Level 1: 15LVL (+20%% DAMAGE)
+Level 2: 30LVL ( +5s + +5 block of range (20) )
+Level 3: 80LVL ( +15s + +50%% )
+
+[...] More spells in Church.`)
         .button('§l§cCHOOSE FIRE\nMAGIC')
         .divider()
         .header('§l§bWIND')
@@ -283,27 +307,18 @@ export function join_MenuTUTORIALREQUEST(player) {
         .title(hiraethLOGO)
         .body(menuBuild)
         .divider()
-        .header(`Tutorial`)
+        .header(`§lPLAY`)
         .divider()
-        .label(`Do you want to view small Tutorial for HiraethSMP?`)
-        .button('§lYES')
-        .button('§lNO')
+        .label(`Everything is setted up and ready to proceed.
+        
+Click Play button to begin your adventure <3`)
+        .button('§lPLAY')
         .show(player)
         .then(r => {
             const selection = r.selection;
 
-            if (r.canceled) {
-                player.sendMessage('Tutorial Cancelled. You can always view it in ' + hiraethLOGO + " menu by typing the command §e§o/hmenu")
-            }
-
-            if (selection == 0) {
-                player.sendMessage(`Tutorial Still in Progress.`)
-                tutorial_1(player)
-            }
-
-            if (selection == 1) {
-                player.sendMessage('Tutorial Cancelled. You can always view it in ' + hiraethLOGO + " menu by typing the command §e§o/hmenu")
-
+            if (r.canceled || selection == 0) {
+                cwAgreedment(player)
             }
         })
 }
@@ -497,6 +512,10 @@ Please accept rules before we continue into the tutorial.`)
 
             if (rulesMC.canceled || rulesMC.selection == 1) lockAccess(player);
 
+            if (rulesMC.selection == 0) {
+                tutorial_main(player)
+            }
+
         }
 
     }
@@ -509,17 +528,17 @@ export async function tutorial_main(player) {
     system.run(() => player.runCommand("playsound random.levelup @s ~ ~ ~ 1 1 1"))
     player.sendMessage(`§c§l[ SYSTEM ]§r You have accepted our Rules!
     
-You can always check rules by going into Discord or your menu (/hmenu) and clicking Rules button.`)
+You can always check the rules by going into Discord or your menu (/hmenu) and clicking the Rules button.`)
     await waitTicks(60)
     player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Hello §a${player.name}§r! Welcome to HiraethSMP!`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This §eTutorial§r will show you the basics of our server.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This tutorial will show you the basics of our server.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It will be showed only once.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It will be shown only once.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
@@ -535,11 +554,11 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is a heart of the server.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is the heart of the server.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r If you're into exploring, or quests: You will visit it very often.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r If you enjoy exploring or doing quests, you will visit it very often.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(100)
@@ -547,15 +566,15 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     system.run(() => player.runCommand(`tp 223 65 1969`))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is a quest board.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the quest board.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r In here you will be able to Accept Quests...`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here you will be able to accept quests...`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r ...While inside the tavern, you will be able to collect rewards.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r ...and inside the tavern, you will be able to collect rewards.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
@@ -563,23 +582,23 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Delivery, which offers from \$1k to \$5k.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Delivery, which offers from $1k to $5k.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r C&T, which offer from \$3k to \$10k.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r C&T, which offers from $3k to $10k.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r And H&T, offering from \$10k to even \$100k`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r And H&T, offering from $10k to even $100k.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are also Admin Quest.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are also Admin Quests.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Special quests made by admins. Which are the most profitable quests out there!`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Special quests made by admins, which are the most profitable quests out there!`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(100)
@@ -606,34 +625,34 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is Adam!`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r You can interact him by clicking the service bell!`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r You can interact with him by clicking the service bell!`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
     player.sendMessage(`§e[ §lTUTORIAL§r§e]§r With him, you will be able to:`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Collect Rewards from Quests`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Collect rewards from quests.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Buy Alkohol Drinks`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Buy alcohol drinks.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Check newest information.`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Check the newest information.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Fun Fact:`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Fun fact:`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Some drinks have historical name!`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Some drinks have historical names!`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r For example: One wine has a name of an hybrid boy who`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r For example, one wine has the name of a hybrid boy who`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r dicovered the continent and`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r discovered the continent and`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r allowed Silvi (City you're in now) to exist!`)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r allowed Silvi, the city you are in now, to exist!`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
@@ -829,6 +848,7 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     await waitTicks(60)
     player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Tip: Track time by crafting a clock! (redstone and gold.)`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    startCutscene(player)
 
 
 
@@ -888,38 +908,116 @@ export async function startCutscene(player) {
     await waitTicks(200)
     system.run(() => player.runCommand('camera @s fade time 3 8 5'))
     await waitTicks(50)
-    system.run(() => player.runCommand(`title @s actionbar <???> Wake up.`))
+    typeActionbar(player, '???', 'Wake up.', 3)
     await waitTicks(200)
     system.run(() => player.runCommand('camera @s fade time 3 8 5'))
     await waitTicks(50)
     system.run(() => player.runCommand(`title @s actionbar <???> Wake up!`))
+    typeActionbar(player, '???', '<???> Wake up!', 3)
     await waitTicks(200)
     system.run(() => player.runCommand('camera @s fade time 3 9 0'))
     await waitTicks(50)
     system.run(() => player.runCommand(`title @s actionbar <???> WAKE THE F*CK UP!`))
+    typeActionbar(player, '???', 'WAKE THE F*CK UP!', 1)
+
     await waitTicks(40)
-    system.run(() => player.runCommand(`title @s actionbar <???> I'M BEGGING YOU, DON'T LEAVE ME!!`))
+    typeActionbar(player, '???', `I'M BEGGING YOU, DON'T LEAVE ME!!`, 1)
     await waitTicks(50)
-    system.run(() => player.runCommand(`title @s actionbar <???> I CAN'T LEAVE THIS PLACE WITHOUT YOU, PLEASE!!`))
+    await typeActionbar(player, '???', `I CAN'T LEAVE THIS PLACE WITHOUT YOU, PLEASE!!`, 1)
     system.run(() => player.runCommand(`title @s times 0 60 0`))
     await waitTicks(50)
     system.run(() => player.runCommand(`title @s title WAKE UP!!`))
     system.run(() => player.runCommand(`camera @s clear`))
+    system.run(() => player.runCommand(`inputpermission set @s movement enabled`))
+    system.run(() => player.runCommand(`gamemode s`))
+
 
     await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> W`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wh`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha.`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha..`))
+    await waitTicks(1)
     system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha...`))
 
     await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh..`))
+    await waitTicks(20)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. M`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My h`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My he`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My hea`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head h`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hu`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hur`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurt`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts.`))
+    await waitTicks(1)
     system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts..`))
 
     await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> W`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wh`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a w`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a we`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a wei`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weir`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird d`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dr`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dre`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird drea`))
+    await waitTicks(1)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream`))
+    await waitTicks(20)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream..`))
+    await waitTicks(20)
     system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream..`))
 
     await waitTicks(100)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wait...`))
+    typeActionbar(player, `${player.name}`, 'Wait...', 1)
 
     await waitTicks(60)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Where even am i?`))
+    typeActionbar(player, `${player.name}`, 'Where even am I?', 1)
 
     await waitTicks(100)
     system.run(() => player.runCommand(`title @s times 20 100 50`))
@@ -930,11 +1028,13 @@ export async function startCutscene(player) {
 
     await waitTicks(100)
     system.run(() => player.runCommand(`title @s actionbar <${player.name}> There's a tavern..`))
-
-    await waitTicks(60)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Maybe i'll ask there?`))
+    await typeActionbar(player, `${player.name}`, 'There is a tavern...', 1)
 
     await waitTicks(40)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Maybe i'll ask there?`))
+    await typeActionbar(player, `${player.name}`, 'Maybe I\'ll ask there?...', 1)
+
+    await waitTicks(20)
     player.sendMessage(`[ §e§lQUEST§r ]
 Title: §eFreshly Awoken§r
 
@@ -942,12 +1042,12 @@ Go to the local §etavern§r and ask someone about this place.
 
 Rewards: §a\$5k + Achievement §l"And thus it begins."`)
     system.run(() => player.addTag('hsmp_quest_freshly_awoken'))
-
-
-
-
-
-
-
 }
 
+async function typeActionbar(player, character, text, delay = 1) {
+    for (let i = 1; i <= text.length; i++) {
+        const fragment = text.slice(0, i);
+        system.run(() => player.runCommand(`title @s actionbar < ${character} > ${fragment}`));
+        await waitTicks(delay);
+    }
+}
