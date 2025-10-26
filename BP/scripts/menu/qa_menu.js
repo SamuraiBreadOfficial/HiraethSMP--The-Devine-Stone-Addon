@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/menu/qa_menu.js");
+
 import { system, world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { waitTicks } from "../formats.js"

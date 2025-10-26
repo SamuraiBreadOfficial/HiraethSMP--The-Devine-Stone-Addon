@@ -1,3 +1,6 @@
+console.warn("§d[HIRAETH]§r Loading scripts/modules/economy/economy-scoreboards.js");
+
+
 import { world } from "@minecraft/server"
 
 export function getScore(player, objectiveName) {

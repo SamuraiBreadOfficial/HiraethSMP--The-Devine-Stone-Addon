@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/system/menu/page1-joinmenu.js");
+
 import { ActionFormData } from "@minecraft/server-ui";
 import { system, world } from "@minecraft/server";
 

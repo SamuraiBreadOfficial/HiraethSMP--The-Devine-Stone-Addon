@@ -1,3 +1,4 @@
+console.warn("§d[HIRAETH]§r Loading scripts/addon-info.js");
 export const addon = {
     version: {
         no: `v1.0`,

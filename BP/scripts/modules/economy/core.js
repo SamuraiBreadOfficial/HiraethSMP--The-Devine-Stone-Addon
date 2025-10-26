@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/modules/economy/core.js");
+
 import { world, system } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui"
 import { foodPrices, foodSell } from "./food-market.js"

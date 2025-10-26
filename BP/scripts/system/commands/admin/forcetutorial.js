@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Admin Command: /forceaction");
+
 import { system, world, CustomCommandParamType, CommandPermissionLevel } from "@minecraft/server";
 import { cwAgreedment, unlockAfterTutorial, tutorial_main, startCutscene, joinMenu_START } from '../../menu/page1-joinmenu.js'
 

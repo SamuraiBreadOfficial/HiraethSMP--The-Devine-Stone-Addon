@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/system/menu/clock.js");
+
 import { world, system } from "@minecraft/server";
 
 function getClockTime(dayTick) {

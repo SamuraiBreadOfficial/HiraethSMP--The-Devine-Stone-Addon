@@ -1,9 +1,12 @@
+console.warn("§d[HIRAETH]§r Loading scripts/system/menu/main-menu.js");
+
 import { world, system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { getRaceTags, getMagicTags } from "../../modules/playerinfo/registered-tags.js";
 import { hiraethLOGO } from "../../modules/playerinfo/utils.js";
 import { getScore, hasScore, isScoreRegistered } from "../../modules/economy/economy-scoreboards.js"
 import { formatCurrency } from "../../formats.js"
+import { registeredQuestNames, questTags } from "./../quests/main/core.js"
 
 const mainmenuBuild = `Main Menu v2 || Build v0.1`
 
@@ -23,6 +26,7 @@ Race: ${getRaceTags(player)}
 Magic Type: ${getMagicTags(player)}
 Level: WIP.`)
             .button(`§lECONOMY`)
+            .button(`§lQUESTS`)
             .button(`§lACHIEVEMENTS`)
             .button(`§lCREDITS`)
             .button('Close')
@@ -40,7 +44,10 @@ Level: WIP.`)
                         hsmpMenu_BAL(player)
                     }
                 }
-                if (selection == 2) {
+                if (selection == 1) {
+                    questMenu(player)
+                }
+                if (selection == 3) {
                     credits(player)
                 }
             })
@@ -185,4 +192,22 @@ r1tual §o§u(@sacrificial_vessel)§r
 
     if (r.canceled) hsmpMenu_MAIN(player);
 
+}
+
+export async function questMenu(player) {
+    const quest = await registeredQuestNames(player);
+
+    const r = await new ActionFormData()
+        .title(`§lQUEST INFO`)
+        .body(`Quest Build v1`)
+        .divider()
+        .header(`${quest.name}`)
+        .label(`Tutorial Story Progress: ${quest.startProgression}`)
+        .divider()
+        .label(`Description:
+${quest.description}
+
+Rewards:
+${quest.allRewards()}`)
+        .show(player)
 }

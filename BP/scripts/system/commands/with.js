@@ -1,3 +1,6 @@
+console.warn("§d[HIRAETH]§r Loading Command: /with");
+
+
 import { world, system, CommandPermissionLevel, CustomCommandParamType } from "@minecraft/server";
 import { hasScore, getScore } from "../../modules/economy/economy-scoreboards.js";
 import { formatCurrency } from "../../formats.js"

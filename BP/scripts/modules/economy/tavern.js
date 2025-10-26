@@ -1,3 +1,6 @@
+console.warn("§d[HIRAETH]§r Loading scripts/modules/economy/tavern.js");
+
+
 import { world, system } from "@minecraft/server";
 import { formatCurrency, waitTicks } from "../../formats.js"
 

@@ -1,7 +1,8 @@
+console.warn("§d[HIRAETH]§r Loading the modules..");
 import "./system/first-join.js";
 import "./system/system-index.js";
-import "./system/commands/admin/forcemodifierupdate.js"
-import "./system/commands/admin/forcetutorial.js"
+import "./system/commands/admin/forcemodifierupdate.js";
+import "./system/commands/admin/forcetutorial.js";
 import "./system/commands/ver.js";
 import "./system/commands/qa.js";
 import "./menu/qa_menu.js";
@@ -28,3 +29,4 @@ import "./modules/economy/lumberjack.js";
 import "./blocks/store_doors.js";
 import "./blocks/service_bell.js";
 import "./town/church_bell_system.js";
+import "./system/quests/main/core.js";

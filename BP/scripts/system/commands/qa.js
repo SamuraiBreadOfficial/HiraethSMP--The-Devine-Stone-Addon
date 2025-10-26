@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /qa");
+
 import { system, world, CommandPermissionLevel, CustomCommandParamType } from "@minecraft/server";
 import { quickAction_main } from "../../menu/qa_menu"
 system.beforeEvents.startup.subscribe(e => {

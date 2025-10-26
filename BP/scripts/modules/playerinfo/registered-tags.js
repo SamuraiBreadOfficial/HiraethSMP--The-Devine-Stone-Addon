@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/modules/playerinfo/registered-tags.js");
+
 import {
     tag_demon, tag_elf, tag_half_orc, tag_human,
     tag_fire, tag_wind, tag_earth, tag_nature

@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /hmenu");
+
 import { system, world, CommandPermissionLevel } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui"
 

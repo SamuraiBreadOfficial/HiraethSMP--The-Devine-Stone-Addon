@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/system/first-join.js");
+
 import {
     system, world,
     CommandPermissionLevel,

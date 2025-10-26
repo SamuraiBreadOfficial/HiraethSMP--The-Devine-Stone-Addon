@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/blocks/store_doors.js");
+
 import { world, system } from "@minecraft/server"
 
 system.beforeEvents.startup.subscribe(e => {

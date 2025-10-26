@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /forcemodifierupdate");
+
 import { world, system, CustomCommandParamType, CommandPermissionLevel } from "@minecraft/server";
 
 import { forceModifier, forceCatModifier } from "../../../modules/economy/core.js";

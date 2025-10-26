@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /fasttravel");
+
 import { world, system, CommandPermissionLevel } from "@minecraft/server";
 
 system.beforeEvents.startup.subscribe(e => {

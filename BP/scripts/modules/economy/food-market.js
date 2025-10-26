@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading scripts/modules/economy/food-market.js");
+
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui"
 import {

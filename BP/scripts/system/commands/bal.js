@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /bal");
+
 import { world, system, CommandPermissionLevel } from "@minecraft/server";
 import { hsmpMenu_BAL, hsmpMenu_BALnotSettedUp } from "../menu/main-menu.js";
 import { hasScore, getScore } from "../../modules/economy/economy-scoreboards.js"

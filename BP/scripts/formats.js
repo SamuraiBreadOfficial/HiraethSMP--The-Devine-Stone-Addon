@@ -1,3 +1,4 @@
+console.warn("§d[HIRAETH]§r Loading scripts/formats.js");
 import { system } from "@minecraft/server"
 
 export function formatCurrency(value) {

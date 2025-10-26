@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /hhelp");
+
 import { world, system, CommandPermissionLevel, CustomCommandParamType } from "@minecraft/server";
 
 system.beforeEvents.startup.subscribe(e => {

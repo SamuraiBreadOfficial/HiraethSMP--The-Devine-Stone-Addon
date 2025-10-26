@@ -1,3 +1,5 @@
+console.warn("§d[HIRAETH]§r Loading Command: /ver");
+
 import { world, system, CommandPermissionLevel } from "@minecraft/server"
 import { addon } from "../../addon-info.js"
 
