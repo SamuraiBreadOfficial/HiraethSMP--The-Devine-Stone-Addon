@@ -1,5 +1,5 @@
 import { system, world } from "@minecraft/server";
-import { ActionFormData } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { waitTicks } from "../formats.js"
 
 export async function quickAction_main(player) {
@@ -37,8 +37,8 @@ Categories:
         .label(`-> /with [amount] - Withdraws all of your money`)
         .button(`Withdraw All`)
         .label(`-> /withall - Withdraws all of your money`)
-        .button(`Transfer`)
-        .label(`-> /transfer [target] [amount] - Transfers money to someone else.`)
+        .button(`Donate`)
+        .label(`-> /donate [target] [amount] - Transfers money to someone else.`)
 
 
         .show(player)
@@ -50,26 +50,145 @@ Categories:
 
     if (r.selection == 0) {
         player.runCommand(`hhelp`)
-        await waitTicks(100)
+        await waitTicks(60)
         quickAction_main(player)
     }
     if (r.selection == 1) {
         player.runCommand(`hmenu`)
-        await waitTicks(100)
+        await waitTicks(60)
         quickAction_main(player)
 
     }
     if (r.selection == 2) {
         player.runCommand(`fasttravel`)
-        await waitTicks(100)
+        await waitTicks(60)
         quickAction_main(player)
 
     }
 
     if (r.selection == 3) {
         player.runCommand(`ver`)
-        await waitTicks(100)
+        await waitTicks(60)
         quickAction_main(player)
-
     }
+
+    if (r.selection == 4) {
+        player.runCommand(`bal`)
+        await waitTicks(60)
+        quickAction_main(player)
+    }
+
+    if (r.selection == 5) {
+        player.runCommand(`balmenu`)
+    }
+
+    if (r.selection == 6) {
+        runDepCommand(player)
+    }
+
+    if (r.selection == 7) {
+        player.runCommand(`depall`)
+        await waitTicks(60)
+        quickAction_main(player)
+    }
+
+    if (r.selection == 8) {
+        runWithCommand(player)
+    }
+
+    if (r.selection == 9) {
+        player.runCommand(`withall`)
+        await waitTicks(60)
+        quickAction_main(player)
+    }
+
+    if (r.selection == 10) {
+        runTransferCommand(player)
+    }
+}
+
+async function runDepCommand(player) {
+    const r = await new ModalFormData()
+        .title('§lQUICK ACTION | DEPOSIT')
+        .divider()
+        .textField(`Type the amount of cash to deposit.
+
+Remember: 111111 = 1,111.11`, `111111`)
+        .show(player)
+
+    if (r.canceled) {
+        quickAction_main(player)
+        return;
+    }
+
+    const value = r.formValues[1];
+
+    if (!/^\d+$/.test(value)) {
+        player.sendMessage("§cInvalid input. Please enter digits only.");
+        runDepCommand(player)
+        return;
+    }
+
+
+    player.runCommand(`dep ${value}`)
+    await waitTicks(60)
+    quickAction_main(player)
+}
+async function runWithCommand(player) {
+    const r = await new ModalFormData()
+        .title('§lQUICK ACTION | WITHDRAW')
+        .divider()
+        .textField(`Type the amount of cash to withdraw.
+
+Remember: 111111 = 1,111.11`, `111111`)
+        .show(player)
+
+    if (r.canceled) {
+        quickAction_main(player)
+        return;
+    }
+
+    const value = r.formValues[1];
+
+    if (!/^\d+$/.test(value)) {
+        player.sendMessage("§cInvalid input. Please enter digits only.");
+        runDepCommand(player)
+        return;
+    }
+
+
+    player.runCommand(`with ${value}`)
+    await waitTicks(60)
+    quickAction_main(player)
+}
+
+async function runTransferCommand(player) {
+    const playerTable = world.getAllPlayers().map(p => p.name);
+
+    const r = await new ModalFormData()
+        .title('§lQUICK ACTION | WITHDRAW')
+        .dropdown(`Target`, playerTable)
+        .textField(`Amount of cash to transfer`, '111100')
+        .show(player)
+
+    if (r.canceled) {
+        quickAction_main(player)
+        return;
+    }
+
+    const targetIndex = r.formValues[0];
+    const target = playerTable[targetIndex]
+    const amount = r.formValues[1];
+
+    const targetPlayer = world.getAllPlayers().find(p => p.name == target);
+
+    if (!/^\d+$/.test(amount)) {
+        player.sendMessage("§cInvalid input. Please enter digits only.");
+        runDepCommand(player)
+        return;
+    }
+
+    player.sendMessage(`donate ${targetPlayer.name} ${amount}`)
+    player.runCommand(`donate ${targetPlayer.name} ${amount}`)
+
 }
