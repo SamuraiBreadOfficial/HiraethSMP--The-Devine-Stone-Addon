@@ -7,6 +7,7 @@ import { hiraethLOGO } from "../../modules/playerinfo/utils.js";
 import { getScore, hasScore, isScoreRegistered } from "../../modules/economy/economy-scoreboards.js"
 import { formatCurrency } from "../../formats.js"
 import { registeredQuestNames, questTags } from "./../quests/main/core.js"
+import { getAchievements } from "./../achievements/core.js"
 
 const mainmenuBuild = `Main Menu v2 || Build v0.1`
 
@@ -46,6 +47,9 @@ Level: WIP.`)
                 }
                 if (selection == 1) {
                     questMenu(player)
+                }
+                if (selection == 2) {
+                    achievementMenu(player)
                 }
                 if (selection == 3) {
                     credits(player)
@@ -211,3 +215,25 @@ Rewards:
 ${quest.allRewards()}`)
         .show(player)
 }
+
+async function achievementMenu(player) {
+    const achievements = getAchievements(player);
+
+    const menu = new ActionFormData()
+        .title(`§lACHIEVEMENTS`)
+        .body('')
+        .divider()
+        .label(`§lCompleted Achievements:`)
+
+    if (achievements.length == 0) {
+        menu.label(`No achievements yet...`)
+    } else {
+        for (const { name, date } of achievements) {
+            const line = date
+                ? `§a* ${name}, §rCompleted: §e${date}`
+                : `§a* ${name}`
+            menu.label(line)
+        }
+    }
+    await menu.show(player).then(r => { if (r.canceled) { hsmpMenu_MAIN(player) } });
+} 

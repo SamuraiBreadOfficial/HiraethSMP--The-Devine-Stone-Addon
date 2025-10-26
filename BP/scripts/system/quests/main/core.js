@@ -23,6 +23,7 @@ export async function registeredQuestNames(player) {
     }
     return {
         name: '§oNo quests Activated.',
+        startProgression: `Start a story quest to see progress.`,
         description: `It's so quiet here...`,
         allRewards() {
             return "May your wallet rest in peace..."

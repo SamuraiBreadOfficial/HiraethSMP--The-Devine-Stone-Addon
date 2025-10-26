@@ -58,6 +58,10 @@ async function tavern_firstEncounter(player) {
     await waitTicks(100)
     system.run(() => player.runCommand(`title @s actionbar < Adam > Sure! Come back anytime you want!`))
     await waitTicks(100)
+    player.sendMessage(`[ §a§lQUEST COMPLETED§r ]`)
+    player.addTag(`quest_complete_fawoken`)
+    player.removeTag(`hsmp_quest_freshly_awoken`)
+    await waitTicks(100)
     player.sendMessage(`Tip: You can send your friends money by typing out a command: /transfer.
 
 If you're on console, you can type /qa which opens quick action menu, then you can select transfer for quicker command triggering`)
