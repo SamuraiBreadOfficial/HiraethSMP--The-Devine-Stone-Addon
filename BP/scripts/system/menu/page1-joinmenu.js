@@ -598,6 +598,7 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 219.5 71.5 1978 rot 0 90"))
     await waitTicks(59)
     system.run(() => player.runCommand("camera @s set minecraft:free ease 3 out_sine pos 216.5 71.5 1985 rot 0 90"))
+    system.run(() => player.runCommand(`tp 216 75 1985`))
 
     await waitTicks(60)
     player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is Adam!`)
@@ -637,6 +638,7 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_sine rot 0 180"))
     await waitTicks(100)
     system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 208 84 1964 rot 20 180"))
+    system.run(() => player.runCommand(`tp 208 83 1964`))
 
 
     await waitTicks(60)
@@ -648,10 +650,188 @@ You can always check rules by going into Discord or your menu (/hmenu) and click
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
     await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Simply interact with a block inside of it to check your stats!`)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_expo pos 207 69 1908 rot 0 180"))
+    system.run(() => player.runCommand(`tp 207 65 1908`))
+
+
+    await waitTicks(100)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r To check your stats simply interact with this block.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are maximum of 100 levels for now.`)
     system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
 
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Each levels give you rewards in cash and game xp.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Levels can be used to unlock Magic Skills!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Or learn new magic type!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Levels can also be used to upgrade your current spell!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r The more levels your spell has, the more powerfull and deadly it is!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Some spells has max 3 levels, others can have even 5!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Those with 3, are the most powerfull ones!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    //To be deleted next version.
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Sadly, for now you cannot use spells...`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r ...As it is still under the development :c`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Now it's time to show you the store Locations!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+
+    // Restaurant
+    await waitTicks(100)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 193 69 1950 rot -30 0"))
+    system.run(() => player.runCommand(`tp 193 65 1950`))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the Restaurant!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is open from 9:00 to 22:00! `)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r You can buy here Cooked Food and Misc Food (Bread etc.) only!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Simply interact with the handle on the doors to get it!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+
+    // Butcher
+    await waitTicks(100)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 160 74 1971 rot 30 -20"))
+    system.run(() => player.runCommand(`tp 160 75 1971`))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the butcher.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It's open from 5:00 to 18:00!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here you can buy raw meat.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Tip: It is cheaper to buy raw meat in this store, than buying cooked food in the Restaurant!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    //Lumberjack
+    await waitTicks(100)
+    system.run(() => player.runCommand("/camera @s set minecraft:free ease 5 in_out_back pos 72 73 1901 rot 0 180"))
+    system.run(() => player.runCommand(`tp 72 73 1901`))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the Lumberjack`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is open from 5:00 to 23:00!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r If you're looking for logs or planks, this is the store.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    //Earthwright
+    await waitTicks(100)
+    system.run(() => player.runCommand("/camera @s set minecraft:free ease 5 in_out_back pos -25 79 2051 rot 10 0"))
+    system.run(() => player.runCommand(`tp -25 75 2051`))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is Earthwright`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is open from 5:00 to 23:00!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r He sels blocks such as:`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Dirt`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Stone`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r and bricks! `)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    //Witch
+    await waitTicks(100)
+    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos -153 74 1910 rot 0 140"))
+    system.run(() => player.runCommand(`tp -153 71 1910`))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is a witch hut!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It opens at night, from 22:00 to 3:00!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here, you will be able to buy spells`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r mob loot`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r potions`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r and materials from diffrent dimensions!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Economy on the server is diffrent.`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Every day the price changes with "modifiers".`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r So one day, the prices might be cheaper than the other day!`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+    await waitTicks(60)
+    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Tip: Track time by crafting a clock! (redstone and gold.)`)
+    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
+
+
+
 }
+
 
 system.runInterval(() => {
     const server = world.getDimension(`overworld`);
@@ -678,8 +858,10 @@ Please note: every 25 seconds, our system will automatically kick you to free up
 
 Thank you, and we hope to hear from you soon.`)
                 .button(`Leave The Server`)
-
                 .show(player)
+                .then(r => {
+                    if (r.canceled || r.selection == 0) player.runCommand(`kick @s You're Banned`)
+                })
         }
     }
 }, 80)
@@ -688,3 +870,82 @@ system.runInterval(() => {
     world.getDimension(`overworld`).runCommand(`kick @a[tag=accessLocked] You have been banned from this server.`)
     console.warn(`Tried to kick players.`)
 }, 500)
+
+export async function startCutscene(player) {
+    system.run(() => player.runCommand('camera @s fade time 10 10 0'))
+    system.run(() => player.runCommand(`/title @s times 20 100 50`))
+
+    await waitTicks(395)
+    system.run(() => player.runCommand(`tp 133.10 66.44 1953.63`))
+    system.run(() => player.runCommand('camera @s set minecraft:free pos 134 66.60 1953 rot -90 90'))
+
+    system.run(() => player.runCommand('camera @s fade time 0 10 5'))
+    system.run(() => player.runCommand('title @s title SamuraiBread'))
+    await waitTicks(40)
+    system.run(() => player.runCommand('title @s subtitle presents:'))
+    await waitTicks(200)
+    system.run(() => player.runCommand('camera @s fade time 3 8 5'))
+    await waitTicks(50)
+    system.run(() => player.runCommand(`title @s actionbar <???> Wake up.`))
+    await waitTicks(200)
+    system.run(() => player.runCommand('camera @s fade time 3 8 5'))
+    await waitTicks(50)
+    system.run(() => player.runCommand(`title @s actionbar <???> Wake up!`))
+    await waitTicks(200)
+    system.run(() => player.runCommand('camera @s fade time 3 9 0'))
+    await waitTicks(50)
+    system.run(() => player.runCommand(`title @s actionbar <???> WAKE THE F*CK UP!`))
+    await waitTicks(40)
+    system.run(() => player.runCommand(`title @s actionbar <???> I'M BEGGING YOU, DON'T LEAVE ME!!`))
+    await waitTicks(50)
+    system.run(() => player.runCommand(`title @s actionbar <???> I CAN'T LEAVE THIS PLACE WITHOUT YOU, PLEASE!!`))
+    system.run(() => player.runCommand(`title @s times 0 60 0`))
+    await waitTicks(50)
+    system.run(() => player.runCommand(`title @s title WAKE UP!!`))
+    system.run(() => player.runCommand(`camera @s clear`))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha...`))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts..`))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream..`))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wait...`))
+
+    await waitTicks(60)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Where even am i?`))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand(`title @s times 20 100 50`))
+    system.run(() => player.runCommand(`title @s title ${hiraethLOGO}`))
+
+    await waitTicks(50)
+    system.run(() => player.runCommand(`title @s subtitle SMP`))
+
+    await waitTicks(100)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> There's a tavern..`))
+
+    await waitTicks(60)
+    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Maybe i'll ask there?`))
+
+    await waitTicks(40)
+    player.sendMessage(`[ §e§lQUEST§r ]
+Title: §eFreshly Awoken§r
+
+Go to the local §etavern§r and ask someone about this place.
+
+Rewards: §a\$5k + Achievement §l"And thus it begins."`)
+    system.run(() => player.addTag('hsmp_quest_freshly_awoken'))
+
+
+
+
+
+
+
+}
+

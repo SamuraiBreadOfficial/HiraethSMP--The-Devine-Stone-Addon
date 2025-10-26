@@ -37,24 +37,24 @@ system.beforeEvents.startup.subscribe(e => {
                     return;
                 }
                 if (amount < 0) {
-                    player.sendMessage(`[ TRANSFER ] AMOUNT ERR.: Amount must be greater than zero.`)
+                    player.sendMessage(`§c[ TRANSFER ] AMOUNT ERR.: Amount must be greater than zero.`)
                     return;
                 }
                 if (!targetPlayer) {
-                    player.sendMessage('[ TRANSFER ] Target Err.: Targetted player is offline or invalid.')
+                    player.sendMessage('§c[ TRANSFER ] Target Err.: Targetted player is offline or invalid.')
                     return;
                 }
                 if (targetPlayer == player) {
-                    player.sendMessage(`[ TRANSFER ] Target Err.: You can't send money to yourself.`)
+                    player.sendMessage(`§c[ TRANSFER ] Target Err.: You can't send money to yourself.`)
                     return;
                 }
                 if (amount > cash) {
-                    player.sendMessage(`[ TRANSFER ] Amount Err.: Insufficient cash balance. Withdraw your amount from bank then try it again.`)
+                    player.sendMessage(`§c[ TRANSFER ] Amount Err.: Insufficient cash balance. Withdraw your amount from bank then try it again.`)
                     return;
                 }
                 if (amount < cash) {
-                    player.sendMessage(`[ TRANSFER ] You've sent ${formatCurrency(amount)}\$ to ${targetPlayer.name}!`)
-                    targetPlayer.sendMessage(`[ TRANSFER ] You've received ${formatCurrency(amount)} from ${player.name}`)
+                    player.sendMessage(`§e[ TRANSFER ]§a You've sent §e${formatCurrency(amount)}\$§a to §e${targetPlayer.name}§a!`)
+                    targetPlayer.sendMessage(`§e[ TRANSFER ]§a You've received §e${formatCurrency(amount)}§a from §e${player.name}`)
                     cashObj.addScore(targetPlayer, amount)
                     cashObj.addScore(player, -amount)
                 }
