@@ -1,20 +1,27 @@
 export const addon = {
     version: {
-        no: `v0.0.400`,
-        title: `Commanding And Explaining`,
-        desc: `This update focuses on Commands, and transferring old menu based systems to commands.`,
-        released: `2025/10/20`,
-        nextver: `"Racefull Race Power - v0.1.0 (BETA release.)"`
+        no: `v1.0`,
+        title: `And thus it begins!`,
+        desc: `All of the promised has been granted. Well, there are still spells waiting to arive.`,
+        released: `2025/XX/XX`,
+        nextver: `"Magical Scenarious - v0.1.1 (Realm)"`
     },
     clog: {
-        short: `Commands, Economy and Menus Overhaul. Bugs Fixes`,
+        short: `New Commands, New Menu, Quests, Levels, And more!`,
         full: `
-- Added over 20 commands with which you can control: Economy (/bal, /dep, /with)
-- Overhauled whole economy
-- Overhauled setup screen
-- Removed unwanted settings configuration
-- Removed Factions in order to make place to Player Based Faction Creation System (Info for the future: in Short PBFCS(HSMP System))
-- Fixed over 200 bugs and glitches. Addon is now playable.
+- Added quests.
+- Added 5 stores.
+- Added Voicelines
+- Fixed bugs
+- Optimised the addon
+- Rewritten some scripts for better FPS
+- Added Store Blocks
+- Added NPCs
+- Added church bell
+- Added clock function
+[...25+] 
+
+FULL CHANGELOG ON GITHUB!
         `
     },
     credits: {
@@ -38,5 +45,6 @@ v0.0.100 - 2025/09/10 "New Version Numbering"
 v0.0.110 - 2025/09/15 "Races Overhaul, Factions"
 v0.0.200 - 2025/09/29 "Bug Fixes"
 v0.0.300 - 2025/09/30 "Public Pre-Release"
-v0.0.400 - 2025/10/20 "Commanding and Explaining" (Current)`
+v0.0.400 - 2025/10/20 "Commanding and Explaining"
+v1.0 - 2025/11/20 "And thus it begins!"`
 }

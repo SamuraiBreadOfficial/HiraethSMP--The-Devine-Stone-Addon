@@ -3,6 +3,8 @@ import "./system/system-index.js";
 import "./system/commands/admin/forcemodifierupdate.js"
 import "./system/commands/admin/forcetutorial.js"
 import "./system/commands/ver.js";
+import "./system/commands/qa.js";
+import "./menu/qa_menu.js";
 import "./system/commands/hhelp.js";
 import "./system/commands/hmenu.js";
 import "./system/commands/dep.js";
@@ -19,6 +21,7 @@ import "./system/menu/page1-joinmenu.js";
 import "./modules/playerinfo/registered-tags.js";
 import "./modules/playerinfo/utils.js";
 import "./modules/economy/core.js";
+import "./modules/economy/tavern.js";
 import "./modules/economy/food-market.js";
 import "./modules/economy/earthwright.js";
 import "./modules/economy/lumberjack.js";

@@ -13,6 +13,7 @@
 				}
 			},
 			"hsmp:service_bell": {},
+			"hsmp:tavern": {},
 			"minecraft:selection_box": {
 				"origin": [
 					-3,
