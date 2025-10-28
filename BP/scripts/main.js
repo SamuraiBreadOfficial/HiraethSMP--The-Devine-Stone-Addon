@@ -22,6 +22,7 @@ import "./system/menu/page1-joinmenu.js";
 import "./modules/playerinfo/registered-tags.js";
 import "./modules/playerinfo/utils.js";
 import "./modules/economy/core.js";
+import "./modules/economy/witch.js";
 import "./modules/economy/tavern.js";
 import "./modules/economy/food-market.js";
 import "./modules/economy/earthwright.js";

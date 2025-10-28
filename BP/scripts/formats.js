@@ -25,7 +25,7 @@ export async function typeActionbar(player, character, text, delay = 1) {
         system.run(() => player.runCommand(`title @s actionbar < ${character} > ${fragment}`));
 
         const char = text[i - 1];
-        if (char === "." || char === ",") {
+        if (char === "." || char === "," || char === "?" || char === "!") {
             await waitTicks(delay + 6); // pauza rytualna
         } else {
             await waitTicks(delay);
