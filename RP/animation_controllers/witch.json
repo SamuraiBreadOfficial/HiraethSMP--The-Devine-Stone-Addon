@@ -1,0 +1,30 @@
+{
+	"format_version": "1.21.90",
+	"animation_controllers": {
+		"controller.animation.blank": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"blink": "math.random_integer(0, 2) == 0"
+						},
+						{
+							"next_page": "math.random_integer(0, 2) == 0"
+						}
+					]
+				},
+				"blink": {
+					"animations": [
+						"blink"
+					]
+				},
+				"next_page": {
+					"animations": [
+						"next_page"
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"format_version": "1.21.10",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hsmp:witch",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/texture"
+			},
+			"geometry": {
+				"default": "geometry.witch"
+			},
+			"animations": {
+				"idle": "animation.hsmp_witch.idle",
+				"blink": "animation.hsmp_witch.eye_close",
+				"next_page": "animation.hsmp_witch.next_page"
+			},
+			"scripts": {
+				"animate": [
+					"idle",
+					{
+						"blink": "math.random(0, 2) == 0"
+					},
+					{
+						"next_page": "math.random(0, 3) == 0"
+					}
+				]
+			},
+			"render_controllers": [
+				"controller.render.witch"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}
