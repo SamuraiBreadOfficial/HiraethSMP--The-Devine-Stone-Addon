@@ -1,3 +1,5 @@
+console.warn(`Loading Quest "Potionless Witch" from Quest modules.`)
+
 import { system, world } from "@minecraft/server"
 import { ActionFormData } from "@minecraft/server-ui";
 import { waitTicks, formatCurrency, typeActionbar } from "../../../../formats.js"
