@@ -18,6 +18,7 @@ import "./system/commands/transfer.js";
 import "./system/commands/fasttravel.js";
 import "./system/menu/clock.js";
 import "./system/menu/main-menu.js";
+import "./system/quests/chapters/prologue/potionless_witch.js"
 import "./system/menu/page1-joinmenu.js";
 import "./modules/playerinfo/registered-tags.js";
 import "./modules/playerinfo/utils.js";
