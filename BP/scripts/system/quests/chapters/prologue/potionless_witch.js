@@ -79,7 +79,7 @@ export async function witchTalks(player) {
     await waitTicks(20)
     await typeActionbar(player, witch, `Buuut! With your help, i can make some!`)
     await waitTicks(20)
-    await typeActionbar(player, witch, 'You can collect §eGlow Berries§r and bring them to me!')
+    await typeActionbar(player, witch, 'You can collect 12 §eGlow Berries§r and bring them to me!')
     await waitTicks(20)
     await typeActionbar(player, witch, 'Of course, there is a reward. You\'ll get the potions for free.. And some cash.')
     await waitTicks(20)
@@ -94,7 +94,7 @@ export async function quest_proposition_1(player) {
         .body(`Evangeline Offers you a C&T Quest!`)
         .divider()
         .header(`Potionless Witch`)
-        .label(`Collect Glow Berries which grows in the jungle and bring them back to §eWitch Evangeline§r
+        .label(`Collect Glow Berries x12 which grows in the jungle and bring them back to §eWitch Evangeline§r
     
 §aRewards:
 - 5x Health Potions
@@ -188,6 +188,11 @@ export async function dialogue_quest1(player) {
             await typeActionbar(player, witch, 'Anyway, here is your reward! Come back in 1 day so you will get your potions too!')
             await waitTicks(200)
             await typeActionbar(player, me, 'I swear... This women.')
+            return;
+        } else {
+            await typeActionbar(player, me, 'Umm, where do i find those Berries again?')
+            await waitTicks(20)
+            await typeActionbar(player, witch, 'On the trees... In the jungle..? I told you before. Also bring 12 of them.')
         }
     }
 }
