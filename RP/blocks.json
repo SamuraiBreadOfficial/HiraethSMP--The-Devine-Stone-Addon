@@ -24,9 +24,5 @@
 	},
 	"hsmp:service_bell": {
 		"sound": "stone"
-	},
-	"hsmp:witch_talk_trigger": {
-		"sound": "stone",
-		"textures": "hsmp_witch_talk_trigger"
 	}
 }

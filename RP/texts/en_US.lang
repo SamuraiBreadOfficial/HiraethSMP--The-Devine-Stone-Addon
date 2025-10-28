@@ -27,4 +27,3 @@ item.spawn_egg.entity.hsmp:service_bell_entity.name=Spawn service_bell_entity
 entity.hsmp:service_bell_entity.name=service_bell_entity
 item.spawn_egg.entity.hsmp:witch.name=Spawn Witch Evangeline
 entity.hsmp:witch.name=Witch Evangeline
-tile.hsmp:witch_talk_trigger.name=Witch Talk Trigger
