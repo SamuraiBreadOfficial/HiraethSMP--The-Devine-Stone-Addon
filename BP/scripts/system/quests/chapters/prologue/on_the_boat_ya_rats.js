@@ -1,0 +1,1 @@
+// Prepared for Fast Travel Qests, end for today [29 / 10 / 2025]
