@@ -24,6 +24,9 @@
 		},
 		"hsmp_service_bell": {
 			"textures": "textures/blocks/service_bell_tavern"
+		},
+		"hsmp_witch_talk_trigger": {
+			"textures": "textures/blocks/witch_talk_trigger"
 		}
 	}
 }
