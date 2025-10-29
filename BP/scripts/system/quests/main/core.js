@@ -14,6 +14,21 @@ export const questTags = {
         allRewards() {
             return `§e${formatCurrency(this.cashReward)}\$§r + Achievement: §a${this.achievementReward}§r`
         }
+    },
+    potionless_witch: {
+        tag: "hsmp_whitch_quest_accepted",
+        name: "§l§ePotionless Witch§r",
+        startProgression: null,
+        description: `§rCollect Glow Berries which grows in the jungle and bring them back to §eWitch Evangeline§r
+    
+§aRewards:
+- 5x Health Potions
+- 5,000.00\$
+- Unlocks Witch Hut
+- +5 Reputation.
+`,
+        cashReward: 500000
+
     }
 }
 

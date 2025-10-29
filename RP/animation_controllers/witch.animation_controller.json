@@ -1,16 +1,19 @@
 {
 	"format_version": "1.21.90",
 	"animation_controllers": {
-		"controller.animation.blank": {
+		"controller.animation.hsmp_witch": {
 			"initial_state": "default",
 			"states": {
 				"default": {
+					"animations": [
+						"idle"
+					],
 					"transitions": [
 						{
-							"blink": "math.random_integer(0, 2) == 0"
+							"blink": "math.random(0, 2) == 0"
 						},
 						{
-							"next_page": "math.random_integer(0, 2) == 0"
+							"next_page": "math.random(0, 1) == 0"
 						}
 					]
 				},
@@ -22,6 +25,11 @@
 				"next_page": {
 					"animations": [
 						"next_page"
+					]
+				},
+				"cutscene_1": {
+					"animations": [
+						"look_up"
 					]
 				}
 			}
