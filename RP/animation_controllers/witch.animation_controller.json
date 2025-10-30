@@ -10,26 +10,33 @@
 					],
 					"transitions": [
 						{
-							"blink": "math.random(0, 2) == 0"
+							"blink": "query.anim_time('default') > 2.8"
 						},
 						{
-							"next_page": "math.random(0, 1) == 0"
+							"next_page": "query.anim_time('default') > 2.8"
 						}
 					]
 				},
 				"blink": {
 					"animations": [
-						"blink"
+						"blink",
+						"idle"
+					],
+					"transitions": [
+						{
+							"default": "true"
+						}
 					]
 				},
 				"next_page": {
 					"animations": [
-						"next_page"
-					]
-				},
-				"cutscene_1": {
-					"animations": [
-						"look_up"
+						"next_page",
+						"idle"
+					],
+					"transitions": [
+						{
+							"default": "true"
+						}
 					]
 				}
 			}

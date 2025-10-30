@@ -150,6 +150,11 @@ To unlock quests from her, you need to interact with her with a Torchflower.`)
     }
 }
 
+function getDialogueTag(player) {
+    if (player.hasTag(`dialogue_ydwttk`)) return 'YOU DID WHAT TO THE KING?';
+    return 'Option Locked'
+}
+
 export async function dialogue_quest1(player) {
     const witch = 'Evangeline';
     const me = player.name
@@ -160,15 +165,89 @@ export async function dialogue_quest1(player) {
         .divider()
         .button(`Complete the quest
 [ MAIN ]`)
-        .button(`Why are you tabeling with a hood?`)
-        .button(`How did you end up in here?`)
-        .button(`Why did you became the Witch?`)
+        .button(`Why are you traveling with a hood?`)
+        .button(getDialogueTag(player))
         .button(`Nevermind`)
         .show(player)
     if (r.canceled || r.selection == 4) {
         await typeActionbar(player, `${player.name}`, `No, i was just looking around.`)
         await waitTicks(20)
         await typeActionbar(player, `Evangeline`, `Okie, good luck on your travels!.`)
+    }
+
+    if (r.selection == 1) {
+        await typeActionbar(player, me, `You've said before that you were in Sylvi while wearing a hood...`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Why is that?`)
+
+        await waitTicks(20)
+        await typeActionbar(player, witch, `That's a... long story.`)
+
+        await waitTicks(20)
+        await typeActionbar(player, me, `I have time, y'know.`)
+
+        await waitTicks(20)
+        await typeActionbar(player, witch, `Ughhh.`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `I was a personal King's witch..`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Oh cool.`)
+
+        await waitTicks(20)
+        await typeActionbar(player, witch, `Can you just shut up? I'm trying to explain some bits.`)
+
+        await waitTicks(20)
+        await typeActionbar(player, me, `Sure.`)
+
+        await waitTicks(20)
+        await typeActionbar(player, witch, `So. As i was saying. I was working alongside with the King.`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `Everything was going great and all.. Untill.`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `I accidentally casted a wrong spell...`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `And ended up blowing up King's kitchen.`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `Because of that, i've got banished from that city, and i am not permitted to enter it.`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `Luckilly, Guards are stupid enough to not recognize anyone with the hood.`)
+        await waitTicks(20)
+        await typeActionbar(player, witch, `So i can enter it freely.`)
+        await waitTicks(40)
+        await typeActionbar(player, witch, `Need something else?`)
+        player.sendMessage(`New Dialogue Line Unlocked: "YOU DID WHAT TO THE KING?".`)
+        player.addTag(`dialogue_ydwttk`)
+        await waitTicks(60)
+        dialogue_quest1(player);
+
+    }
+
+    if (r.selection == 2) {
+        if (!player.hasTag(`dialogue_ydwttk`)) {
+            player.sendMessage(`This dialogue Option is locked. You can unlcok it with talking to the witch.`)
+            await waitTicks(60)
+            dialogue_quest1(player)
+        } else if (player.hasTag(`dialogue_ydwttk`)) {
+            await typeActionbar(player, me, `Wait.. About that part with blowing up the Royal Kitchen..`)
+            await waitTicks(60)
+            await typeActionbar(player, me, `HOW IN THE HELL YOU THOUGHT IT WAS A GREAT IDEA TO CAST A SPELL THERE?!`)
+            await waitTicks(20)
+            await typeActionbar(player, me, `YOU'RE THE WITCH! YOU SHOULD KNOW ABOUT MAGIC MORE THAN THAT!`)
+            await waitTicks(40)
+            await typeActionbar(player, witch, `Jeez, stop yelling you screamy pants..`)
+            await waitTicks(20)
+            await typeActionbar(player, witch, `That was just a small mistake.`)
+            await waitTicks(20)
+            await typeActionbar(player, witch, `But i can't forget king's face after that.`)
+            await waitTicks(20)
+            await typeActionbar(player, witch, `It was covered whole in the blue powder!`)
+            await waitTicks(20)
+            await typeActionbar(player, witch, `He was like a smurf! But better!`)
+            await waitTicks(20)
+            await typeActionbar(player, me, `. . .`)
+            await waitTicks(60)
+            await typeActionbar(player, me, `I'm starting to feel like you were banished not from blowing up king's kitchen...`)
+        }
     }
 
     if (r.selection == 0) {
