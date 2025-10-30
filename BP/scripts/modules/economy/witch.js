@@ -8,7 +8,7 @@ import { witchTalks, quest_proposition_1, dialogue_quest1 } from "../../system/q
 
 world.afterEvents.playerInteractWithEntity.subscribe(e => {
     const player = e.player;
-    const witch = 'hsmp:witch';
+    const witch = 'hsmp:hsmp_witch';
     const target = e.target;
 
     if (e.target.typeId == witch) {
