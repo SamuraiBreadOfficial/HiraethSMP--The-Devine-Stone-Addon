@@ -14,18 +14,22 @@ system.beforeEvents.startup.subscribe(e => {
             const player = origin.sourceEntity;
 
             system.run(() => {
-                player.sendMessage(`
-[ §l§dHiraethSMP ADDON §e${addon.version.no}§r ]
-Bridge Version: ${addon.version.bridge_no}
-§l§e${addon.version.title}§r
+                player.sendMessage(`[ §dHIRAETHSMP §aADDON§r ]
+
+< §lVERSION§r >
+- Addon: ${addon.version.no}
+- Dev Tool (Bridge. v2): ${addon.version.bridge_no}
+
+< §lADDON INFO§r >
+- Version Title:
+[ ${addon.version.title} ]
+
+- Released on: ${addon.version.released}
+
 ${addon.version.desc}
 
-Short Changelog Summary:
-${addon.clog.short}
-
-Released on: ${addon.version.released}
-
-Next: ${addon.version.nextver}
+< §lCHANGELOG§r >
+${addon.clog.full}
                 `)
             })
         }
