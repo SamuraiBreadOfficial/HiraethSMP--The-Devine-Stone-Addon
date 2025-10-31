@@ -14,7 +14,7 @@ system.beforeEvents.startup.subscribe(e => {
             const player = origin.sourceEntity;
 
             system.run(() => {
-                player.sendMessage(`[ §dHIRAETHSMP §aADDON§r ]
+                player.sendMessage(`    [ §dHIRAETHSMP §aADDON§r ]
 
 < §lVERSION§r >
 - Addon: ${addon.version.no}
@@ -30,6 +30,17 @@ ${addon.version.desc}
 
 < §lCHANGELOG§r >
 ${addon.clog.full}
+
+< CREDITS >
+
+[ SCRIPTING ]
+${addon.credits.devs.scripting}
+
+[ TESTERS ]
+${addon.credits.devs.testers}
+
+[ VOICE ACTORS ]
+To be added...
                 `)
             })
         }
