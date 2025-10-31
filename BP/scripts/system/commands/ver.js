@@ -16,6 +16,7 @@ system.beforeEvents.startup.subscribe(e => {
             system.run(() => {
                 player.sendMessage(`
 [ §l§dHiraethSMP ADDON §e${addon.version.no}§r ]
+Bridge Version: ${addon.version.bridge_no}
 §l§e${addon.version.title}§r
 ${addon.version.desc}
 
