@@ -2,6 +2,7 @@ console.warn("§d[HIRAETH]§r Loading scripts/addon-info.js");
 export const addon = {
     version: {
         no: `v1.0`,
+        bridge_no: `v2.7.52`,
         title: `And thus it begins!`,
         desc: `All of the promised has been granted. Well, there are still spells waiting to arive.`,
         released: `2025/XX/XX`,
