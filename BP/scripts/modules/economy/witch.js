@@ -6,6 +6,60 @@ import { ActionFormData } from "@minecraft/server-ui";
 import { formatCurrency, waitTicks, typeActionbar } from "../../formats.js"
 import { witchTalks, quest_proposition_1, dialogue_quest1 } from "../../system/quests/chapters/prologue/potionless_witch.js"
 
+export const witchPrices = {
+    modifier: 0,
+    items: {
+        potions: {
+            nightVision: 0,
+            invisibility: 0,
+            leaping: 0,
+            fireResistance: 0,
+            swiftness: 0,
+            slowness: 0,
+            healing: 0,
+            harming: 0,
+            poison: 0,
+            regerenation: 0,
+            strength: 0,
+            weakness: 0,
+            decay: 0,
+            turtleMaster: 0,
+            slowFalling: 0,
+            windCharging: 0,
+            weaving: 0,
+            oozing: 0,
+            infestation: 0
+        },
+        spells: {
+        },
+        mobLoots: {},
+        special: {}
+    },
+    id: {
+        potions: {
+            nightVision: "hsmp:",
+            invisibility: "hsmp:",
+            leaping: "hsmp:",
+            fireResistance: "hsmp:",
+            swiftness: "hsmp:",
+            slowness: "hsmp:",
+            healing: "hsmp:",
+            harming: "hsmp:",
+            poison: "hsmp:",
+            regerenation: "hsmp:",
+            strength: "hsmp:",
+            weakness: "hsmp:",
+            decay: "hsmp:",
+            turtleMaster: "hsmp:",
+            slowFalling: "hsmp:",
+            windCharging: "hsmp:",
+            weaving: "hsmp:",
+            oozing: "hsmp:",
+            infestation: "hsmp:"
+        }
+    }
+}
+
 world.afterEvents.playerInteractWithEntity.subscribe(e => {
     const player = e.player;
     const witch = 'hsmp:hsmp_witch';

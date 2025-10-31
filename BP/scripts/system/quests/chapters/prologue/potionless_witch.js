@@ -267,6 +267,10 @@ export async function dialogue_quest1(player) {
             await typeActionbar(player, me, '§o(Is she really serious?)')
             await waitTicks(20)
             await typeActionbar(player, witch, 'Anyway, here is your reward! Come back in 1 day so you will get your potions too!')
+            player.sendMessage(`§e[ TRANSFER ]§a You've received §e5,000.00§a from §d${witch}`)
+            world.scoreboard.getObjective(`balance`).addScore(player, 500000)
+            world.scoreboard.getObjective(`bank`).addScore(player, 0)
+
             await waitTicks(200)
             await typeActionbar(player, me, 'I swear... This women.')
             return;
