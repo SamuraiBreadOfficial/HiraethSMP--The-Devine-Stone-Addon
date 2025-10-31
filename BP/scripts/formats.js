@@ -19,10 +19,13 @@ export function waitTicks(ticks) {
     })
 }
 
-export async function typeActionbar(player, character, text, delay = 1) {
+export async function typeActionbar(player, character, text, delay = 1, pitch = 1, sound = "random.click") {
     for (let i = 1; i <= text.length; i++) {
         const fragment = text.slice(0, i);
-        system.run(() => player.runCommand(`title @s actionbar < ${character} > ${fragment}`));
+        system.run(() => {
+            player.runCommand(`title @s actionbar < ${character} > ${fragment}`)
+            player.runCommand(`playsound ${sound} @s ~ ~ ~ 1 ${pitch} 1`)
+        });
 
         const char = text[i - 1];
         if (char === "." || char === "," || char === "?" || char === "!") {
