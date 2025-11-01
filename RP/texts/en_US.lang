@@ -36,3 +36,5 @@ item.hsmp:leaping_witch_potion=[ §dWitch§r ] §6Leaping§r Potion
 item.hsmp:nightvision_witch_potion=[ §dWitch§r ] §bNight Vision§r Potion
 item.hsmp:poison_witch_potion=[ §dWitch§r ] §2Poison§r Potion
 item.hsmp:regen_witch_potion=[ §dWitch§r ] §cRegeneration§r Potion
+item.hsmp:slowness_witch_potion=[ §dWitch§r ] §7Slowness§r Potion
+item.hsmp:strength_witch_potion=[ §dWitch§r ] §aStrength§r Potion

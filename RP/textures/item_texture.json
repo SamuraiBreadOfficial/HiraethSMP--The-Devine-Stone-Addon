@@ -64,6 +64,12 @@
 		},
 		"hsmp_regen_witch_potion": {
 			"textures": "textures/items/regeneration_witch_bottle"
+		},
+		"hsmp_slowness_witch_potion": {
+			"textures": "textures/items/slowness_witch_bottle"
+		},
+		"hsmp_strength_witch_potion": {
+			"textures": "textures/items/strength_witch_bottle"
 		}
 	}
 }
