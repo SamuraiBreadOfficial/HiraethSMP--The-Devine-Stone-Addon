@@ -58,6 +58,9 @@
 		},
 		"hsmp_nightvision_witch_potion": {
 			"textures": "textures/items/nightvision_witch_bottle"
+		},
+		"hsmp_poison_witch_potion": {
+			"textures": "textures/items/poison_witch_bottle"
 		}
 	}
 }
