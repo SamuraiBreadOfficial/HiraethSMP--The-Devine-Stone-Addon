@@ -48,7 +48,8 @@
                             "hsmp:nightvision_witch_potion",
                             "hsmp:poison_witch_potion",
                             "hsmp:regen_witch_potion",
-                            "hsmp:slowness_witch_potion"
+                            "hsmp:slowness_witch_potion",
+                            "hsmp:strength_witch_potion"
                         ]
                     }
                 ]
