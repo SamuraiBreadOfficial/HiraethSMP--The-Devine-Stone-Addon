@@ -37,6 +37,12 @@
 		},
 		"hsmp_adam_egg": {
 			"textures": "textures/items/Adam"
+		},
+		"hsmp_empty_witch_bottle": {
+			"textures": "textures/items/empty_witch_bottle"
+		},
+		"hsmp_fire_resistance_witch_potion": {
+			"textures": "textures/items/fire_resistance_witch_bottle"
 		}
 	}
 }

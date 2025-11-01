@@ -27,3 +27,5 @@ item.spawn_egg.entity.hsmp:service_bell_entity.name=Spawn service_bell_entity
 entity.hsmp:service_bell_entity.name=service_bell_entity
 item.spawn_egg.entity.hsmp:witch.name=Spawn Witch Evangeline
 entity.hsmp:witch.name=Witch Evangeline
+item.hsmp:empty_witch_bottle=Empty Witch Bottle
+item.hsmp:fire_resistance_witch_potion=[ §dWitch§r ] §cFire Resistance§r Potion

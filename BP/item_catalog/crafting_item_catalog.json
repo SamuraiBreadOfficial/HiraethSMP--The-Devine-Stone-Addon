@@ -32,6 +32,16 @@
                             "hsmp:elf_iron_helmet",
                             "hsmp:elf_leather_helmet"
                         ]
+                    },
+                    {
+                        "group_identifier": {
+                            "name": "hsmp:witch_store",
+                            "icon": "hsmp:empty_witch_bottle"
+                        },
+                        "items": [
+                            "hsmp:empty_witch_bottle",
+                            "hsmp:fire_resistance_witch_potion"
+                        ]
                     }
                 ]
             }
