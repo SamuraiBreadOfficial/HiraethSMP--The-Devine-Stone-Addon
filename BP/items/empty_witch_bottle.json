@@ -1,0 +1,15 @@
+{
+	"format_version": "1.21.90",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hsmp:empty_witch_bottle",
+			"menu_category": {
+				"category": "equipment"
+			}
+		},
+		"components": {
+			"minecraft:icon": "hsmp_empty_witch_bottle",
+			"minecraft:max_stack_size": 64
+		}
+	}
+}
