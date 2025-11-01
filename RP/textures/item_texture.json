@@ -46,6 +46,9 @@
 		},
 		"hsmp_harming_witch_potion": {
 			"textures": "textures/items/harming_witch_bottle"
+		},
+		"hsmp_healing_witch_potion": {
+			"textures": "textures/items/healing_witch_bottle"
 		}
 	}
 }

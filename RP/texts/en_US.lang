@@ -30,3 +30,4 @@ entity.hsmp:witch.name=Witch Evangeline
 item.hsmp:empty_witch_bottle=Empty Witch Bottle
 item.hsmp:fire_resistance_witch_potion=[ §dWitch§r ] §cFire Resistance§r Potion
 item.hsmp:harming_witch_potion=[ §dWitch§r ] §4Harming§r Potion
+item.hsmp:healing_witch_potion=[ §dWitch§r ] §aHealing§r Potion
