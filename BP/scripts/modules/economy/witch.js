@@ -22,13 +22,6 @@ export const witchPrices = {
             regerenation: 2099999,
             strength: 3599099,
             weakness: 1599099,
-            decay: 1599899,
-            turtleMaster: 1099999,
-            slowFalling: 2399999,
-            windCharging: 1090099,
-            weaving: 1190099,
-            oozing: 999099,
-            infestation: 799099
         },
         spells: {
         },
@@ -49,13 +42,6 @@ export const witchPrices = {
             regerenation: "hsmp:",
             strength: "hsmp:",
             weakness: "hsmp:",
-            decay: "hsmp:",
-            turtleMaster: "hsmp:",
-            slowFalling: "hsmp:",
-            windCharging: "hsmp:",
-            weaving: "hsmp:",
-            oozing: "hsmp:",
-            infestation: "hsmp:"
         }
     }
 }
