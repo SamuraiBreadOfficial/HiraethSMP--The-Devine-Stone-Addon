@@ -52,6 +52,9 @@
 		},
 		"hsmp_invisibity_witch_potion": {
 			"textures": "textures/items/invisibility_witch_bottle"
+		},
+		"hsmp_leaping_witch_potion": {
+			"textures": "textures/items/leaping_witch_bottle"
 		}
 	}
 }
