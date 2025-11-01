@@ -24,7 +24,8 @@
 				"nutrition": 1,
 				"saturation_modifier": 1,
 				"using_converts_to": "hsmp:empty_witch_bottle"
-			}
+			},
+			"hsmp:witch_potions": {}
 		}
 	}
 }
