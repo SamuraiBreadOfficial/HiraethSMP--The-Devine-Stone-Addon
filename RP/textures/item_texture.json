@@ -73,6 +73,9 @@
 		},
 		"hsmp_swiftness_witch_potion": {
 			"textures": "textures/items/swiftness_witch_bottle"
+		},
+		"hsmp_weakness_witch_potion": {
+			"textures": "textures/items/weakness_witch_potion"
 		}
 	}
 }
