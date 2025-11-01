@@ -49,7 +49,8 @@
                             "hsmp:poison_witch_potion",
                             "hsmp:regen_witch_potion",
                             "hsmp:slowness_witch_potion",
-                            "hsmp:strength_witch_potion"
+                            "hsmp:strength_witch_potion",
+                            "hsmp:swiftness_witch_potion"
                         ]
                     }
                 ]

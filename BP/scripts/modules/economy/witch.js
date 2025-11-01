@@ -34,7 +34,7 @@ export const witchPrices = {
             invisibility: "hsmp:invisibity_witch_potion",
             leaping: "hsmp:leaping_witch_potion",
             fireResistance: "hsmp:fire_resistance_witch_potion",
-            swiftness: "hsmp:",
+            swiftness: "hsmp:swiftness_witch_potion",
             slowness: "hsmp:slowness_witch_potion",
             healing: "hsmp:healing_witch_potion",
             harming: "hsmp:harming_witch_potion",
