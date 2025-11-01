@@ -19,6 +19,8 @@ system.beforeEvents.startup.subscribe(e => {
             const item = e.itemStack
             const player = e.source
 
+            player.startItemCooldown("hsmp:store_exclusive", 200)
+
             if (item.typeId == fireResistance) {
                 player.sendMessage(`FireRes`)
             }
