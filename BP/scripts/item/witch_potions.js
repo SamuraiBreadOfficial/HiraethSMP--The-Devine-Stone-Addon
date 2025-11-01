@@ -4,17 +4,17 @@ system.beforeEvents.startup.subscribe(e => {
     e.itemComponentRegistry.registerCustomComponent('hsmp:witch_potions', {
         onCompleteUse(e) {
 
-            const fireResistance = "hsmp:fire_resistance_witch_potion",
-            const harming = "hsmp:harming_witch_potion",
-            const healing = "hsmp:healing_witch_potion",
-            const invisibility = "hsmp:invisibity_witch_potion",
-            const leaping = "hsmp:leaping_witch_potion",
-            const nightVision = "hsmp:nightvision_witch_potion",
-            const poison = "hsmp:poison_witch_potion",
-            const regen = "hsmp:regen_witch_potion",
-            const slowness = "hsmp:slowness_witch_potion",
-            const strength = "hsmp:strength_witch_potion",
-            const swiftness = "hsmp:swiftness_witch_potion",
+            const fireResistance = "hsmp:fire_resistance_witch_potion"
+            const harming = "hsmp:harming_witch_potion"
+            const healing = "hsmp:healing_witch_potion"
+            const invisibility = "hsmp:invisibity_witch_potion"
+            const leaping = "hsmp:leaping_witch_potion"
+            const nightVision = "hsmp:nightvision_witch_potion"
+            const poison = "hsmp:poison_witch_potion"
+            const regen = "hsmp:regen_witch_potion"
+            const slowness = "hsmp:slowness_witch_potion"
+            const strength = "hsmp:strength_witch_potion"
+            const swiftness = "hsmp:swiftness_witch_potion"
             const weakness = "hsmp:weakness_witch_potion"
             const item = e.itemStack
             const player = e.source

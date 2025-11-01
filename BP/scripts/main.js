@@ -33,3 +33,4 @@ import "./blocks/service_bell.js";
 import "./town/church_bell_system.js";
 import "./system/quests/main/core.js";
 import "./system/achievements/core.js";
+import "./item/witch_potions.js";

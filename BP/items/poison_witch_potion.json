@@ -13,11 +13,7 @@
 			"minecraft:use_animation": "drink",
 			"minecraft:use_modifiers": {
 				"movement_modifier": 0.5,
-				"use_duration": 20
-			},
-			"minecraft:cooldown": {
-				"category": "hsmp:store_exlusive",
-				"duration": 20
+				"use_duration": 5
 			},
 			"minecraft:food": {
 				"can_always_eat": true,
