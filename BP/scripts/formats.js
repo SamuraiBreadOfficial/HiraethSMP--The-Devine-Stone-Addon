@@ -1,24 +1,27 @@
 console.warn("§d[HIRAETH]§r Loading scripts/formats.js");
 import { system } from "@minecraft/server"
 
+
+// Curency Format (123456 -> 1,234.56$)
 export function formatCurrency(value) {
-    const raw = (value / 100).toFixed(2); // np. 1000099 → "10000.99"
+    const raw = (value / 100).toFixed(2);
     const parts = raw.split(".");
     const integer = parts[0];
     const decimal = parts[1];
 
-    // Dodaj przecinki co 3 cyfry od końca
     const withCommas = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-    return `${withCommas}.${decimal}`;
+    return `${withCommas}.${decimal}\$`;
 }
 
+// Delay for async functions
 export function waitTicks(ticks) {
     return new Promise(resolve => {
         system.runTimeout(resolve, ticks)
     })
 }
 
+// Dialogue actionbar with sounds
 export async function typeActionbar(player, character, text, delay = 1, pitch = 1, sound = "random.click") {
     for (let i = 1; i <= text.length; i++) {
         const fragment = text.slice(0, i);
