@@ -31,7 +31,7 @@ export const witchPrices = {
     id: {
         potions: {
             nightVision: "hsmp:",
-            invisibility: "hsmp:",
+            invisibility: "hsmp:invisibity_witch_potion",
             leaping: "hsmp:",
             fireResistance: "hsmp:fire_resistance_witch_potion",
             swiftness: "hsmp:",

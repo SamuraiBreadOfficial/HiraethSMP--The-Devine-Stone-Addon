@@ -49,6 +49,9 @@
 		},
 		"hsmp_healing_witch_potion": {
 			"textures": "textures/items/healing_witch_bottle"
+		},
+		"hsmp_invisibity_witch_potion": {
+			"textures": "textures/items/invisibility_witch_bottle"
 		}
 	}
 }
