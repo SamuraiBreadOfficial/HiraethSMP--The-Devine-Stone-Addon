@@ -61,6 +61,9 @@
 		},
 		"hsmp_poison_witch_potion": {
 			"textures": "textures/items/poison_witch_bottle"
+		},
+		"hsmp_regen_witch_potion": {
+			"textures": "textures/items/regeneration_witch_bottle"
 		}
 	}
 }
