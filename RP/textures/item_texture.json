@@ -43,6 +43,9 @@
 		},
 		"hsmp_fire_resistance_witch_potion": {
 			"textures": "textures/items/fire_resistance_witch_bottle"
+		},
+		"hsmp_harming_witch_potion": {
+			"textures": "textures/items/harming_witch_bottle"
 		}
 	}
 }

@@ -37,7 +37,7 @@ export const witchPrices = {
             swiftness: "hsmp:",
             slowness: "hsmp:",
             healing: "hsmp:",
-            harming: "hsmp:",
+            harming: "hsmp:harming_witch_potion",
             poison: "hsmp:",
             regerenation: "hsmp:",
             strength: "hsmp:",
