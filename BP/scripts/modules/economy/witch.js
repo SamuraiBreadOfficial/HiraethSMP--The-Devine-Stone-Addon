@@ -3,7 +3,7 @@ console.warn("§d[HIRAETH]§r Loading scripts/modules/economy/tavern.js");
 
 import { world, system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { formatCurrency, waitTicks, typeActionbar } from "../../formats.js"
+import { formatCurrency, waitTicks, typeActionbar, textFormats } from "../../formats.js"
 import { witchTalks, quest_proposition_1, dialogue_quest1 } from "../../system/quests/chapters/prologue/potionless_witch.js"
 
 export const witchPrices = {
@@ -66,6 +66,7 @@ world.afterEvents.playerInteractWithEntity.subscribe(e => {
                     dialogue_quest1(player)
                 } else if (player.hasTag(`witch_unlocked`)) {
                     player.sendMessage(`Witch unlocked, but is not yet functional. Please come back the next update <3`)
+                    witch_main(player)
                 }
 
                 if (player.hasTag(`hsmp_witch_quests_lock`)) {
@@ -97,3 +98,19 @@ world.afterEvents.playerInteractWithEntity.subscribe(e => {
     }
 })
 
+const witchMenuBuild = `v0.1 Stable`
+
+async function witch_main(player) {
+    const r = await new ActionFormData()
+        .title(`${textFormats.colors.amethyst}${textFormats.deco.bold}EVANGELINE'S POTIONS`)
+        .body("Menu Version: " + witchMenuBuild)
+        .divider()
+        .header(`${textFormats.colors.amethyst}${textFormats.deco.bold}EVANGELINE'S POTIONS`)
+        .label('< Evangeline > Hi, what can i brew for you?')
+        .divider()
+        .button(`${textFormats.deco.bold} POTIONS`)
+        .button(`${textFormats.deco.bold} SPELLS`)
+        .button(`${textFormats.deco.bold} MOB LOOT`)
+        .button(`${textFormats.deco.bold} SPECIAL`)
+        .show(player)
+}
