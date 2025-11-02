@@ -28,52 +28,87 @@ system.beforeEvents.startup.subscribe(e => {
                     amplifier: 3,
                     showParticles: true
                 })
-                typeTitleTitle(player, textFormats.deco.bold + textFormats.deco.italic + textFormats.colors.redstone + translate(`our fire is your shield`), 3, "mob.blaze.breathe", 0.5)
             }
             if (item.typeId == harming) {
                 player.sendMessage(`harming`)
-                typeTitleTitle(player, textFormats.colors.dark_red + translate(`your pain will \n not fix your flame`), 3, "mob.blaze.breathe", 0.5)
+                player.applyDamage(10, {
+                    cause: "magic"
+                })
             }
             if (item.typeId == healing) {
                 player.sendMessage(`heal`)
-                typeTitleTitle(player, textFormats.deco.bold + textFormats.colors.redstone + translate(`may gods heal your heart`))
+                player.addEffect("instant_health", 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
             }
             if (item.typeId == invisibility) {
                 player.sendMessage(`invis`)
-                typeTitleTitle(player, translate(`shall they never \n see the truth`))
+                player.addEffect("invisibility", 9600, {
+                    amplifier: 1,
+                    showParticles: false
+                })
             }
             if (item.typeId == leaping) {
-                player.sendMessage(`leaping`)
-                typeTitleTitle(player, translate(`the higher the soul \n the more they will see`))
+                player.addEffect(`jump_boost`, 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
 
             }
             if (item.typeId == nightVision) {
                 player.sendMessage(`nightvis`)
-                typeTitleTitle(player, translate(`upon darkness , you must see \n what is hidden , \n underneath`))
+                player.addEffect("night_vision", 9600, {
+                    amplifier: 1,
+                    showParticles: false
+                })
             }
             if (item.typeId == poison) {
                 player.sendMessage(`poison`)
-                typeTitleTitle(player, translate(`and shall they die in pain \n so we can live \n another day`))
+                player.addEffect("fatal_poison", 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
 
             }
             if (item.typeId == regen) {
                 player.sendMessage(`regen`)
+                player.addEffect('regeneration', 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
 
             }
             if (item.typeId == slowness) {
                 player.sendMessage(`slowness`)
+                player.addEffect('slowness', 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
 
             }
             if (item.typeId == strength) {
                 player.sendMessage(`strength`)
+                player.addEffect('strength', 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
 
             }
             if (item.typeId == swiftness) {
                 player.sendMessage(`swift`)
+                player.addEffect('speed_boost', 9600, {
+                    amplifier: 3,
+                    showParticles: false
+                })
 
             }
             if (item.typeId == weakness) {
                 player.sendMessage(`weakness`)
+                player.addEffect('weakness', 9600, {
+                    amplifier: 3,
+                    showParticles: true
+                })
 
             }
         }

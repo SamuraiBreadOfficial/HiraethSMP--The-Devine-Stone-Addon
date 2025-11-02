@@ -273,6 +273,28 @@ export async function dialogue_quest1(player) {
 
             await waitTicks(200)
             await typeActionbar(player, me, 'I swear... This women.')
+            player.addTag(`witch_unlocked`)
+            player.removeTag('hsmp_whitch_quest_accepted')
+
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL§r§f', `Congrats!`)
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL§r§f', "You have unlocked a §dWitch Hut§r")
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL§r§f', 'You are now able to buy potions which are stronger than normal brewable ones!')
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL§r§f', 'You can Come back to §dEvangeline§r and buy yourself a potion anytime you want!')
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL§r§f', 'Come back here next day at 6:00 when the store is closed,')
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL§r§f', `to collect your reward from store!`)
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL TIP§r§f', `You can talk to store keepers if the store is closed`)
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL TIP§r§f', `Evangeline is one and only store keeper who doesn't close her doors on you.`)
+            await waitTicks(60)
+            await typeActionbar(player, '§e§lTUTORIAL TIP§r§f', 'So you know exactly where she is when it is not a time of opening.')
+
             return;
         } else {
             await typeActionbar(player, me, 'Umm, where do i find those Berries again?')
