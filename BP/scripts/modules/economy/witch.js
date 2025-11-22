@@ -2,9 +2,16 @@ console.warn("§d[HIRAETH]§r Loading scripts/modules/economy/tavern.js");
 
 
 import { world, system } from "@minecraft/server";
-import { ActionFormData } from "@minecraft/server-ui";
-import { formatCurrency, waitTicks, typeActionbar, textFormats } from "../../formats.js"
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import { formatCurrency, waitTicks, typeActionbar, textFormats } from "../../formats.js";
 import { witchTalks, quest_proposition_1, dialogue_quest1 } from "../../system/quests/chapters/prologue/potionless_witch.js"
+import {
+
+    buyMenu,
+    getTotalPrice
+
+} from "./core.js"
+
 
 export const witchPrices = {
     modifier: 0,
@@ -50,10 +57,14 @@ world.afterEvents.playerInteractWithEntity.subscribe(e => {
     const player = e.player;
     const witch = 'hsmp:hsmp_witch';
     const target = e.target;
+    const time = world.getTimeOfDay();
+    const openingTime = 17000
+    const closingTime = 22000
 
     if (e.target.typeId == witch) {
         system.run(() => {
             (async () => {
+
                 if (!player.hasTag(`hsmp_whitch_quest_accepted`) && !player.hasTag(`hsmp_witch_quests_lock`) && !player.hasTag(`witch_unlocked`) && !player.hasTag(`quest_witch_later`)) {
                     await witchTalks(player);
                 } else if (player.hasTag(`quest_witch_later`) && !player.hasTag(`witch_unlocked`)) {
@@ -65,8 +76,24 @@ world.afterEvents.playerInteractWithEntity.subscribe(e => {
                     await waitTicks(60)
                     dialogue_quest1(player)
                 } else if (player.hasTag(`witch_unlocked`)) {
-                    player.sendMessage(`Witch unlocked, but is not yet functional. Please come back the next update <3`)
-                    witch_main(player)
+
+                    if (time >= openingTime && time <= closingTime) {
+                        if (player.hasTag(`reward_not_collected`)) {
+                            player.sendMessage(`Reward Not Collected`)
+                        } else if (!player.hasTag(`reward_not_collected`)) {
+                            await typeActionbar(player, `Evangeline`, `Oh hi again!`)
+                            await waitTicks(40)
+                            await typeActionbar(player, player.name, `I came here to see your goods.`)
+                            await witch_main(player)
+                            await typeActionbar(player, `Evangeline`, `Come back again!`)
+                        }
+                    } else {
+                        await typeActionbar(player, `Evangeline`, `Hi there!`)
+                        await waitTicks(40)
+                        await typeActionbar(player, `Evangeline`, `I hope you know that i brew and sell stuff only at night.. Right?`)
+                        await waitTicks(40)
+                        await typeActionbar(player, player.name, `Yeah, i just came here to talk.`)
+                    }
                 }
 
                 if (player.hasTag(`hsmp_witch_quests_lock`)) {
@@ -113,4 +140,65 @@ async function witch_main(player) {
         .button(`${textFormats.deco.bold} MOB LOOT`)
         .button(`${textFormats.deco.bold} SPECIAL`)
         .show(player)
+
+    const selection = r.selection;
+    if (r.canceled) return;
+
+    if (selection == 0) {
+        witchBuyMenu_potions(player);
+    }
+}
+
+async function witchBuyMenu_potions(player) {
+
+    const translatedOptions = {
+        "NightVision Potion": "nightVision",
+        "Invisibility Potion": "invisibility",
+        "Leaping Potion": "leaping",
+        "FireResistance Potion": "fireResistance",
+        "Swiftness Potion": "swiftness",
+        "Slowness Potion": "slowness",
+        "Healing Potion": "healing",
+        "Harming Potion": "harming",
+        "Poison Potion": "poison",
+        "Regerenation Potion": "regerenation",
+        "Strength Potion": "strength",
+        "Weakness Potion": "weakness"
+
+    }
+
+    let options = [
+        "NightVision Potion",
+        "Invisibility Potion",
+        "Leaping Potion",
+        "FireResistance Potion",
+        "Swiftness Potion",
+        "Slowness Potion",
+        "Healing Potion",
+        "Harming Potion",
+        "Poison Potion",
+        "Regerenation Potion",
+        "Strength Potion",
+        "Weakness Potion"
+
+    ]
+
+    const r = await new ModalFormData()
+        .title(`${textFormats.deco.bold}WITCH EVANGELINE`)
+        .divider() //0
+        .label(`< Evangeline > Potions are like spells, but in bottles.`) //1
+        .divider() //2
+        .dropdown(`Buy a Potion by choosing an Item from Dropdown Menu.`, options)
+        .show(player)
+    if (r.canceled) return;
+
+    const selectedIndex = r.formValues[3]
+    const selectedLabel = options[selectedIndex]
+
+    const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]
+    const potion = translatedOptions[baseName]
+
+    await player.sendMessage(`${selectedLabel} -> ${potion}`)
+    await buyMenu(baseName, witchPrices, "potions", potion, player)
+
 }

@@ -1,0 +1,24 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hsmp:weaponsmith",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/weaponsmith"
+			},
+			"geometry": {
+				"default": "geometry.weaponsmith"
+			},
+			"render_controllers": [
+				"controller.render.weaponsmith"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

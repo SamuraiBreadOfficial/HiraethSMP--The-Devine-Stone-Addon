@@ -3,6 +3,8 @@ console.warn("§d[HIRAETH]§r Loading scripts/system/menu/page1-joinmenu.js");
 import { ActionFormData } from "@minecraft/server-ui";
 import { system, world } from "@minecraft/server";
 
+import { questRegistry } from "./../quests/main/core.js"
+
 export const tag_human = 'hsmp_race_human';
 export const tag_elf = 'hsmp_race_elf';
 export const tag_half_orc = 'hsmp_race_half_orc';
@@ -17,108 +19,326 @@ import { getRaceTags, getMagicTags } from "../../modules/playerinfo/registered-t
 
 import { hiraethLOGO } from "../../modules/playerinfo/utils.js";
 
-import { waitTicks, formatCurrency } from "../../formats.js"
+import { waitTicks, formatCurrency, typeActionbar, typeTitleSubtitle, typeTitleTitle } from "../../formats.js"
 
-const menuBuild = `Main Menu v2 || Build 0.1 (WIP)`
+const menuBuild = `Main Menu v2 || Build v1.4 (WIP)`
 
-export function joinMenu_START(player) {
+export async function joinMenu_START(player) {
 
-    return new ActionFormData()
-        .title("")
+    const start = await new ActionFormData()
+        .title("§lHIRAETHSMP || START")
         .body(menuBuild)
         .divider()
-        .label('Welcome to:\n')
-        .header(``)
-        .divider()
-        .label('You can continue reading by scrolling down, otherwise select "§lSTART YOUR JOURNEY§r". Closing the menu will make the menu appear again unless you have finished your setup.')
-        .button('§lSTART YORU JOURNEY')
-        .divider()
-        .header(`What exactly is this SMP?`)
-        .label(`HiraethSMP is all about story telling.
+        .header(`Welcome to:
         
-No matter if it is your's or world's story, it all shapes the future of the server's main storyline.
+${hiraethLOGO}  §l§d!`)
+        .divider()
+        .label(`Hello §e${player.name}!§r§f
 
-With the power you hold, each event, each decision you all make will say if the end of this story will be an good ending, or bad ending.
+Welcome to §dHiraethSMP§r! A server, which grows your Creativity and Roleplay Minds!
 
-Your decision, your actions and your abbility to change the world has it's final word.
+§o§7You can keep reading this if you scroll down.
+To §aStart§7 simply click "§e§lPLAY§r§7§o" button.`)
+        .divider()
+        .label(`====[ §lSTART YOUR JOURNEY!§r ]====`)
+        .button(`§l§2PLAY`)
+        .divider()
+        .label(`=========[ §lREAD  MORE§r ]=========`)
+        .divider()
+        .label(`As said above, with this server, you can wake up your creativity or roleplaying skills while also exploring a beatifull continent called "Threeclover"!
+        
+In this server you will be able to:`)
+        .label(`• Play with your friends, and create your own faction together!
 
-So what are you waiting for? Ready to join our amazing community?
+• Learn new Skills!
 
-For questions about storyline, voice acting, helping in build, codes or possible partnerships, contact @samuraibread on Discord directly.`)
+• Learn Magic!
+
+• Complete Quests!
+
+• Compete within the economy! Gain more cash than others!
+
+• Roleplay with Others!
+
+• Contribute to the story while taking part in Lore Events!
+
+• Contribute to Server's Activity while hosting your own Community Event!`)
+        .label(`
+This server, is not like any others. It takes you mindset, and puts it on top of the ladder.
+Your choices matters here, quest dialogues you choose will have effect on you and future quests too.
+This is not an ordinary server, it's a living project, designed to give you more, that you could have ever expected.
+
+Welcome to:
+
+${hiraethLOGO}
+
+A server made with passion, for passion.
+
+~ SamuraiBread
+Owner of HiraethSMP.`)
         .show(player)
-        .then(res => {
-            const selection = res.selection;
 
-            if (res.canceled) joinMenu_START(player);
+    const selection = start.selection;
 
-            if (selection == 0) {
-                joinMenu_RACE(player);
-            }
-        })
+    if (start.canceled) {
+        joinMenu_START(player)
+    }
+
+    if (selection == 0) {
+        joinMenu_RACE(player);
+    }
+
 
 }
 
 export function joinMenu_RACE(player) {
     return new ActionFormData()
-        .title("")
+        .title("§lHIRAETHSMP || RACE")
         .body(menuBuild)
         .divider()
-        .header('Race Selection')
-        .label(`This season, you can select your race.
-            
-Each race has it's own buffs and debuffs which all are explained in their section.
-Choose wisely, because you will not be able to change it later in the game.`)
+        .header('Races')
+        .label(`This season offers race selection. 
+        
+All races have their own unique boosts and debuffs.
+Check the statistics before confirming.`)
         .divider()
         .header('§lHUMAN')
         .label(`
-Humans are known for their amazing inventions! They were the first to invent fire in the past, but also they were the first who fought wars over food supplies.
-Cave man age was crazy, but now we're in §k§4Sci-fi Age§r as you guessed by your arrival in this world :)
-Their magic skills? Basically none, §lUNLESS§r they hold special item in off hand!
+Statistics:
+HP: 20
+MP: 20
 
-Buffs:
-- Immune to negative mana effects when holding Mana Absorbsion Orb in off hand
-- Normal strenght
-- Abbillity to use human-specific item which gives them more special effects
+Buffs: 
+- None
 
-Debuffs:
-- Their Mana Points when not holding Mana Absorber are significally smaller
-- They lack race-specific boosts
-- They lack special weaponry skills (Can Be Learned)
-
-Overall, humans are not the most boring race, as all races here have their own special sweets coming your way.`)
+Debuffs: 
+- None`)
         .button('§lBECOME HUMAN')
         .divider()
         .header('§a§lELF')
         .divider()
-        .label(`Elves are good sharp shooters... I mean archers.
-They mostly feel good in the area surrounded by trees, with a sunlight shining through the leaves.
-While they are weak physically, their abbillity, agillity and mostly good eyesight are returning them a favour.
-They were here before humans, already living inside the trees, making them home-like.
-Although they did not used fire, they made their own light, weaker than normal lanters but, you know. It is what it is.
-They used §lFirefly lanters§r, to look around although they see in the dark like in the day.
+        .label(`
+Statistics:
+HP: 20
+MP: 60
 
 Buffs:
-- Night Vision
-- Bow Zoom
-- 40pt. of Mana
-- Speed
-- Jump Boost
-- Dash (basically super speed)
+- Night Creature
+    
+    > When time hits 20:00
+      your character will
+      gain nightvision effect
+      for the night.
 
-Debuffs:
-- Weak
-- Can't wear armour stronger than iron (not including steel)
-- Lacks the abbillity to operate human invention`)
+- Sniper's Eye
+    
+    > When Aiming a bow,
+      your FOV will 
+      automatically 
+      be set to 30.
+
+- Archer's Craft
+
+    > When the bow is 
+      crafted, it has 
+      an 80% chance 
+      of becoming a 
+      special rare 
+      bow, which deals 
+      more damage and 
+      shoots with 
+      more power.
+
+- Skills:
+    > Double Jump
+        > Click on the block while
+          in air and when Your main 
+          hand is empty to gain 
+          extra 3 blocks of height.
+          It uses up 5MP.
+          
+    > Handy Craft
+        > Quickly craft arrows by
+          LShifting and holding
+          an stick or flint to
+          craft an arrow. This
+          have extra 20% chance
+          to give you extra 5
+          arrows when used.
+          It deacreses your
+          hungerbar.
+          
+    > Emergency Choice
+        > Quickly manifest yourself
+          an one-use bow with
+          Punch V and Flame
+          enchantments. It also
+          gives you 1 poisonous arrow.
+          It uses up 15MP per use.
+    
+    > Dragon's Bow
+        / ! \\ Fire Magic needed 
+                for this skill!
+
+        > Quickly manifest falming bow
+          of many uses. It gives you an
+          Flaming Bow with Infinity
+          and Unbreaking V 
+          enchantment.
+          If not in the main hand, it
+          dissapears untill skill used
+          again. Each use 
+          consumes 50MP.
+
+    > Sharp Rain
+        / ! \\ Wind Magic Needed 
+                for this skill!
+        
+        > Blow your arrows into the
+          air and make them fall on
+          your nearest target. It
+          consumes 32 arrows and
+          20MP.
+          
+    > Sharp-Eared' Blessing
+        / ! \\ Nature Magic Needed
+                 for this skill!
+        
+        > Quickly heal your whole HP
+          level at the cost of
+          nearest's entitie's health.
+          Each heal takes 
+          10 hearts from
+          nearest entity and 
+          20MP from you
+          and 10 MP from 
+          the nearest entity.
+          
+Debuffs: 
+    
+    - Weak Bones  
+      > Can't wear armor 
+        stronger than iron
+        
+    - LoL Players
+      > Weak at day
+        Normal at night
+        
+    - Freedom Lover  
+      > If in small spaces
+        for too long
+        they get
+        uncomftorable.
+        
+    - Nature Lover
+      > If not near
+        foliage for too
+        long, their MP
+        drops below 20.`)
         .button("§q§lBECOME ELF")
         .divider()
         .header('§v§lHALF ORC')
         .divider()
-        .label('')
+        .label(`Statistics:
+HP: 70
+MP: 10
+
+Buffs:
+
+- Strong
+    > Half orc has infinite strenght boost.
+    
+- Heavy
+    > Resistant to arrow and melee extra damage
+    
+- Fear
+    > Mobs such as:
+        - Creepers
+        - Zombies
+        - Spiders
+    Avoids this race.
+    
+Skills:
+    - Fury
+        > When HP is smaller than 20,
+          Half orc gains speed boost,
+          strenghth II, Night Vision,
+          Haste III and absorbsion I.
+          The fury will also scare away
+          most of the mobs that are
+          20 blocks away from person.
+          
+    - Heavy Jump
+        > Sneak, and right click on the block
+          Below you to trigger
+          Heavy jump Skill.
+          It launches you 10 blocks up,
+          and when you fall,
+          you crash everything which stands in
+          your way.
+          
+Debuffs:
+
+- Magical Pain
+    > Magic hurts 2x more than for Humans, Elves and Demons.
+    
+- Spelless
+    > Can't use spells that are not for healing themselves
+    
+- Brutal Fire
+    > Fire magic deals 3x more damage than normally.
+    
+- Nature's Exile
+    > Nature's Magic Heal Spells doesn't work on them.`)
         .button('§v§lBECOME HALF ORC')
         .divider()
         .header(`§m§lDEMON`)
         .divider()
-        .label('')
+        .label(`Statistics:
+HP: 80
+MP: 60
+
+Buffs:
+- Demonic Freedom
+    > Can fly.
+    
+- Hell's Power
+    > Gains +2 levels to fire magic (If Chosen.)
+    
+- Hard Skin
+    > Resistant to fire
+    
+- Withering Touch
+    > Every hit has 20% chance of giving hi entity withering effect.
+    
+Skills:
+
+- Demonic Heart
+    > If entity is killed, 10HP is instantly healed.
+      Demon will also gain small boost which lasts 10sec
+      
+- Half Orc Devouer
+    > Demon is an enemy of Half Orcs by the lore.
+      If skill is trigerred, when there is a
+      Half Orc Nearby, Demon will be notified of
+      it's position, current health,
+      valuable items in his inventory and
+      half orc will get stuck for 10 seconds.
+      
+- Human Meat
+    > When killing a human, Demon gains raw porkchop and boosts called "DEMONIC HUNGER"
+      An custom effect which will make your hunger bar stuck on full
+      for whole duration of the effect.
+      
+Debuffs:
+- Cat&Water
+    > Water gives Demons 1hp of damage each second.
+    
+- Nature's Exile
+    > Nature's Magic Heal Spells doesn't work on them.
+    
+- Daylight's Enemy
+    > Gets blind on daylight.`)
         .button('§m§lBECOME DEMON')
         .show(player)
         .then(res => {
@@ -173,7 +393,7 @@ export function joinMenu_RACECONFIRM(player) {
                 joinMenu_RACE(player)
             }
 
-            if (selection == 0) joinMenu_MAGIC(player);
+            if (selection == 0) genderSelection(player);
 
             if (selection == 1) {
                 player.removeTag(`hsmp_race_human`)
@@ -185,6 +405,76 @@ export function joinMenu_RACECONFIRM(player) {
             }
         })
 
+}
+
+export async function genderSelection(player) {
+    const genderMenu = await new ActionFormData()
+        .title(`§lGENDER`)
+        .body(menuBuild)
+        .divider()
+        .header(`Select Your Gender`)
+        .label(`Gender will only make your character sound diffrent. If you choose male, your voice will be pitched down, while when choosing female it will be pitched up. If skipped, you voice will be pitched down anyway.`)
+        .divider()
+        .button(`§lMALE`)
+        .button(`§lFEMALE`)
+        .button(`§lSKIP`)
+        .show(player)
+
+    if (genderMenu.canceled || genderMenu.selection == 2) {
+        const genderCancel = await new ActionFormData()
+            .title(`§lGENDER || §cCANCELED`)
+            .body(menuBuild)
+            .divider()
+            .header(`§lAre you Sure?`)
+            .label(`Are you sure you want to cancel? Your voice will be pitched down like male's voice.`)
+            .button(`§l§cYES`)
+            .button(`§lNO`)
+            .show(player)
+        if (genderCancel.canceled || genderCancel.selection == 1) genderMenu;
+    }
+
+    if (genderMenu.selection == 0) {
+        const genderMenu0 = await new ActionFormData()
+            .title(`§lGENDER || MALE`)
+            .body(menuBuild)
+            .divider()
+            .header(`Are you sure?`)
+            .label(`You sure you want to choose "Male"?
+
+Sometimes NPCs will say about you as "he/him" and your voice will be pitched down.`)
+            .button(`§lCHOOSE`)
+            .button("§lRETURN")
+            .show(player)
+
+        if (genderMenu0.canceled || genderMenu0.selection == 1) genderMenu;
+
+
+        if (genderMenu0.selection == 0) {
+            player.addTag(`male`)
+            joinMenu_MAGIC(player)
+        }
+    }
+
+    if (genderMenu.selection == 1) {
+        const genderMenu1 = await new ActionFormData()
+            .title(`§lGENDER || FEMALE`)
+            .body(menuBuild)
+            .divider()
+            .header(`Are you sure?`)
+            .label(`You sure you want to choose "Female"?
+
+Sometimes NPCs will say about you as "she/her" and your voice will be pitched up.`)
+            .button(`§lCHOOSE`)
+            .button("§lRETURN")
+            .show(player)
+
+        if (genderMenu1.canceled || genderMenu1.selection == 1) genderMenu;
+
+        if (genderMenu1.selection == 0) {
+            player.addTag(`female`)
+            joinMenu_MAGIC(player)
+        }
+    }
 }
 
 export function joinMenu_MAGIC(player) {
@@ -368,6 +658,7 @@ export async function unlockAfterTutorial(player) {
     system.run(() => player.runCommand(`inputpermission set @s movement enabled`))
     system.run(() => player.runCommand(`gamemode s`))
     system.run(() => player.runCommand(`camera @s clear`))
+    system.run(() => player.runCommand(`/hud @s reset all`))
 
 }
 
@@ -513,7 +804,7 @@ Please accept rules before we continue into the tutorial.`)
             if (rulesMC.canceled || rulesMC.selection == 1) lockAccess(player);
 
             if (rulesMC.selection == 0) {
-                tutorial_main(player)
+                startCutscene(player)
             }
 
         }
@@ -521,337 +812,10 @@ Please accept rules before we continue into the tutorial.`)
     }
 }
 
-export async function tutorial_main(player) {
-    system.run(() => player.runCommand(`inputpermission set @s movement disabled`))
-    system.run(() => player.runCommand(`gamemode spectator`))
-
-    system.run(() => player.runCommand("playsound random.levelup @s ~ ~ ~ 1 1 1"))
-    player.sendMessage(`§c§l[ SYSTEM ]§r You have accepted our Rules!
-    
-You can always check the rules by going into Discord or your menu (/hmenu) and clicking the Rules button.`)
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Hello §a${player.name}§r! Welcome to HiraethSMP!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This tutorial will show you the basics of our server.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It will be shown only once.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Let's start the adventure!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    system.run(() => player.runCommand(`camera @s set minecraft:free ease 5 in_out_sine pos 222 87 1944 rot 20 0`))
-    system.run(() => player.runCommand(`tp 222 83 1944`))
-
-    await waitTicks(100)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the tavern.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is the heart of the server.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r If you enjoy exploring or doing quests, you will visit it very often.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(100)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 223 68 1969 rot 0 0"))
-    system.run(() => player.runCommand(`tp 223 65 1969`))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the quest board.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here you will be able to accept quests...`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r ...and inside the tavern, you will be able to collect rewards.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are 3 types of quests:`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Delivery, which offers from $1k to $5k.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r C&T, which offers from $3k to $10k.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r And H&T, offering from $10k to even $100k.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are also Admin Quests.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Special quests made by admins, which are the most profitable quests out there!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(100)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 223 68 1971 rot -20 -90"))
-    await waitTicks(59)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 228 71 1971 rot -20 -90"))
-    await waitTicks(59)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 1 in_out_sine pos 228 71 1971 rot 0 -90"))
-    await waitTicks(19)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 in_out_sine pos 233.5 71.5 1971 rot 0 -90"))
-    await waitTicks(59)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 1 linear pos 233.5 71.5 1971 rot 0 0"))
-    await waitTicks(19)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 233.5 71.5 1978 rot 0 0"))
-    await waitTicks(59)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 233.5 71.5 1978 rot 0 90"))
-    await waitTicks(59)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 linear pos 219.5 71.5 1978 rot 0 90"))
-    await waitTicks(59)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 3 out_sine pos 216.5 71.5 1985 rot 0 90"))
-    system.run(() => player.runCommand(`tp 216 75 1985`))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is Adam!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r You can interact with him by clicking the service bell!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r With him, you will be able to:`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Collect rewards from quests.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Buy alcohol drinks.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Check the newest information.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Fun fact:`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Some drinks have historical names!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r For example, one wine has the name of a hybrid boy who`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r discovered the continent and`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r allowed Silvi, the city you are in now, to exist!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_sine rot 0 180"))
-    await waitTicks(100)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 208 84 1964 rot 20 180"))
-    system.run(() => player.runCommand(`tp 208 83 1964`))
-
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the Church.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here you can check your XP, Mana, Magic and Level!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_expo pos 207 69 1908 rot 0 180"))
-    system.run(() => player.runCommand(`tp 207 65 1908`))
-
-
-    await waitTicks(100)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r To check your stats simply interact with this block.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r There are maximum of 100 levels for now.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Each levels give you rewards in cash and game xp.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Levels can be used to unlock Magic Skills!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Or learn new magic type!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Levels can also be used to upgrade your current spell!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r The more levels your spell has, the more powerfull and deadly it is!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Some spells has max 3 levels, others can have even 5!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Those with 3, are the most powerfull ones!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    //To be deleted next version.
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Sadly, for now you cannot use spells...`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r ...As it is still under the development :c`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Now it's time to show you the store Locations!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-
-    // Restaurant
-    await waitTicks(100)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 193 69 1950 rot -30 0"))
-    system.run(() => player.runCommand(`tp 193 65 1950`))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the Restaurant!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is open from 9:00 to 22:00! `)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r You can buy here Cooked Food and Misc Food (Bread etc.) only!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Simply interact with the handle on the doors to get it!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-
-    // Butcher
-    await waitTicks(100)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos 160 74 1971 rot 30 -20"))
-    system.run(() => player.runCommand(`tp 160 75 1971`))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the butcher.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It's open from 5:00 to 18:00!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here you can buy raw meat.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Tip: It is cheaper to buy raw meat in this store, than buying cooked food in the Restaurant!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    //Lumberjack
-    await waitTicks(100)
-    system.run(() => player.runCommand("/camera @s set minecraft:free ease 5 in_out_back pos 72 73 1901 rot 0 180"))
-    system.run(() => player.runCommand(`tp 72 73 1901`))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is the Lumberjack`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is open from 5:00 to 23:00!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r If you're looking for logs or planks, this is the store.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    //Earthwright
-    await waitTicks(100)
-    system.run(() => player.runCommand("/camera @s set minecraft:free ease 5 in_out_back pos -25 79 2051 rot 10 0"))
-    system.run(() => player.runCommand(`tp -25 75 2051`))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is Earthwright`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It is open from 5:00 to 23:00!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r He sels blocks such as:`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Dirt`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Stone`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r and bricks! `)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    //Witch
-    await waitTicks(100)
-    system.run(() => player.runCommand("camera @s set minecraft:free ease 5 in_out_back pos -153 74 1910 rot 0 140"))
-    system.run(() => player.runCommand(`tp -153 71 1910`))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r This is a witch hut!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r It opens at night, from 22:00 to 3:00!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Here, you will be able to buy spells`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r mob loot`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r potions`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r and materials from diffrent dimensions!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Economy on the server is diffrent.`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Every day the price changes with "modifiers".`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r So one day, the prices might be cheaper than the other day!`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-
-    await waitTicks(60)
-    player.sendMessage(`§e[ §lTUTORIAL§r§e]§r Tip: Track time by crafting a clock! (redstone and gold.)`)
-    system.run(() => player.runCommand("playsound random.orb @s ~ ~ ~ 1 1 1"))
-    startCutscene(player)
-
-
-
+async function tutorialSay(player, text) {
+    await waitTicks(40)
+    await typeActionbar(player, `§l§eTutorial§r`, text)
+    await player.sendMessage(`[ §l§eTutorial§r ] ${text}`)
 }
 
 
@@ -894,160 +858,114 @@ system.runInterval(() => {
 }, 500)
 
 export async function startCutscene(player) {
-    system.run(() => player.runCommand('camera @s fade time 10 10 0'))
-    system.run(() => player.runCommand(`/title @s times 20 100 50`))
+    const me = player.name
+    for (const player of world.getAllPlayers()) {
 
-    await waitTicks(395)
-    system.run(() => player.runCommand(`tp 133.10 66.44 1953.63`))
-    system.run(() => player.runCommand('camera @s set minecraft:free pos 134 66.60 1953 rot -90 90'))
-
-    system.run(() => player.runCommand('camera @s fade time 0 10 5'))
-    system.run(() => player.runCommand('title @s title SamuraiBread'))
-    await waitTicks(40)
-    system.run(() => player.runCommand('title @s subtitle presents:'))
-    await waitTicks(200)
-    system.run(() => player.runCommand('camera @s fade time 3 8 5'))
-    await waitTicks(50)
-    typeActionbar(player, '???', 'Wake up.', 3)
-    await waitTicks(200)
-    system.run(() => player.runCommand('camera @s fade time 3 8 5'))
-    await waitTicks(50)
-    system.run(() => player.runCommand(`title @s actionbar <???> Wake up!`))
-    typeActionbar(player, '???', '<???> Wake up!', 3)
-    await waitTicks(200)
-    system.run(() => player.runCommand('camera @s fade time 3 9 0'))
-    await waitTicks(50)
-    system.run(() => player.runCommand(`title @s actionbar <???> WAKE THE F*CK UP!`))
-    typeActionbar(player, '???', 'WAKE THE F*CK UP!', 1)
-
-    await waitTicks(40)
-    typeActionbar(player, '???', `I'M BEGGING YOU, DON'T LEAVE ME!!`, 1)
-    await waitTicks(50)
-    await typeActionbar(player, '???', `I CAN'T LEAVE THIS PLACE WITHOUT YOU, PLEASE!!`, 1)
-    system.run(() => player.runCommand(`title @s times 0 60 0`))
-    await waitTicks(50)
-    system.run(() => player.runCommand(`title @s title WAKE UP!!`))
-    system.run(() => player.runCommand(`camera @s clear`))
-    system.run(() => player.runCommand(`inputpermission set @s movement enabled`))
-    system.run(() => player.runCommand(`gamemode s`))
+        system.run(() => player.runCommand('camera @s fade time 10 10 10'))
+        system.run(() => player.runCommand(`title @s times 20 100 50`))
+        system.run(() => player.runCommand(`hud @s hide all`))
+        system.run(() => player.runCommand(`gamemode spectator`))
+        system.run(() => player.runCommand(`inputpermission set @s movement disabled`))
 
 
-    await waitTicks(100)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> W`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wh`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha.`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha..`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha...`))
+        await waitTicks(400)
+        system.run(() => {
+            player.runCommand(`camera @s set minecraft:free pos -26 64.1 1946 rot -60 -30`)
+            player.runCommand(`tp -26 64 1946`)
+        })
 
-    await waitTicks(100)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh..`))
-    await waitTicks(20)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. M`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My h`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My he`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My hea`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head h`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hu`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hur`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurt`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts.`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Ugh.. My head hurts..`))
+        await typeTitleTitle(player, `SamuraiBread`, 3)
+        await waitTicks(40)
+        await typeTitleSubtitle(player, `presents:`, 3)
+        await waitTicks(200)
+        await typeActionbar(player, me, `Huh... My head hurts...`)
+        system.run(() => {
+            player.runCommand('camera @s fade time 5 5 5')
+        })
+        await waitTicks(100)
+        await typeActionbar(player, '§d???', `Wake up..`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Huh..? A female voice...?`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Who was she... I dont remember..`)
+        system.run(() => {
+            player.runCommand('camera @s fade time 5 5 5')
+        })
+        await waitTicks(100)
+        await typeActionbar(player, '§d???', `Wake up, please...`)
+        await waitTicks(40)
+        await typeActionbar(player, me, `Her voice.. It was filled with grief...?`)
+        system.run(() => {
+            player.runCommand('camera @s fade time 5 5 5')
+            player.runCommand(`playsound hsmp_music.prologue_start @s ~ ~ ~ 0.5 1 1`)
+        })
+        await waitTicks(100)
+        await typeActionbar(player, '§d???', `I'm begging you, i can't do it without you...`)
+        await waitTicks(40)
+        await typeActionbar(player, me, `I'm sorry, but i can't remember...`)
+        system.run(() => {
+            player.runCommand('camera @s fade time 5 5 5')
+        })
+        await waitTicks(100)
+        await typeActionbar(player, "§d???", `We were meant to escape together... PLASE!`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Escape... Together...? Who was she? Where am I?`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Why i can't remember anything..?`)
+        system.run(() => {
+            player.runCommand('camera @s set minecraft:free ease 5 in_out_sine pos ~ ~1.75 ~ rot ~ ~')
+        })
 
-    await waitTicks(100)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> W`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wh`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Wha`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a w`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a we`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a wei`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weir`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird d`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dr`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dre`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird drea`))
-    await waitTicks(1)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream`))
-    await waitTicks(20)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream..`))
-    await waitTicks(20)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> What a weird dream..`))
+        await waitTicks(100)
+        system.run(() => {
+            player.runCommand('camera @s clear')
+            player.runCommand(`gamemode s`)
+            player.runCommand(`inputpermission set @s movement enabled`)
 
-    await waitTicks(100)
-    typeActionbar(player, `${player.name}`, 'Wait...', 1)
+        })
 
-    await waitTicks(60)
-    typeActionbar(player, `${player.name}`, 'Where even am I?', 1)
+        await waitTicks(40)
+        await typeActionbar(player, me, `City?`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `I need to ask someone where even am i..`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Who even am i..? Ah.. right. ${player.name}.`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Why have i come to remember only my name?
+What is going on..?`)
+        await waitTicks(20)
+        await typeActionbar(player, me, `Focus ${player.name}, focus. Maybe there is a tavern somewhere in the city?`)
+        await typeTitleTitle(player, hiraethLOGO, 3)
 
-    await waitTicks(100)
-    system.run(() => player.runCommand(`title @s times 20 100 50`))
-    system.run(() => player.runCommand(`title @s title ${hiraethLOGO}`))
+        system.run(() => {
+            player.sendMessage(`
+[ §eQUEST§r ]
+§a§lFinally Awoken§r
 
-    await waitTicks(50)
-    system.run(() => player.runCommand(`title @s subtitle SMP`))
+Find the §etavern§r, and ask the §dtavern keeper§r about the §acity§r.
 
-    await waitTicks(100)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> There's a tavern..`))
-    await typeActionbar(player, `${player.name}`, 'There is a tavern...', 1)
+Rewards:
+- 5,000.00\$
+- "Finally Awoken" Achievement
+- HUD Unlock`)
+            player.addTag(questRegistry.questInfo.fawoken.tag)
+        })
 
-    await waitTicks(40)
-    system.run(() => player.runCommand(`title @s actionbar <${player.name}> Maybe i'll ask there?`))
-    await typeActionbar(player, `${player.name}`, 'Maybe I\'ll ask there?...', 1)
+        await waitTicks(100)
+        system.run(() => {
+            player.sendMessage(`[ TIP ] You can check your quests anytime you want!
 
-    await waitTicks(20)
-    player.sendMessage(`[ §e§lQUEST§r ]
-Title: §eFreshly Awoken§r
+Simply open your menu with /hmenu or withing quick action menu /qa with selecting HSMP Menu, then click on QUESTS button.
 
-Go to the local §etavern§r and ask someone about this place.
+You will see the goal, description and rewards upon completion.`)
+            player.runCommand(`playsound random.orb @s`)
+        })
+        await waitTicks(60)
+        await typeActionbar(player, me, `Ugh... My head hurts so much.`)
+        await waitTicks(100)
+        await typeActionbar(player, me, `It will be a good idea to also ask someone to heal my headache.`)
 
-Rewards: §a\$5k + Achievement §l"And thus it begins."`)
-    system.run(() => player.addTag('hsmp_quest_freshly_awoken'))
-}
 
-async function typeActionbar(player, character, text, delay = 1) {
-    for (let i = 1; i <= text.length; i++) {
-        const fragment = text.slice(0, i);
-        system.run(() => player.runCommand(`title @s actionbar < ${character} > ${fragment}`));
-        await waitTicks(delay);
+
     }
 }

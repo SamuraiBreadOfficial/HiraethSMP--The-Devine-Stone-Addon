@@ -2,24 +2,24 @@
 	"format_version": "1.14.0",
 	"sound_definitions": {
 		"hsmp.church.3": {
-			"category": "record",
-			"max_distance": 1000,
+			"category": "ambient",
+			"max_distance": 500,
 			"min_distance": 0,
 			"sounds": [
 				"sounds/church/church_strike_3"
 			]
 		},
 		"hsmp.church.6": {
-			"category": "record",
-			"max_distance": 1000,
+			"category": "ambient",
+			"max_distance": 500,
 			"min_distance": 0,
 			"sounds": [
 				"sounds/church/church_strike_6"
 			]
 		},
 		"hsmp.church.12": {
-			"category": "record",
-			"max_distance": 1000,
+			"category": "ambient",
+			"max_distance": 500,
 			"min_distance": 0,
 			"sounds": [
 				"sounds/church/church_strike_12"
@@ -29,6 +29,18 @@
 			"category": "block",
 			"sounds": [
 				"sounds/store_sound/service_bell"
+			]
+		},
+		"hsmp_music.prologue_start": {
+			"category": "music",
+			"sounds": [
+				"sounds/soundtrack/prologue/ow_travelers"
+			]
+		},
+		"hsmp_music.prologue_connected": {
+			"category": "music",
+			"sounds": [
+				"sounds/soundtrack/prologue/barotrauma_overclocked_weakness"
 			]
 		}
 	}

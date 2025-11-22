@@ -40,3 +40,5 @@ item.hsmp:slowness_witch_potion=[ §dWitch§r ] §7Slowness§r Potion
 item.hsmp:strength_witch_potion=[ §dWitch§r ] §aStrength§r Potion
 item.hsmp:swiftness_witch_potion=[ §dWitch§r ] §bSwiftness§r Potion
 item.hsmp:weakness_witch_potion=[ §dWitch§r ] §8Weakness§r Potion
+item.spawn_egg.entity.hsmp:weaponsmith.name=Spawn Weaponsmith
+entity.hsmp:weaponsmith.name=Weaponsmith

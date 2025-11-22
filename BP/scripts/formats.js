@@ -22,20 +22,28 @@ export function waitTicks(ticks) {
 }
 
 // Dialogue actionbar with sounds
-export async function typeActionbar(player, character, text, delay = 1, pitch = 1, sound = "random.click") {
+export async function typeActionbar(player, character, text, delay = 1, pitch = 1, sound = "random.click", color = textFormats.colors.yellow) {
     for (let i = 1; i <= text.length; i++) {
         const fragment = text.slice(0, i);
+
+
         system.run(() => {
-            player.runCommand(`title @s actionbar < ${character} > ${fragment}`)
-            player.runCommand(`playsound ${sound} @s ~ ~ ~ 1 ${pitch} 1`)
+            player.runCommand(`titleraw @s actionbar {"rawtext":[
+                {"text":"< ${color}${character}${textFormats.resetWithColor} > "},
+                {"text":"${fragment}"}
+            ]}`);
+
+            if (character == player.name) {
+                const pitchValue = player.hasTag(`hsmp_female`) ? 1.5 : 0.5;
+                player.runCommand(`playsound ${sound} @s ~ ~ ~ 1 ${pitchValue} 1`);
+            } else {
+                player.runCommand(`playsound ${sound} @s ~ ~ ~ 1 ${pitch} 1`);
+            }
         });
 
         const char = text[i - 1];
-        if (char === "." || char === "," || char === "?" || char === "!") {
-            await waitTicks(delay + 6); // pauza rytualna
-        } else {
-            await waitTicks(delay);
-        }
+        const pause = [".", ",", "?", "!"].includes(char) ? delay + 6 : delay;
+        await waitTicks(pause);
     }
 }
 
@@ -85,6 +93,22 @@ export async function typeTitleTitle(player, text, delay = 1, sound = "random.cl
         const fragment = text.slice(0, i);
         system.run(() => {
             player.runCommand(`title @s title ${fragment}`)
+            player.runCommand(`playsound ${sound} @s ~ ~ ~ 1 ${pitch} 1`)
+        });
+
+        const char = text[i - 1];
+        if (char === "." || char === " ") {
+            await waitTicks(delay + 6)
+        } else {
+            await waitTicks(delay)
+        }
+    }
+}
+export async function typeTitleSubtitle(player, text, delay = 1, sound = "random.click", pitch = 1) {
+    for (let i = 1; i <= text.length; i++) {
+        const fragment = text.slice(0, i);
+        system.run(() => {
+            player.runCommand(`title @s subtitle ${fragment}`)
             player.runCommand(`playsound ${sound} @s ~ ~ ~ 1 ${pitch} 1`)
         });
 

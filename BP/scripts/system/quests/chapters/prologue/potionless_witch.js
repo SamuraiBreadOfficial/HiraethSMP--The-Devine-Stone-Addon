@@ -303,3 +303,40 @@ export async function dialogue_quest1(player) {
         }
     }
 }
+
+async function witchType(player, text) {
+    await typeActionbar(player, `Evangeline`, text)
+}
+
+export async function collectWitchReward(player) {
+    const me = player.name
+    const witch = `Evangeline`
+
+    await typeActionbar(player, me, `I'm back for those potions you had for me.`)
+    await waitTicks(40)
+    await witchType(player, `Ah yeah. Here.`)
+    //place for give command <3
+    await typeActionbar(player, me, `Hm..`)
+    await waitTicks(40)
+    await witchType(player, `Hm? Something's wrong?`)
+    await waitTicks(40)
+    await typeActionbar(player, me, `The bottle seems.. off?`)
+    await waitTicks(40)
+    await witchType(player, `Oh that's because my potions are diffrent from normal ones.`)
+    await waitTicks(40)
+    await typeActionbar(player, me, `Oh, really?`)
+    await waitTicks(40)
+    await witchType(player, `Yeah, that's because my potions are stronger and lasts longer.`)
+    await waitTicks(40)
+    await witchType(player, `And also they have their special effects..`)
+    await waitTicks(40)
+    await witchType(player, `For example: Invisibility potion doesn't display particles!`)
+    await waitTicks(40)
+    await witchType(player, `Don't you dare to use it in some weird situations,\nor i will not sell you these anymore.`)
+    await typeActionbar(player, me, `No comment.`)
+    await waitTicks(40)
+    await witchType(player, `I am serious..`)
+    await waitTicks(40)
+    await typeActionbar(player, me, `Okay, okay i will not do any things like that.`)
+
+} 

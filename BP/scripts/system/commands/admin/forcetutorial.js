@@ -1,11 +1,11 @@
 console.warn("§d[HIRAETH]§r Loading Admin Command: /forceaction");
 
 import { system, world, CustomCommandParamType, CommandPermissionLevel } from "@minecraft/server";
-import { cwAgreedment, unlockAfterTutorial, tutorial_main, startCutscene, joinMenu_START } from '../../menu/page1-joinmenu.js'
+import { cwAgreedment, unlockAfterTutorial, startCutscene, joinMenu_START } from '../../menu/page1-joinmenu.js'
 
 
 system.beforeEvents.startup.subscribe(e => {
-    e.customCommandRegistry.registerEnum('hsmp:forced_action', ['agreedments', 'tutorial', 'unlockAfterTutorial', 'start', `startCutscene`])
+    e.customCommandRegistry.registerEnum('hsmp:forced_action', ['agreedments', 'unlockAfterTutorial', 'start', `startCutscene`])
     e.customCommandRegistry.registerCommand(
         {
             name: "hsmp:forceaction",
@@ -32,9 +32,6 @@ system.beforeEvents.startup.subscribe(e => {
                 cwAgreedment(targetPlayer)
             }
 
-            if (forced_action == 'tutorial') {
-                tutorial_main(targetPlayer)
-            }
 
             if (forced_action == 'unlockAfterTutorial') {
                 unlockAfterTutorial(targetPlayer)

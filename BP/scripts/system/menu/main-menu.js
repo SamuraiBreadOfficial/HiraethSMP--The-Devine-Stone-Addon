@@ -203,15 +203,22 @@ export async function questMenu(player) {
 
     const r = await new ActionFormData()
         .title(`§lQUEST INFO`)
-        .body(`Quest Build v1`)
+        .body(`Quest Build v1.5`)
         .divider()
-        .header(`${quest.name}`)
-        .label(`Tutorial Story Progress: ${quest.startProgression}`)
+        .header(`[ §e§lQUESTS§r§f ]`)
         .divider()
-        .label(`Description:
-${quest.description}
+        .header(quest.name)
+        .divider()
+        .label(`§e§lDescription:§r§f
 
-Rewards:
+${quest.description}`)
+        .divider()
+        .label(`§e§lGoal:§r§f
+
+${quest.goal}`)
+        .divider()
+        .label(`§e§lRewards:§r§f
+
 ${quest.allRewards()}`)
         .show(player)
 }
