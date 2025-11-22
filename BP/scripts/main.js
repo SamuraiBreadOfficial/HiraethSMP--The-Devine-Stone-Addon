@@ -1,4 +1,3 @@
-console.warn("§d[HIRAETH]§r Loading the modules..");
 import "./system/first-join.js";
 import "./modules/playerinfo/join_detect.js";
 import "./system/system-index.js";
@@ -29,6 +28,7 @@ import "./modules/economy/tavern.js";
 import "./modules/economy/food-market.js";
 import "./modules/economy/earthwright.js";
 import "./modules/economy/lumberjack.js";
+import "./modules/economy/weaponsmith.js";
 import "./blocks/store_doors.js";
 import "./blocks/service_bell.js";
 import "./town/church_bell_system.js";

@@ -15,6 +15,14 @@
 			"render_controllers": [
 				"controller.render.weaponsmith"
 			],
+			"animations": {
+				"idle": "animation.weaponsmith.idle"
+			},
+			"scripts": {
+				"animate": [
+					"idle"
+				]
+			},
 			"spawn_egg": {
 				"base_color": "#000000",
 				"overlay_color": "#FFFFFF"
