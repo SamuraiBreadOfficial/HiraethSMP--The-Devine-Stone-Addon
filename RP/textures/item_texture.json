@@ -76,6 +76,9 @@
 		},
 		"hsmp_weakness_witch_potion": {
 			"textures": "textures/items/weakness_witch_potion"
+		},
+		"hsmp_sofia_corpse_back": {
+			"textures": "textures/items/sofia_corpse_back_item"
 		}
 	}
 }

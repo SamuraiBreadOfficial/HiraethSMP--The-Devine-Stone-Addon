@@ -89,6 +89,7 @@ export const textFormats = {
 }
 
 export async function typeTitleTitle(player, text, delay = 1, sound = "random.click", pitch = 1) {
+    player.runCommand(`title @s times 0 100 10`)
     for (let i = 1; i <= text.length; i++) {
         const fragment = text.slice(0, i);
         system.run(() => {
@@ -355,4 +356,27 @@ export function translate(text) {
             return translated ? word.replace(clean, translated) : word;
         })
         .join(" ");
+}
+
+export const gender = {
+    getGender(player) {
+        if (player.hasTag('male')) return 'Man';
+        if (player.hasTag('female')) return 'Girl';
+        return '???';
+    },
+    getPronounce(player) {
+        if (player.hasTag('male')) return 'He';
+        if (player.hasTag('female')) return 'She';
+        return 'They';
+    },
+    getObjectPronounce(player) {
+        if (player.hasTag('male')) return 'Him';
+        if (player.hasTag('female')) return 'Her';
+        return 'Them';
+    },
+    getPossessivePronounce(player) {
+        if (player.hasTag('male')) return 'His';
+        if (player.hasTag('female')) return 'Hers';
+        return 'Theirs';
+    }
 }

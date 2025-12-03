@@ -1,1 +1,78 @@
-{}
+{
+    "block_sounds": {
+        "darmud": {
+            "events": {
+                "break": {
+                    "pitch": [
+                        0.80,
+                        1.0
+                    ],
+                    "sound": "dig.ancient_debris",
+                    "volume": 1.0
+                },
+                "hit": {
+                    "pitch": 0.50,
+                    "sound": "hit.ancient_debris",
+                    "volume": 0.230
+                },
+                "item.use.on": {
+                    "pitch": 0.80,
+                    "sound": "use.ancient_debris"
+                },
+                "place": {
+                    "pitch": [
+                        0.80,
+                        1.0
+                    ],
+                    "sound": "dig.ancient_debris",
+                    "volume": 1.0
+                },
+                "power.off": {
+                    "pitch": 0.50,
+                    "sound": "block.click"
+                },
+                "power.on": {
+                    "pitch": 0.60,
+                    "sound": "block.click"
+                }
+            },
+            "pitch": 1.0,
+            "volume": 1.0
+        }
+    },
+    "entity_sounds": {
+        "entities": {
+            "hsmp:mroth_pos": {
+                "events": {
+                    "ambient": "hsmp_mob.mroth.growl"
+                }
+            }
+        }
+    },
+    "interactive_sounds": {
+        "block_sounds": {
+            "darmud": {
+                "events": {
+                    "fall": {
+                        "sound": "fall.ancient_debris",
+                        "volume": 0.40
+                    },
+                    "jump": {
+                        "sound": "jump.ancient_debris",
+                        "volume": 0.120
+                    },
+                    "land": {
+                        "sound": "land.ancient_debris",
+                        "volume": 0.140
+                    },
+                    "step": {
+                        "sound": "hsmp_block.darmud_step",
+                        "volume": 0.170
+                    }
+                },
+                "pitch": 1.0,
+                "volume": 1.0
+            }
+        }
+    }
+}

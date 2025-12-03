@@ -1,0 +1,21 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.sofia_corpse_back": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": [
+                "Texture.default"
+            ],
+            "part_visibility": [
+                {
+                    "cape": "query.is_item_equipped('hsmp:sofia_corpse_back') ? 0 : 1"
+                }
+            ]
+        }
+    }
+}

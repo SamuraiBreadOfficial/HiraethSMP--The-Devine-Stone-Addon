@@ -13,7 +13,18 @@ Welcome to ${hiraethLOGO}!`)
         p.addTag('joined')
         welcomeMessage(p)
     }
+    if (!p.hasTag(`autoupdater_v1_0_0`)) {
+        p.sendMessage(`[ §cAUTOUPDATER§r ] If you're on our official Realm, ignore this message.
+        
+ To experience new structures and NPCs, please download and activate Hiraeth Auto-Updater.
+
+This addon automatically places structures, spawns entities, and works seamlessly alongside the main addon.
+
+Visit our Discord or website to get it for free.`)
+    }
+
 })
+
 
 async function welcomeMessage(player) {
     const welcome = await new ActionFormData()

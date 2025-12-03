@@ -1,9 +1,5 @@
 {
-	"format_version": [
-		1,
-		1,
-		0
-	],
+	"format_version": "1.21.40",
 	"hsmp:start_button": {
 		"sound": "stone"
 	},
@@ -24,5 +20,13 @@
 	},
 	"hsmp:service_bell": {
 		"sound": "stone"
+	},
+	"hsmp:lock_block": {
+		"sound": "stone",
+		"textures": "hsmp_lock_block"
+	},
+	"hsmp:darmud": {
+		"sound": "darmud",
+		"textures": "hsmp_darmud"
 	}
 }

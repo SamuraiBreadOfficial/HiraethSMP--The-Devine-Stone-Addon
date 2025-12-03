@@ -1,0 +1,24 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hsmp:mroth_pos",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/mroth_pos"
+			},
+			"geometry": {
+				"default": "geometry.mroth_pos"
+			},
+			"render_controllers": [
+				"controller.render.mroth_pos"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

@@ -12,8 +12,9 @@ system.beforeEvents.startup.subscribe(e => {
     e.blockComponentRegistry.registerCustomComponent('hsmp:tavern', {
         onPlayerInteract(e) {
             const player = e.player
-            if (player.hasTag(`quest_fawoken`)) {
+            if (player.hasTag(`quest_fawoken`) && !player.hasTag(`isTalking`)) {
                 tavern_firstEncounter(player)
+                player.addTag(`isTalking`)
             }
         }
     })

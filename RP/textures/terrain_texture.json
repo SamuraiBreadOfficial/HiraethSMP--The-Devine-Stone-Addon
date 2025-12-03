@@ -24,6 +24,12 @@
 		},
 		"hsmp_service_bell": {
 			"textures": "textures/blocks/service_bell_tavern"
+		},
+		"hsmp_lock_block": {
+			"textures": "textures/blocks/lock_block"
+		},
+		"hsmp_darmud": {
+			"textures": "textures/blocks/dark_mud"
 		}
 	}
 }

@@ -304,7 +304,7 @@ WHAT IS GOING ON!!!!
             rewardCash: 200000,
 
             // If true, the completion of the quest will give an achievement, REMEMBER TO REGISTER THE ACHIEVEMENT IN "scripts/system/achievements/core.js"!!!
-            achivReward: true,
+            achivReward: false,
 
             // Name of the Achievement
             achivRewardName: `Test`,
@@ -328,9 +328,266 @@ WHAT IS GOING ON!!!!
                 { name: "Leather Chestplate", id: "leather_chestplate", count: "1" },
                 { name: "Leather Leggings ", id: "leather_leggings", count: "1" },
                 { name: "Leather Boots", id: "leather_boots", count: "1" }
+            ],
 
+            // Do not touch
+            allRewards() {
+                const lines = [];
 
+                // 💰 Cash reward
+                if (this.rewardCash > 0) {
+                    lines.push(`§aCash: §e${formatCurrency(this.rewardCash)}`);
+                }
 
+                // 🏆 Achievement
+                if (this.achivReward === true && this.achivRewardName) {
+                    lines.push(`\n§aAchievement: §e${this.achivRewardName}`);
+                }
+
+                // 📦 Normal items
+                if (this.itemRewards === true && Array.isArray(this.itemTable)) {
+                    const validItems = this.itemTable.filter(item => item?.id && item?.count);
+                    if (validItems.length > 0) {
+                        lines.push(`\n§6Items:`);
+                        for (const item of validItems) {
+                            lines.push(`§f- ${item.name} x${item.count}`);
+                        }
+                    }
+                }
+
+                // 🎁 Special items with chance
+                const special = specialRewards[this.specialType];
+                if (this.isSpecial === true && special?.itemTable?.length > 0) {
+                    lines.push(`\n§l§eThis is a Special Quest ranked as: 
+§f[ §r${this.specialType} §l]§e!§r
+
+These types of quests offers:`);
+
+                    // 🎲 Bonus chance
+                    if (special.bonusChance > 0) {
+                        lines.push(`\n§dBonus Cash Chance: §f${special.bonusChance}%%`);
+                    }
+
+                    // 💸 Bonus cash
+                    if (special.bonusCash > 0) {
+                        lines.push(`\n§dBonus Cash: §e${formatCurrency(special.bonusCash)}`);
+                    }
+                    lines.push(`\n§dItems:\n`)
+                    for (const item of special.itemTable) {
+                        if (item?.id && item?.count) {
+                            const chance = item.chance ?? 100;
+                            lines.push(`§f- ${item.id} x${item.count} §7(${chance}%%)`);
+                        }
+                    }
+
+                }
+
+                return lines.length > 0 ? lines.join("\n") : "§7No rewards available.";
+            },
+            // Also do not touch, it's fully modular and automatic.
+            async onComplete(player) {
+                await typeTitleTitle(player, `QUEST COMPLETED`)
+                await typeTitleSubtitle(player, this.name)
+                player.removeTag(this.tag)
+
+                if (this.rewardCash > 0) {
+                    world.scoreboard.getObjective(`balance`).addScore(player, this.rewardCash)
+                    player.sendMessage(`[ QUEST ] Added ${formatCurrency(this.rewardCash)} to your cahs balance.`)
+                }
+                if (this.achivReward == true) {
+                    player.setDynamicProperty(this.tag + "_date", Date.now());
+                    player.addTag(this.finishTag)
+                    world.sendMessage(`[ ACHIEVEMENT ] ${player.name} completed ${this.name} quest and got ${this.achivRewardName} achievement!`)
+
+                }
+                if (this.itemRewards == true) {
+                    if (this.itemTable.length > 0) {
+                        for (const itemID of this.itemTable) {
+                            await player.runCommand(`give @s ${itemID.id} ${itemID.count}`)
+                            await player.sendMessage(`[ §a§lQUEST§r ] §aYou've recieved §e${itemID.id} x${itemID.count}`)
+                        }
+                    }
+                }
+
+                if (this.isSpecial == true) {
+                    if (specialRewards[this.specialType]?.itemTable.length > 0) {
+                        for (const itemID of specialRewards[this.specialType]?.itemTable) {
+                            await player.runCommand(`give @s ${itemID.id} ${itemID.count}`)
+                            await player.sendMessage(`[ §a§lQUEST§r ] §aYou've recieved §e${itemID.id} x${itemID.count}`)
+                        }
+                    }
+
+                }
+            }
+        },
+        sofia: {
+            // Name of the quest:
+            name: `PROLOGUE: §dSOFIA§r (part 1)`,
+            // Tag name of the quest given if the quest is active 
+            tag: "quest_sofia",
+            // Description of the quest
+            description: `Oscar was crazy. I need to ask Adam about him and make sure that there aren't any other Weaponsmiths in the city.`,
+
+            difficulty: `none`,
+
+            // Goal of the quest
+            goal: `Go to the §eTavern§r`,
+
+            // Tag given when quest is finished
+            finishTag: `fquest_sofia`,
+
+            // Cash reward. REMEMBER! WE USE BIGGER NUMBERS DUE TO CASH FORMATTING! ex. 1234567890 -> 12,345,678.90$ 
+            rewardCash: 0,
+
+            // If true, the completion of the quest will give an achievement, REMEMBER TO REGISTER THE ACHIEVEMENT IN "scripts/system/achievements/core.js"!!!
+            achivReward: false,
+
+            // Name of the Achievement
+            achivRewardName: ``,
+
+            // If true, rewards from specialRewards.cat[nameFromSpecialType] will be give to the player.
+            isSpecial: false,
+
+            // Special type. [ safe | semisafe | moderate | hard | ehard | nightmare ]
+            specialType: "medium",
+
+            // If true, items registered in this.itemTable will be given to the player
+            itemRewards: false, // False/True 
+
+            // Object with item id and it's amount that is given to the player when finishing the quest. !!! LEAVE EMPTY IF NO ITEMS WILL BE GIVEN!
+            itemTable: [],
+
+            // Do not touch
+            allRewards() {
+                const lines = [];
+
+                // 💰 Cash reward
+                if (this.rewardCash > 0) {
+                    lines.push(`§aCash: §e${formatCurrency(this.rewardCash)}`);
+                }
+
+                // 🏆 Achievement
+                if (this.achivReward === true && this.achivRewardName) {
+                    lines.push(`\n§aAchievement: §e${this.achivRewardName}`);
+                }
+
+                // 📦 Normal items
+                if (this.itemRewards === true && Array.isArray(this.itemTable)) {
+                    const validItems = this.itemTable.filter(item => item?.id && item?.count);
+                    if (validItems.length > 0) {
+                        lines.push(`\n§6Items:`);
+                        for (const item of validItems) {
+                            lines.push(`§f- ${item.name} x${item.count}`);
+                        }
+                    }
+                }
+
+                // 🎁 Special items with chance
+                const special = specialRewards[this.specialType];
+                if (this.isSpecial === true && special?.itemTable?.length > 0) {
+                    lines.push(`\n§l§eThis is a Special Quest ranked as: 
+§f[ §r${this.specialType} §l]§e!§r
+
+These types of quests offers:`);
+
+                    // 🎲 Bonus chance
+                    if (special.bonusChance > 0) {
+                        lines.push(`\n§dBonus Cash Chance: §f${special.bonusChance}%%`);
+                    }
+
+                    // 💸 Bonus cash
+                    if (special.bonusCash > 0) {
+                        lines.push(`\n§dBonus Cash: §e${formatCurrency(special.bonusCash)}`);
+                    }
+                    lines.push(`\n§dItems:\n`)
+                    for (const item of special.itemTable) {
+                        if (item?.id && item?.count) {
+                            const chance = item.chance ?? 100;
+                            lines.push(`§f- ${item.id} x${item.count} §7(${chance}%%)`);
+                        }
+                    }
+
+                }
+
+                return lines.length > 0 ? lines.join("\n") : "§7No rewards available.";
+            },
+            // Also do not touch, it's fully modular and automatic.
+            async onComplete(player) {
+                await typeTitleTitle(player, `QUEST COMPLETED`)
+                await typeTitleSubtitle(player, this.name)
+                player.removeTag(this.tag)
+
+                if (this.rewardCash > 0) {
+                    world.scoreboard.getObjective(`cash`).addScore(player, this.rewardCash)
+                    player.sendMessage(`[ QUEST ] Added ${formatCurrency(this.rewardCash)} to your cahs balance.`)
+                }
+                if (this.achivReward == true) {
+                    player.setDynamicProperty(this.tag + "_date", Date.now());
+                    player.addTag(this.finishTag)
+                    world.sendMessage(`[ ACHIEVEMENT ] ${player.name} completed ${this.name} quest and got ${this.achivRewardName} achievement!`)
+
+                }
+                if (this.itemRewards == true) {
+                    if (this.itemTable.length > 0) {
+                        for (const itemID of this.itemTable) {
+                            await player.runCommand(`give @s ${itemID.id} ${itemID.count}`)
+                            await player.sendMessage(`[ §a§lQUEST§r ] §aYou've recieved §e${itemID.id} x${itemID.count}`)
+                        }
+                    }
+                }
+
+                if (this.isSpecial == true) {
+                    if (specialRewards[this.specialType]?.itemTable.length > 0) {
+                        for (const itemID of specialRewards[this.specialType]?.itemTable) {
+                            await player.runCommand(`give @s ${itemID.id} ${itemID.count}`)
+                            await player.sendMessage(`[ §a§lQUEST§r ] §aYou've recieved §e${itemID.id} x${itemID.count}`)
+                        }
+                    }
+
+                }
+            }
+
+        },
+        sofia2: {
+            // Name of the quest:
+            name: `Test Quest`,
+            // Tag name of the quest given if the quest is active 
+            tag: "test",
+            // Description of the quest
+            description: `Test`,
+
+            difficulty: `Test`,
+
+            // Goal of the quest
+            goal: `Test`,
+
+            // Tag given when quest is finished
+            finishTag: `none`,
+
+            // Cash reward. REMEMBER! WE USE BIGGER NUMBERS DUE TO CASH FORMATTING! ex. 1234567890 -> 12,345,678.90$ 
+            rewardCash: 0,
+
+            // If true, the completion of the quest will give an achievement, REMEMBER TO REGISTER THE ACHIEVEMENT IN "scripts/system/achievements/core.js"!!!
+            achivReward: true,
+
+            // Name of the Achievement
+            achivRewardName: `Test`,
+
+            // If true, rewards from specialRewards.cat[nameFromSpecialType] will be give to the player.
+            isSpecial: true,
+
+            // Special type. [ safe | semisafe | moderate | hard | ehard | nightmare ]
+            specialType: "safe",
+
+            // If true, items registered in this.itemTable will be given to the player
+            itemRewards: true, // False/True 
+
+            // Object with item id and it's amount that is given to the player when finishing the quest. !!! LEAVE EMPTY IF NO ITEMS WILL BE GIVEN!
+            itemTable: [
+                { name: "TEST", id: "test", count: "1" },
+                { name: "TEST", id: "test", count: "2" },
+                { name: "TEST", id: "test", count: "3" },
+                { name: "TEST", id: "test", count: "4" }
             ],
 
             // Do not touch
@@ -424,6 +681,7 @@ These types of quests offers:`);
             }
 
         }
+
     },
     questTable: [
         "quest_fawoken"
@@ -556,4 +814,17 @@ export async function registeredQuestNames(player) {
             return "May your wallet rest in peace... Lazy."
         }
     }
+}
+
+export function questUpdatedGoals(player) {
+    if (player.hasTag(`wsmith_medicinelookout`) && player.hasTag(`quest_ayourself`)) return `§l§eUpdated Goal:§r
+    
+Go to Oscar's home and get 2 Health Potion of any kind.`;
+    if (player.hasTag(`wsmith_fingeringproblem`) && player.hasTag(`quest_ayourself`)) return `§l§eUpdated Goal:§r
+    
+Go back to Oscar and give him 1 Healing potion.`;
+    if (player.hasTag(`wsmith_headache`) && player.hasTag(`quest_ayourself`)) return `§l§eUpdated Goal:§r
+    
+Drink Health Potion to heal your headache.`;
+    return '';
 }

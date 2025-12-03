@@ -1,0 +1,31 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.gold_shatter.idle": {
+			"loop": true,
+			"animation_length": 0.0833,
+			"bones": {
+				"main": {
+					"scale": {
+						"0.0": [1, 1, 1],
+						"0.0833": [1.01, 1.01, 1.01]
+					}
+				}
+			}
+		},
+		"animation.gold_shatter.appear": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"main": {
+					"scale": {
+						"0.0": [0, 0, 0],
+						"0.0417": [0.10305, 0.10305, 0.10305],
+						"0.0833": [0.89695, 0.89695, 0.89695],
+						"0.125": [1, 1, 1]
+					}
+				}
+			}
+		}
+	}
+}

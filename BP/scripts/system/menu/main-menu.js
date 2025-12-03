@@ -6,7 +6,7 @@ import { getRaceTags, getMagicTags } from "../../modules/playerinfo/registered-t
 import { hiraethLOGO } from "../../modules/playerinfo/utils.js";
 import { getScore, hasScore, isScoreRegistered } from "../../modules/economy/economy-scoreboards.js"
 import { formatCurrency } from "../../formats.js"
-import { registeredQuestNames, questTags } from "./../quests/main/core.js"
+import { registeredQuestNames, questTags, questUpdatedGoals } from "./../quests/main/core.js"
 import { getAchievements } from "./../achievements/core.js"
 
 const mainmenuBuild = `Main Menu v2 || Build v0.1`
@@ -215,7 +215,9 @@ ${quest.description}`)
         .divider()
         .label(`§e§lGoal:§r§f
 
-${quest.goal}`)
+${quest.goal}
+
+${questUpdatedGoals(player)}`)
         .divider()
         .label(`§e§lRewards:§r§f
 

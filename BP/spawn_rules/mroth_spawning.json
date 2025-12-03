@@ -1,0 +1,18 @@
+{
+	"format_version": "1.20.10",
+	"minecraft:spawn_rules": {
+		"description": {
+			"identifier": "hsmp:mroth_pos",
+			"population_control": "monster"
+		},
+		"conditions": [
+			{
+				"minecraft:spawns_on_block_filter": "hsmp:darmud",
+				"minecraft:density_limit": {
+					"surface": 20,
+					"underground": 0
+				}
+			}
+		]
+	}
+}

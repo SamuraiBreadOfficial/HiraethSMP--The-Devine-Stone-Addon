@@ -3,7 +3,7 @@
 	"sound_definitions": {
 		"hsmp.church.3": {
 			"category": "ambient",
-			"max_distance": 500,
+			"max_distance": 200,
 			"min_distance": 0,
 			"sounds": [
 				"sounds/church/church_strike_3"
@@ -11,7 +11,7 @@
 		},
 		"hsmp.church.6": {
 			"category": "ambient",
-			"max_distance": 500,
+			"max_distance": 200,
 			"min_distance": 0,
 			"sounds": [
 				"sounds/church/church_strike_6"
@@ -19,7 +19,7 @@
 		},
 		"hsmp.church.12": {
 			"category": "ambient",
-			"max_distance": 500,
+			"max_distance": 200,
 			"min_distance": 0,
 			"sounds": [
 				"sounds/church/church_strike_12"
@@ -41,6 +41,81 @@
 			"category": "music",
 			"sounds": [
 				"sounds/soundtrack/prologue/barotrauma_overclocked_weakness"
+			]
+		},
+		"hsmp_cutscene.weaponsmith_ouchie": {
+			"category": "music",
+			"sounds": [
+				"sounds/cutscene_sounds/tom_scream"
+			]
+		},
+		"hsmp_music.prologue_weaponsmith_ouchie": {
+			"category": "music",
+			"sounds": [
+				"sounds/soundtrack/prologue/temmie_village"
+			]
+		},
+		"hsmp_npc.ev_closing": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/NPCs/Evangeline/closing_one_mini",
+				"sounds/NPCs/Evangeline/closing_two_mini",
+				"sounds/NPCs/Evangeline/closing_three_mini",
+				"sounds/NPCs/Evangeline/closing_four_mini"
+			],
+			"min_distance": 0,
+			"max_distance": 10
+		},
+		"hsmp_npc.ev_goodbye": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/NPCs/Evangeline/goodbye_one_mini",
+				"sounds/NPCs/Evangeline/goodbye_two_mini",
+				"sounds/NPCs/Evangeline/goodbye_three_mini"
+			],
+			"max_distance": 10,
+			"min_distance": 0
+		},
+		"hsmp_npc.ev_welcome": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/NPCs/Evangeline/welcome_one_mini",
+				"sounds/NPCs/Evangeline/welcome_two_mini",
+				"sounds/NPCs/Evangeline/welcome_three_mini"
+			],
+			"max_distance": 10,
+			"min_distance": 0
+		},
+		"hsmp_block.darmud_step": {
+			"category": "block",
+			"sounds": [
+				"sounds/darmud/darmud_step-01",
+				"sounds/darmud/darmud_step-02",
+				"sounds/darmud/darmud_step-03",
+				"sounds/darmud/darmud_step-04",
+				"sounds/darmud/darmud_step-05",
+				"sounds/darmud/darmud_step-06"
+			]
+		},
+		"hsmp_ambient.mroth": {
+			"category": "music",
+			"sounds": [
+				"sounds/darmud/mroth-ambient"
+			]
+		},
+		"hsmp_mob.mroth.growl": {
+			"category": "hostile",
+			"min_distance": 10,
+			"max_distance": 20,
+			"sounds": [
+				"sounds/mroth/mroth_growl_1",
+				"sounds/mroth/mroth_growl_2"
+			]
+		},
+		"hsmp_warn.mroth": {
+			"category": "music",
+			"sounds": [
+				"sounds/mroth/mroth_warning"
 			]
 		}
 	}

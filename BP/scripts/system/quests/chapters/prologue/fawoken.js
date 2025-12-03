@@ -130,11 +130,13 @@ async function dial0_main(player) {
     await questRegistry.questInfo.fawoken.onComplete(player)
     await waitTicks(60)
     await player.addTag(questRegistry.questInfo.arm_yourself.tag)
+    player.addTag(`weaponsmithNotInitialized`)
+    player.runCommand(`hud @s reset all`)
     await typeTitleTitle(player, "§aNew Quest")
     await typeTitleSubtitle(player, questRegistry.questInfo.arm_yourself.name)
     await waitTicks(400)
     await typeActionbar(player, me, `Others.. huh?`)
-
+    player.removeTag(`isTalking`)
 
 }
 

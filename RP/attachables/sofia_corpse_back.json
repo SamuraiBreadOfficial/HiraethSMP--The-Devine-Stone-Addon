@@ -1,0 +1,35 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "hsmp:sofia_corpse_back",
+            "item": "hsmp:sofia_corpse_back",
+            "geometry": {
+                "default": "geometry.sofia_corpse_back"
+            },
+            "materials": {
+                "default": "entity_alphablend"
+            },
+            "animations": {
+                "player_walking": "animation.sofia_corpse_back.player_walking",
+                "idle": "animation.sofia_corpse_back.idle"
+            },
+            "scripts": {
+                "animate": [
+                    {
+                        "player_walking": "query.ground_speed > 0"
+                    },
+                    {
+                        "idle": "query.ground_speed == 0"
+                    }
+                ]
+            },
+            "textures": {
+                "default": "textures/models/armor/sofia_corpse_back"
+            },
+            "render_controllers": [
+                "controller.render.sofia_corpse_back"
+            ]
+        }
+    }
+}

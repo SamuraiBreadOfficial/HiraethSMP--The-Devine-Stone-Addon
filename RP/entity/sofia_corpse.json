@@ -1,0 +1,24 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hsmp:sofia_corpse",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/sofia_corpse"
+			},
+			"geometry": {
+				"default": "geometry.sofia_corpse"
+			},
+			"render_controllers": [
+				"controller.render.sofia_corpse"
+			],
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

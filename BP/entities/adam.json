@@ -19,14 +19,13 @@
 				],
 				"probability": 1,
 				"target_distance": 4
+			},
+			"minecraft:interact": {
+				"interactions": {
+					"interact_text": "Talk"
+				}
 			}
 		}
 	},
-	"events": {
-		"hsmp:on_interact": {
-			"trigger": {
-				"event": "hsmp:on_interact"
-			}
-		}
-	}
+	"events": {}
 }

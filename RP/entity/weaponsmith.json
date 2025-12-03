@@ -16,7 +16,8 @@
 				"controller.render.weaponsmith"
 			],
 			"animations": {
-				"idle": "animation.weaponsmith.idle"
+				"idle": "animation.weaponsmith.idle",
+				"in_pain": "animation.weaponsmith.in_pain"
 			},
 			"scripts": {
 				"animate": [

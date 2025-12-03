@@ -14,7 +14,8 @@
 			},
 			"animations": {
 				"look_at_target": "animation.adam.look_at_target",
-				"idle": "animation.adam.idle"
+				"idle": "animation.adam.idle",
+				"sit": "animation.adam.sit"
 			},
 			"scripts": {
 				"animate": [
