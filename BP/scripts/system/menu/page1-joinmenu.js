@@ -29,53 +29,41 @@ export async function joinMenu_START(player) {
         .title("§lHIRAETHSMP || START")
         .body(menuBuild)
         .divider()
-        .header(`Welcome to:
-        
-${hiraethLOGO}  §l§d!`)
+        .header(`Hello!`)
         .divider()
-        .label(`Hello §e${player.name}!§r§f
-
-Welcome to §dHiraethSMP§r! A server, which grows your Creativity and Roleplay Minds!
-
-§o§7You can keep reading this if you scroll down.
-To §aStart§7 simply click "§e§lPLAY§r§7§o" button.`)
+        .label(`▪ Hello §e${player.name}!§r§f ▪`)
+        .label(`Welcome to §l§dHiraeth!§r And Story-Based, Game-like server with story being told via Main Quests rather than events.
+▪
+You can read about the server, story and what it's offering below. If you're not interested, you can skip to clicking "§2§lPLAY§r" button!`)
         .divider()
         .label(`====[ §lSTART YOUR JOURNEY!§r ]====`)
         .button(`§l§2PLAY`)
         .divider()
         .label(`=========[ §lREAD  MORE§r ]=========`)
         .divider()
-        .label(`As said above, with this server, you can wake up your creativity or roleplaying skills while also exploring a beatifull continent called "Threeclover"!
-        
-In this server you will be able to:`)
-        .label(`• Play with your friends, and create your own faction together!
-
-• Learn new Skills!
-
-• Learn Magic!
-
-• Complete Quests!
-
-• Compete within the economy! Gain more cash than others!
-
-• Roleplay with Others!
-
-• Contribute to the story while taking part in Lore Events!
-
-• Contribute to Server's Activity while hosting your own Community Event!`)
         .label(`
-This server, is not like any others. It takes you mindset, and puts it on top of the ladder.
-Your choices matters here, quest dialogues you choose will have effect on you and future quests too.
-This is not an ordinary server, it's a living project, designed to give you more, that you could have ever expected.
+As stated above, addon and Realm itself is based on a Story, which is being told via our Quest System!
+        
+▪ Important stuff you need to know:
 
-Welcome to:
+▪▪ What are Quests?
+> Quests are our way of telling a story, and profiting from exploring the world!
 
-${hiraethLOGO}
+▪▪ How can I begin?
+> Click the "§2§lPLAY§r" button.
+> Setup your race, gender, skill type.
+> Accept CW and Rules
+> Enjoy the cutscene, next steps will always be listed under §o§8/hmenu§r -> §o§8quests§r section 
 
-A server made with passion, for passion.
+▪▪ What if i will encounter a problem/bug?
+> Go into our Discord Server and 
 
-~ SamuraiBread
-Owner of HiraethSMP.`)
+▪▪ What is the story about?
+> The story is about you. 
+You woke up in the wheat fields, not remembering anything.
+The world seemed fantasy, but to the point of you discovering a harsh truth,
+of what it was before, and what caused something horrible. Good luck.
+`)
         .show(player)
 
     const selection = start.selection;

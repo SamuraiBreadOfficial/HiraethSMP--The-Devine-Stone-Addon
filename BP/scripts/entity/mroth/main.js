@@ -48,6 +48,9 @@ system.runInterval(() => {
         // nadaj tylko jeden tag wg hierarchii
         const obj = world.scoreboard.getObjective('mrothDangerLevel');
         const score = obj.getScore(player);
+
+        if (!obj.getScore(player)) { obj.addScore(player, 0) }
+
         const isSneaking = player.isSneaking;
         if (inInstaSeekArea) {
             if (!obj.hasParticipant(player)) obj.setScore(player, 0);

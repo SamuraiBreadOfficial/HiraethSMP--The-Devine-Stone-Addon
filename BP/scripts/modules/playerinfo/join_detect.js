@@ -7,9 +7,7 @@ world.afterEvents.playerSpawn.subscribe(e => {
     const p = e.player
 
     if (!p.hasTag('joined')) {
-        world.sendMessage(`[ First Join ] ${p.name} joined for the first time!
-        
-Welcome to ${hiraethLOGO}!`)
+        world.sendMessage(`§a${p.name}§e joined §dHiraeth§e for the first time!`)
         p.addTag('joined')
         welcomeMessage(p)
     }
@@ -33,19 +31,21 @@ async function welcomeMessage(player) {
         .divider()
         .header(`HiraethSMP`)
         .divider()
-        .label(`§l§eWelcome to HiraethSMP!§r§f
+        .label(`§l§eWelcome to Hiraeth!§r§f
         
-If you are not on our §l§9discord§r§f, leave the Realm and join the Discord first, otherwise you will be §4banned without an appeal§r§f!
+To play on our realm you will need to setup your character.
 
-You can read §dHiraethSMP§r§f Wiki here:
-§o§bhttps://hiraethsmp.github.io/wiki.html§r
+This means you will need to:
+▪ Choose your Race;
+▪ Choose your Gender;
+▪ Choose your Skill type;
+▪ Accept our Content Warning (C.W for short) info;
+▪ Verify and accept our Realm & Addon rules.
 
-You can check §elatest changes and plans§r§f here:
-§o§bhttps://hiraethsmp.github.io/server&addon.html§r§f
-
-You can §eread our guides§r§f here:
-§o§bhttps://hiraethsmp.github.io/how-to.html§r`)
-        .button(`START`)
+Please be adviced, if you do not accept rules and CW your access will be blocked.`)
+        .divider()
+        .label(`▪ To begin, click on §lStart§r button.`)
+        .button(`§lSTART`)
         .show(player)
     if (welcome.selection == 0) {
         player.runCommand(`/start`) // Custom Addon command
