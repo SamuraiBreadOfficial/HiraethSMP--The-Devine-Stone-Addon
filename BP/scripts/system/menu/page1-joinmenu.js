@@ -110,7 +110,8 @@ Most of them were wiped out by the first §cCortex*§r.
 
 ▪▪ HP: 20;
 ▪▪ mU - 20;
-▪▪ HXP Bonus - none; 
+▪▪ HXP Bonus - -20%% Level Up Price; 
+▪▪ Difficulty -§e Medium§r
 
 ▪ §lStory§r
 
@@ -163,7 +164,8 @@ Dark rain*² - Deadly rain, which causes Darkshard Infection and rotting. You wi
 
 ▪▪ HP: 26;
 ▪▪ mU - 50-120 (Based on Random Chance);
-▪▪ HXP Bonus - -20%% Level Up Price; 
+▪▪ HXP Bonus - -10%% Level Up Price; 
+▪▪ Difficulty - §aEasy§r
 
 ▪ §lStory§r
 
@@ -203,7 +205,8 @@ When they finally appeared in Sylvii, they were met with kindness, although some
 
 ▪▪ HP: 40;
 ▪▪ mU - 15 (Based on Random Chance);
-▪▪ HXP Bonus - -20%% Level Up Price; 
+▪▪ HXP Bonus - -5%% Level Up Price; 
+▪▪ Difficulty - §cHard§r
 
 ▪ §lStory§r
 
@@ -227,7 +230,32 @@ When they finally appeared in Sylvii, they were met with kindness, although some
         .divider()
         .header(`§m§lTANAR'RI`)
         .divider()
-        .label(``)
+        .label(`
+        ▪ §lStatistics
+
+▪▪ HP: 35;
+▪▪ mU - 150 (Based on Random Chance);
+▪▪ HXP Bonus - 0%% Level Up Price; 
+▪▪ Difficulty - §mExtremely Hard§r
+
+▪ §lStory§r
+
+
+▪ §a§lPros§r
+
+▪▪ §lPure Mana:§r Can use skills with less mana usage.
+▪▪ §lFire Nature:§r Resitant to fire. 
+▪▪ §lDemonic-like:§r Skills based on Mana are more powerfull by default.
+▪▪ §lPyroman:§r Scrap Seekers are afraid to approach them by their own.
+▪▪ §lDanergy Resistant§r: Their energy is too powerfull for Dark Shard to infect them.
+
+
+▪ §c§lCons§r
+▪▪ §lSpecial Treat:§r Mroths are faster to detect them, although range is the same as for humans.
+▪▪ §lScrap Seekers' Wanted§r: If detected by Scrap Seekers, more Seekers will aproach and death by them means that area where they died will be more dangerous to other races.
+▪▪ §lKillfall§r: If no special Dark Rain resitant armour is worn, dark rain deals 2x damage (4hp per 5sec).
+
+        `)
         .button(`§m§lBECOME TANAR'RI`)
         .show(player)
         .then(res => {
