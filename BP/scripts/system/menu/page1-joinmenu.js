@@ -31,7 +31,7 @@ export async function joinMenu_START(player) {
         .divider()
         .header(`Hello!`)
         .divider()
-        .label(`▪ Hello §e${player.name}!§r§f ▪`)
+        .label(`▪{ Hello §e${player.name}!§r§f }▪`)
         .label(`Welcome to §l§dHiraeth!§r And Story-Based, Game-like server with story being told via Main Quests rather than events.
 ▪
 You can read about the server, story and what it's offering below. If you're not interested, you can skip to clicking "§2§lPLAY§r" button!`)
@@ -84,250 +84,151 @@ export function joinMenu_RACE(player) {
         .title("§lHIRAETHSMP || RACE")
         .body(menuBuild)
         .divider()
-        .header('Races')
-        .label(`This season offers race selection. 
-        
-All races have their own unique boosts and debuffs.
-Check the statistics before confirming.`)
+        .header('▪{ Races }▪')
+        .label(`▪ §lWhat are Races?§r
+
+§eRaces§r are our way to make the story a §olittle§r more interesting.
+
+With their §apros§r and §ccons§r you will need to adapt based on what you choose.
+
+▪§l Story§r
+Races were around the world for thousands of years. In the past living alongside Other.
+Although there are still plenty of it, including Humans, Elves, Half Orcs and Tanar'ri,
+Most of them were wiped out by the first §cCortex*§r.
+
+* Cortex -> An Global catastrophe cause by an unknown element to you. You will unlock this knowledge very soon.
+
+▪ §lLegend§r
+
+▪▪ HP - Health Point ( 2 = Heart )
+▪▪ mU - Mana Unit ( 2 = Lightning )
+▪▪ HXP - Hiraeth Experience Points`)
         .divider()
         .header('§lHUMAN')
         .label(`
-Statistics:
-HP: 20
-MP: 20
+▪ §lStatistics
 
-Buffs: 
-- None
+▪▪ HP: 20;
+▪▪ mU - 20;
+▪▪ HXP Bonus - none; 
 
-Debuffs: 
-- None`)
+▪ §lStory§r
+
+Humans were the first race to appear on Hiri. Although physically weak, they survived a cataclysm that nearly erased civilization and set their progress back for millennia.
+
+To this day, humans actively fight Darkshard*¹ to prove that life stands above death.
+They do not act only for themselves, they try to prevent future disasters, even when others refuse to be saved.
+However, like every race, they carry both good and evil within them.
+
+A large group of humans fled toward the ocean in fear and discovered the Threeclover Islands, a massive landmass divided into three major islands and one smaller central island dominated by a volcano known as Mt. Ethernis.
+
+There they built a new civilization. A single city.
+For many years, the land itself kept Darkshard away.
+Long enough for people to forget what had happened.
+Long enough to forget their lost homeland — a world that no longer exists.
+
+They lived in peace.
+Until Dark Rain*² fell.
+
+Most of the population was infected.
+
+In panic, the king ordered everyone who had been outside the city walls at that moment to be burned alive.
+
+Some escaped.
+
+Those survivors formed a new faction: the Scrap Seekers.
+
+In order to survive, they attack people who wander beyond the city borders, stripping them of supplies, fully aware that every death may cause another catastrophe.
+
+Darkshard*¹ - an energy based "seed" which infects people. You will get more knowledge about this soon.
+Dark rain*² - Deadly rain, which causes Darkshard Infection and rotting. You will get more knowledge about this soon.
+
+▪ §a§lPros§r
+
+▪▪ §lTechnical Advantage:§r Humans, naturally a race that discovers is able to create helpfull items to fight not only entities, but world itself by using collected Mroth samples.
+▪▪ §lDanergy Knowledge:§r Their Knowledge Notepad's "Dark Shattering" section is written in 50%%. Although some definitions still needs to be found
+▪▪ §lArtificial Artifacts:§r Artifacts are more powerfull due to technical knowledge.
+
+▪ §c§lCons§r
+▪▪ §lNon Magical:§r They cannot use Skills that require more mU.
+▪▪ §lMain Target§r: Scrap seekers are more aggressive to them.
+▪▪ §lMroth's Favourite Snack§r: Mroths will seek them for longer amount of time.
+        `)
         .button('§lBECOME HUMAN')
         .divider()
         .header('§a§lELF')
         .divider()
         .label(`
-Statistics:
-HP: 20
-MP: 60
+▪ §lStatistics
 
-Buffs:
-- Night Creature
-    
-    > When time hits 20:00
-      your character will
-      gain nightvision effect
-      for the night.
+▪▪ HP: 26;
+▪▪ mU - 50-120 (Based on Random Chance);
+▪▪ HXP Bonus - -20%% Level Up Price; 
 
-- Sniper's Eye
-    
-    > When Aiming a bow,
-      your FOV will 
-      automatically 
-      be set to 30.
+▪ §lStory§r
 
-- Archer's Craft
+Elves are the second longest-living race after Humans.
+They are antisocial, and this trait helped them survive the “Cataclysm 0”.
+When everything went down the drain, elves were the ones who got a straight knife in their backs. Due to their mU, they were not allowed to join the Human Exodus, and this forced them to adapt to a new, darker reality.
 
-    > When the bow is 
-      crafted, it has 
-      an 80% chance 
-      of becoming a 
-      special rare 
-      bow, which deals 
-      more damage and 
-      shoots with 
-      more power.
+The ruins of cities became their homes, and encounters with Seeker Mroths were a daily occurrence. Most of them died after the catastrophe, mainly due to the many later Cortexes caused by a domino effect.
+Because of that, they developed a skill to be less detectable by Mroths by performing special movements when they hear nearby Mroths.
 
-- Skills:
-    > Double Jump
-        > Click on the block while
-          in air and when Your main 
-          hand is empty to gain 
-          extra 3 blocks of height.
-          It uses up 5MP.
-          
-    > Handy Craft
-        > Quickly craft arrows by
-          LShifting and holding
-          an stick or flint to
-          craft an arrow. This
-          have extra 20% chance
-          to give you extra 5
-          arrows when used.
-          It deacreses your
-          hungerbar.
-          
-    > Emergency Choice
-        > Quickly manifest yourself
-          an one-use bow with
-          Punch V and Flame
-          enchantments. It also
-          gives you 1 poisonous arrow.
-          It uses up 15MP per use.
-    
-    > Dragon's Bow
-        / ! \\ Fire Magic needed 
-                for this skill!
+Only 50 years ago, they arrived in Threeclover, and to their surprise, they were allowed to enter the city of Sylvii. Their journey was not easy.
 
-        > Quickly manifest falming bow
-          of many uses. It gives you an
-          Flaming Bow with Infinity
-          and Unbreaking V 
-          enchantment.
-          If not in the main hand, it
-          dissapears untill skill used
-          again. Each use 
-          consumes 50MP.
+From the east of Threeclover’s southern land, they had to traverse the desert, which is mostly populated by Scrap Seekers. Many of them did not survive encounters with this faction.
 
-    > Sharp Rain
-        / ! \\ Wind Magic Needed 
-                for this skill!
-        
-        > Blow your arrows into the
-          air and make them fall on
-          your nearest target. It
-          consumes 32 arrows and
-          20MP.
-          
-    > Sharp-Eared' Blessing
-        / ! \\ Nature Magic Needed
-                 for this skill!
-        
-        > Quickly heal your whole HP
-          level at the cost of
-          nearest's entitie's health.
-          Each heal takes 
-          10 hearts from
-          nearest entity and 
-          20MP from you
-          and 10 MP from 
-          the nearest entity.
-          
-Debuffs: 
-    
-    - Weak Bones  
-      > Can't wear armor 
-        stronger than iron
-        
-    - LoL Players
-      > Weak at day
-        Normal at night
-        
-    - Freedom Lover  
-      > If in small spaces
-        for too long
-        they get
-        uncomftorable.
-        
-    - Nature Lover
-      > If not near
-        foliage for too
-        long, their MP
-        drops below 20.`)
+Most of them were kidnapped or had their ears harvested by Scrap Seekers, which caused hearing loss and death by Mroths.
+When they finally appeared in Sylvii, they were met with kindness, although some people were still not very kind to them.
+
+▪ §a§lPros§r
+
+▪▪ §lQuiet Steps:§r Mroth detecting distance is smaller.
+▪▪ §lQuiet Breath:§r Mroth's Seek Area gives 1 point to mrothDangerLevel rather than 5. 
+▪▪ §lEagle Eyes:§r Upon aiming a bow, their FOV is automatically set to 30.
+▪▪ §lNight Seekers:§r At night, they automatically get NightVision effect
+
+▪ §c§lCons§r
+▪▪ §lAwful History:§r The presence of Mroths gives them Paranoya.
+▪▪ §lValueble Ears§r: Their ears are great jewlery for Scrap Seekers (If caught by Scrap Seekers, they are deaf untill they die or respawn.).
+▪▪ §lUnwanted§r: Some NPCs might not talk to them, or even ask them to leave.
+
+        `)
         .button("§q§lBECOME ELF")
         .divider()
-        .header('§v§lHALF ORC')
+        .header('§v§lHALF-ORC')
         .divider()
-        .label(`Statistics:
-HP: 70
-MP: 10
+        .label(`
+▪ §lStatistics
 
-Buffs:
+▪▪ HP: 40;
+▪▪ mU - 15 (Based on Random Chance);
+▪▪ HXP Bonus - -20%% Level Up Price; 
 
-- Strong
-    > Half orc has infinite strenght boost.
-    
-- Heavy
-    > Resistant to arrow and melee extra damage
-    
-- Fear
-    > Mobs such as:
-        - Creepers
-        - Zombies
-        - Spiders
-    Avoids this race.
-    
-Skills:
-    - Fury
-        > When HP is smaller than 20,
-          Half orc gains speed boost,
-          strenghth II, Night Vision,
-          Haste III and absorbsion I.
-          The fury will also scare away
-          most of the mobs that are
-          20 blocks away from person.
-          
-    - Heavy Jump
-        > Sneak, and right click on the block
-          Below you to trigger
-          Heavy jump Skill.
-          It launches you 10 blocks up,
-          and when you fall,
-          you crash everything which stands in
-          your way.
-          
-Debuffs:
+▪ §lStory§r
 
-- Magical Pain
-    > Magic hurts 2x more than for Humans, Elves and Demons.
-    
-- Spelless
-    > Can't use spells that are not for healing themselves
-    
-- Brutal Fire
-    > Fire magic deals 3x more damage than normally.
-    
-- Nature's Exile
-    > Nature's Magic Heal Spells doesn't work on them.`)
-        .button('§v§lBECOME HALF ORC')
+
+▪ §a§lPros§r
+
+▪▪ §lUnwanted by Trash:§r Scrap Seekers are less likely to detect them.
+▪▪ §lAwful by Nature:§r Story bad pathing is less likely to happen. 
+▪▪ §lGymrat:§r Is strong by nature.
+▪▪ §lWeaponry Master:§r His weapons deal more damage than normal.
+▪▪ §lManaless§r: Their mU makes them less likely to trigger ZAPAD upon death.).
+
+
+▪ §c§lCons§r
+▪▪ §lMuscle Weight:§r Thir weight makes Mroths detect them faster and for longer distance.
+▪▪ §lManaless§r: They cannot use Skills that are mU based.
+▪▪ §lWeak Energy§r: If too close to mroth, Danergy will rip their body apart.
+
+`)
+        .button('§v§lBECOME HALF-ORC')
         .divider()
-        .header(`§m§lDEMON`)
+        .header(`§m§lTANAR'RI`)
         .divider()
-        .label(`Statistics:
-HP: 80
-MP: 60
-
-Buffs:
-- Demonic Freedom
-    > Can fly.
-    
-- Hell's Power
-    > Gains +2 levels to fire magic (If Chosen.)
-    
-- Hard Skin
-    > Resistant to fire
-    
-- Withering Touch
-    > Every hit has 20% chance of giving hi entity withering effect.
-    
-Skills:
-
-- Demonic Heart
-    > If entity is killed, 10HP is instantly healed.
-      Demon will also gain small boost which lasts 10sec
-      
-- Half Orc Devouer
-    > Demon is an enemy of Half Orcs by the lore.
-      If skill is trigerred, when there is a
-      Half Orc Nearby, Demon will be notified of
-      it's position, current health,
-      valuable items in his inventory and
-      half orc will get stuck for 10 seconds.
-      
-- Human Meat
-    > When killing a human, Demon gains raw porkchop and boosts called "DEMONIC HUNGER"
-      An custom effect which will make your hunger bar stuck on full
-      for whole duration of the effect.
-      
-Debuffs:
-- Cat&Water
-    > Water gives Demons 1hp of damage each second.
-    
-- Nature's Exile
-    > Nature's Magic Heal Spells doesn't work on them.
-    
-- Daylight's Enemy
-    > Gets blind on daylight.`)
-        .button('§m§lBECOME DEMON')
+        .label(``)
+        .button(`§m§lBECOME TANAR'RI`)
         .show(player)
         .then(res => {
             const selection = res.selection
@@ -621,18 +522,18 @@ export async function cwAgreedment(player) {
     const r = await new ActionFormData()
         .title(`§l§c[ CONTENT WARNING ]`)
         .body(`${menuBuild}`)
-        .label(`/!\\ §l§cWarning!§r
-Server events may contain: §cBlood, Gore, Possible Triggers, Strong Language, and Mature Themes§r
+        .label(`/!\ §l§cWarning!§r
 
-By accepting this, 
-§lyou acknowledge that you are joining the events 
-at your own risk§r.
-The server owner and staff members are §lnot responsible§r for any potential mental or emotional distress you may experience.
+This Private Whitelist-only Realm contains mature themes and intense content designed for players 16+ and may be disturbing or triggering. Topics include, but are not limited to: 
+▪ Infection and body corruption; 
+▪ Human cruelty, persecution, and abuse; 
+▪ Torture and mutilation; 
+▪ Psychological horror, paranoia, and trauma; 
+▪ Massive, dangerous entities (may trigger megalophobia); 
+▪ Strong language and offensive content; 
+▪ Suicide and self-harm references; 
 
-By clicking §eContinue§r, you confirm that you are §o§l16 years of age or older§r and that you §lwill§r be notified about specific content warnings in each event's description.
-`)
-        .button(`§lCONTINUE`)
-        .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
+By clicking Continue, you confirm that you understand and accept these themes. Requests to remove or censor such content will be ignored.`)
         .button(`§l§cLEAVE THE SERVER`)
         .show(player)
     if (r.canceled || r.selection == 1) lockAccess(player);
@@ -658,7 +559,7 @@ This ticket category is used when: You are banned or kicked from the server.
 What you need to do:
 1) Go to HiraethSMP Discord Server;
 2) Go to Support Tickets;
-3) Click button to create a ticket;
+3) Click Help button to create a ticket;
 4) Fill the form, give as much details as you can;
 5) Wait till someone responds;`)
     await waitTicks(200)
@@ -683,35 +584,59 @@ Please accept rules before we continue into the tutorial.`)
         .title(`§4§l[ RULES / COMMUNITY ]`)
         .body(menuBuild)
         .divider()
+        .header(`General`)
+        .label(`
+§\1.1 Follow Discord TOS, which can be found here.
+§\1.2 Breaking major rules will result in immediate punishment without warning.
+§\1.3 By joining the server, you confirm that you are 16 years old or older. If it is detected otherwise, you will be banned for the amount of time remaining until you reach the required age.
+§\1.4 Staff Members, regardless of their rank, are considered correct in most cases. If you believe a Staff Member is wrong, do not hesitate to speak up — you are protected under the rule below.
+§\1.5 Pointing out Staff Members’ mistakes or inappropriate behaviour does not give them a valid reason to punish you, as long as no rule was broken.
+`)
+        .divider()
         .header(`Community`)
         .label(`
-1. Do not spam.
+§\2.1 Do not spam or flood the channels.
+§\2.2 Slurs are allowed, but do not overuse them.
+§\2.3 Brainrot is allowed, but excessive use will not be tolerated.
+§\2.4 AI-generated content is not allowed on the server.
+§\2.5 Harassment or bullying will not be tolerated.
+§\2.6 Be mature and treat others how you would like to be treated. Masochists not included lol.
+§\2.7 Do not ask for Staff Roles.
+§\2.8 No NSFW content in any channels.
+§\2.9 Avoid political, religious, or other sensitive topics that may start arguments.
+§\2.10 Do not advertise your server in Server Channels or on the MC:BE Realm unless permitted.
+§\2.11 Do not advertise websites or projects that promote:
 
-2. Keep chats clean and use them for their intended purpose.
+▪ Cheats
+▪ Illegal activities
+▪ Harmful behaviour
+▪ Any topics harmful to communities of any kind
 
-3. Do not harass or bully anyone - in public chats or DMs.
-
-4. Respect others. Treat people how you'd like to be treated.
-
-5. Don't ask for staff roles. We open staff applications when needed.
-
-6. No NSFW content anywhere.
-
-7. Slurs are not outright banned but should not be overused. Be mindful.
-
-8. Avoid political, religious, or other sensitive topics that could cause arguments.
-
-9. No advertising other servers, links, or social media without permission.
-
-10. Keep drama private. If there's an issue, report it to staff instead of escalating it.
-
-11. Don't impersonate staff or other members.
-
-12. English is the main language. Please stick to it unless you're in a designated language-specific channel.
-
-13. No AI content anywhere. Including Deepfakes, Ai-generated Art or any content generated fully by an AI
+§\2.12 Use English only on the server.
+§\2.13 In VC, keep your voice at a comfortable volume.
+§\2.14 Do not overuse the soundboard in VC.
+§\2.15 Do not blast music in VC unless the majority agrees.
+§\2.16 Trolling or recording others in VC is not allowed unless everyone has been informed. 
 `)
-        .button('NEXT')
+        .divider()
+        .header(`Minecraft`)
+        .label(`
+§\3.1 No griefing.
+§\3.2 No cheating.
+§\3.3 No exploiting in-game bugs.
+§\3.4 No offensive or inappropriate builds.
+§\3.5 Avoid lag-inducing builds.
+§\3.6 Follow staff instructions.
+§\3.7 Use common sense; if unsure, ask.
+§\3.8 PvP is allowed only when both players are from PvP-focused factions.
+§\3.9 PvP inside bases is not allowed, unless the base owner explicitly allows it.
+§\3.10 Entering someone’s base without permission may be considered provocation.
+§\3.11 Points §3.9 and §3.10 apply to both PvP and PvE-focused factions.
+§\3.12 Follow all cutscenes as intended. Do not use the cutscene timeout to troll or obstruct quest progression. Violating this rule will result in permanent removal of your Realm access.
+§\3.13 Intentionally leaving the Realm after triggering a cutscene to block an area will be treated as a direct violation of §3.12.
+§\3.14 Points §3.12 and §3.13 do not apply if the reason for leaving the Realm is due to WiFi or connectivity issues. If this occurs and you are unable to rejoin, you must immediately open a ticket. Failure to do so will result in being treated as a player who violated the rules stated in this section. Within the ticket, you must provide accurate information for the following points. If the information is fabricated or clearly false, the ticket will also be treated as lying to staff members.
+`)
+        .button('ACCEPT')
         .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
         .button(`§l§cLEAVE THE SERVER`)
         .show(player)
@@ -719,84 +644,7 @@ Please accept rules before we continue into the tutorial.`)
     if (r.canceled || r.selection == 1) lockAccess(player);
 
     if (r.selection == 0) {
-        const rulesVC = await new ActionFormData()
-            .title(`§4§l[ RULES / VC ]`)
-            .body(menuBuild)
-            .divider()
-            .header(`Voice Chat`)
-            .label(`
-14. Keep your voice at a comfortable volume. No mic torture, please.
-
-15. Soundboards are allowed, but don't overuse them or use them to annoy others.
-
-16. Slurs aren't banned in VC, but don't go overboard.
-
-17. Don't blast music unless everyone in the VC agrees.
-
-18. Don't join VC just to troll, scream, or be disruptive.
-
-19. Do not record others in VC without their clear consent.
-`)
-            .button(`NEXT`)
-            .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
-            .button(`§l§cLEAVE THE SERVER`)
-            .show(player)
-
-        if (rulesVC.canceled || rulesVC.selection == 1) lockAccess(player);
-
-        if (rulesVC.selection == 0) {
-            const rulesMC = await new ActionFormData()
-                .title(`§4§l[ RULES / MC ]`)
-                .body(menuBuild)
-                .divider()
-                .header(`MC:BE (REALM RULES)`)
-                .label(`
-20. No griefing
-
-21. No cheating
-
-22. PvP Rules:
-
-- For the first 2 weeks, a global peace pact is active – no PvP is allowed anywhere.
-- After the peace period:
-
-  - PvP is allowed in the wilderness (unclaimed/unprotected land).
-  - PvP inside bases is not allowed, unless the base owner asks the intruder to leave and they refuse.
-- Entering someone's base without permission may be considered provocation.
-
-23. Faction Territories:
-
-- Factions claim land by placing banners on stone blocks every \~30 blocks.
-- Claimed areas must be visibly marked (walls, fences, etc.) to indicate territory boundaries.
-- Claimed zones are treated as PvP-free bases, unless point 21 conditions are met.
-- Claim banners must be purchased from faction vendors using a special item from the Discord economy system.
-- Each faction starts with 128 claim banners at the start of the season.
-- Abuse or bypassing of this system (e.g., fake claims, invisible boundaries) will be punished.
-
-24. No offensive or inappropriate builds
-
-25. Avoid lag-inducing builds
-
-26. Don't claim large areas and leave them unused.
-
-27. Follow staff instructions - fix, move, or remove your builds if asked.
-
-28. Use common sense. If unsure, ask
-`)
-                .button(`Accept`)
-                .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
-                .button(`§l§cLEAVE THE SERVER`)
-
-                .show(player)
-
-            if (rulesMC.canceled || rulesMC.selection == 1) lockAccess(player);
-
-            if (rulesMC.selection == 0) {
-                startCutscene(player)
-            }
-
-        }
-
+        startCutscene(player)
     }
 }
 
