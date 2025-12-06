@@ -210,6 +210,13 @@ When they finally appeared in Sylvii, they were met with kindness, although some
 
 ▪ §lStory§r
 
+Half Orcs although decendends of now died out race: Orcs, are the youngest race on the world.
+Reaching age of nearly three thousands of years, this race is a hybrid of humans and orcs. 
+Upon the beggining of the world that we live right now in, this race were backstabbed by nearly all races. Being exiled from Human Exodus, and Elve's safe spot in city ruins, They were forced to adapt a nomad style of living.
+Wondering around the ruins for nearly 120 years. They arrived on the Threeclover nearly 20 years ago.
+
+Their wanders were filled with challenges they needed to traverse. From fighting of Scrap Seekers to the point of being known as Dustmans, to nearly loosing all numbers while reaching Mroth's territory due to their weight.
+But they were accepted into Sylvii instantly, as they are great people to have, when scrap seekers will try to attack an delivery.
 
 ▪ §a§lPros§r
 
@@ -240,6 +247,12 @@ When they finally appeared in Sylvii, they were met with kindness, although some
 
 ▪ §lStory§r
 
+Tanar'ri is a demonic race, created by Human Mages to be used in wars. They were created 5k years ago, and altough only as a tool, they rebelled against humans in the past.
+When they got their own place in the world, they were a symphony civilazation, but was always called as "Plastic Race".
+When "Catastrophe 0" happened, they were almost in the verge of dying out. From 2 millions, only 1 thousands were left, as the pure energy of Cortex, made their bodies explode even when no near the center.
+
+After the fall, they were hiding. Too afraid to go outside, they were forced to live in the dark, cold caves, basements, left-over bunkers.
+Even though strongly magical, they were no use in Sylvi, and last of their race member died. 60 years ago. Well, that's what we thought, untill you showed up.
 
 ▪ §a§lPros§r
 
@@ -264,22 +277,22 @@ When they finally appeared in Sylvii, they were met with kindness, although some
             if (res.canceled) joinMenu_START;
 
             if (selection == 0) {
-                player.addTag(`hsmp_race_human`)
+                player.addTag(`race_human`)
                 joinMenu_RACECONFIRM(player)
             }
 
             if (selection == 1) {
-                player.addTag('hsmp_race_elf')
+                player.addTag('race_elf')
                 joinMenu_RACECONFIRM(player)
             }
 
             if (selection == 2) {
-                player.addTag('hsmp_race_half_orc')
+                player.addTag('race_half_orc')
                 joinMenu_RACECONFIRM(player)
             }
 
             if (selection == 3) {
-                player.addTag('hsmp_race_demon')
+                player.addTag('race_tanarri')
                 joinMenu_RACECONFIRM(player)
             }
         })
