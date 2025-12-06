@@ -315,24 +315,17 @@ export function joinMenu_RACECONFIRM(player) {
         .then(res => {
             const selection = res.selection;
 
-            if (res.canceled) {
-                player.removeTag(`hsmp_race_human`)
-                player.removeTag('hsmp_race_elf')
-                player.removeTag('hsmp_race_half_orc')
-                player.removeTag('hsmp_race_demon')
+            if (res.canceled || selection == 1) {
+                player.removeTag(`race_human`)
+                player.removeTag('race_elf')
+                player.removeTag('race_half_orc')
+                player.removeTag('race_tanarri')
                 joinMenu_RACE(player)
             }
 
             if (selection == 0) genderSelection(player);
 
-            if (selection == 1) {
-                player.removeTag(`hsmp_race_human`)
-                player.removeTag('hsmp_race_elf')
-                player.removeTag('hsmp_race_half_orc')
-                player.removeTag('hsmp_race_demon')
-                joinMenu_RACE(player)
 
-            }
         })
 
 }
@@ -736,111 +729,19 @@ system.runInterval(() => {
 
 export async function startCutscene(player) {
     const me = player.name
-    system.run(() => player.runCommand('camera @s fade time 10 10 10'))
-    system.run(() => player.runCommand(`title @s times 20 100 50`))
-    system.run(() => player.runCommand(`hud @s hide all`))
-    system.run(() => player.runCommand(`gamemode spectator`))
-    system.run(() => player.runCommand(`inputpermission set @s movement disabled`))
+    const unknown = `§dFemale Voice§r`
 
-
-    await waitTicks(400)
-    system.run(() => {
-        player.runCommand(`camera @s set minecraft:free pos -26 64.1 1946 rot -60 -30`)
-        player.runCommand(`tp -26 64 1946`)
-    })
-
-    await typeTitleTitle(player, `SamuraiBread`, 3)
-    await waitTicks(40)
-    await typeTitleSubtitle(player, `presents:`, 3)
-    await waitTicks(200)
-    await typeActionbar(player, me, `Huh... My head hurts...`)
-    system.run(() => {
-        player.runCommand('camera @s fade time 5 5 5')
-    })
-    await waitTicks(100)
-    await typeActionbar(player, '§d???', `Wake up..`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Huh..? A female voice...?`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Who was she... I dont remember..`)
-    system.run(() => {
-        player.runCommand('camera @s fade time 5 5 5')
-    })
-    await waitTicks(100)
-    await typeActionbar(player, '§d???', `Wake up, please...`)
-    await waitTicks(40)
-    await typeActionbar(player, me, `Her voice.. It was filled with grief...?`)
-    system.run(() => {
-        player.runCommand('camera @s fade time 5 5 5')
-        player.runCommand(`playsound hsmp_music.prologue_start @s ~ ~ ~ 0.5 1 1`)
-    })
-    await waitTicks(100)
-    await typeActionbar(player, '§d???', `I'm begging you, i can't do it without you...`)
-    await waitTicks(40)
-    await typeActionbar(player, me, `I'm sorry, but i can't remember...`)
-    system.run(() => {
-        player.runCommand('camera @s fade time 5 5 5')
-    })
-    await waitTicks(100)
-    await typeActionbar(player, "§d???", `We were meant to escape together... PLASE!`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Escape... Together...? Who was she? Where am I?`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Why i can't remember anything..?`)
-    system.run(() => {
-        player.runCommand('camera @s set minecraft:free ease 5 in_out_sine pos ~ ~1.75 ~ rot ~ ~')
-    })
-
-    await waitTicks(100)
-    system.run(() => {
-        player.runCommand('camera @s clear')
-        player.runCommand(`gamemode s`)
-        player.runCommand(`inputpermission set @s movement enabled`)
-
-    })
-
-    await waitTicks(40)
-    await typeActionbar(player, me, `City?`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `I need to ask someone where even am i..`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Who even am i..? Ah.. right. ${player.name}.`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Why have i come to remember only my name?
-What is going on..?`)
-    await waitTicks(20)
-    await typeActionbar(player, me, `Focus ${player.name}, focus. Maybe there is a tavern somewhere in the city?`)
-    await typeTitleTitle(player, hiraethLOGO, 3)
-
-    system.run(() => {
-        player.sendMessage(`
-[ §eQUEST§r ]
-§a§lFinally Awoken§r
-
-Find the §etavern§r, and ask the §dtavern keeper§r about the §acity§r.
-
-Rewards:
-- 5,000.00\$
-- "Finally Awoken" Achievement
-- HUD Unlock`)
-        player.addTag(questRegistry.questInfo.fawoken.tag)
-    })
-
-    await waitTicks(100)
-    system.run(() => {
-        player.sendMessage(`[ TIP ] You can check your quests anytime you want!
-
-Simply open your menu with /hmenu or withing quick action menu /qa with selecting HSMP Menu, then click on QUESTS button.
-
-You will see the goal, description and rewards upon completion.`)
-        player.runCommand(`playsound random.orb @s`)
-    })
-    await waitTicks(60)
-    await typeActionbar(player, me, `Ugh... My head hurts so much.`)
-    await waitTicks(100)
-    await typeActionbar(player, me, `It will be a good idea to also ask someone to heal my headache.`)
-
-
-
+    for (const player of world.getPlayers()) {
+        await player.camera.fade(
+            {
+                fadeTime: {
+                    fadeInTime: 1,
+                    fadeOutTime: 1,
+                    holdTime: 1
+                }
+            }
+        )
+        await typeActionbar(player, me, `lol`)
+    }
 }
 
