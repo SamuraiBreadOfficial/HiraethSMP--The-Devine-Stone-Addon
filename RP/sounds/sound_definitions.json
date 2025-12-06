@@ -1,6 +1,81 @@
 {
-	"format_version": "1.14.0",
+	"format_version": "1.21.90",
 	"sound_definitions": {
+		// Normal Music
+		"music.game": {},
+		"music.game.basalt_deltas": {},
+		"music.game.creative": {},
+		"music.game.credits": {},
+		"music.game.crimson_forest": {},
+		"music.game.deep_dark": {},
+		"music.game.dripstone_caves": {},
+		"music.game.end": {},
+		"music.game.endboss": {},
+		"music.game.frozen_peaks": {},
+		"music.game.grove": {},
+		"music.game.jagged_peaks": {},
+		"music.game.lush_caves": {},
+		"music.game.meadow": {},
+		"music.game.nether": {},
+		"music.game.nether_wastes": {},
+		"music.game.snowy_slopes": {},
+		"music.game.soulsand_valley": {},
+		"music.game.stony_peaks": {},
+		"music.game.swamp_music": {},
+		"music.game.warped_forest": {},
+		"music.game.water": {},
+		"music.game_and_wild_equal_chance": {},
+		"music.game_and_wild_favor_game": {},
+		"music.menu": {},
+		"music.overworld.bamboo_jungle": {},
+		"music.overworld.cherry_grove": {},
+		"music.overworld.deep_dark": {},
+		"music.overworld.desert": {},
+		"music.overworld.dripstone_caves": {},
+		"music.overworld.flower_forest": {},
+		"music.overworld.grove": {},
+		"music.overworld.jagged_peaks": {},
+		"music.overworld.jungle": {},
+		"music.overworld.jungle_edge": {},
+		"music.overworld.lush_caves": {},
+		"music.overworld.mesa": {},
+		"music.overworld.snowy_slopes": {},
+		"music.overworld.stony_peaks": {},
+		// Soundtrack
+		"hsmp_music.prologue_start": {
+			"category": "music",
+			"sounds": [
+				{
+					"name": "sounds/soundtrack/prologue/Because We Have To",
+					"load_on_low_memory": true,
+					"volume": 1,
+					"stream": true
+				}
+			]
+		},
+		"hsmp_music.prologue_connected": {
+			"category": "music",
+			"sounds": [
+				{
+					"name": "sounds/soundtrack/prologue/barotrauma_overclocked_weakness",
+					"stream": true,
+					"load_on_low_memory": true,
+					"volume": 1
+				}
+			]
+		},
+		"hsmp_music.prologue_weaponsmith_ouchie": {
+			"category": "music",
+			"sounds": [
+				{
+					"name": "sounds/soundtrack/prologue/temmie_village",
+					"stream": true,
+					"load_on_low_memory": true,
+					"volume": 1
+				}
+			]
+		},
+		// Block Sounds
 		"hsmp.church.3": {
 			"category": "ambient",
 			"max_distance": 200,
@@ -31,28 +106,10 @@
 				"sounds/store_sound/service_bell"
 			]
 		},
-		"hsmp_music.prologue_start": {
-			"category": "music",
-			"sounds": [
-				"sounds/soundtrack/prologue/ow_travelers"
-			]
-		},
-		"hsmp_music.prologue_connected": {
-			"category": "music",
-			"sounds": [
-				"sounds/soundtrack/prologue/barotrauma_overclocked_weakness"
-			]
-		},
 		"hsmp_cutscene.weaponsmith_ouchie": {
 			"category": "music",
 			"sounds": [
 				"sounds/cutscene_sounds/tom_scream"
-			]
-		},
-		"hsmp_music.prologue_weaponsmith_ouchie": {
-			"category": "music",
-			"sounds": [
-				"sounds/soundtrack/prologue/temmie_village"
 			]
 		},
 		"hsmp_npc.ev_closing": {
