@@ -18,12 +18,6 @@ system.beforeEvents.startup.subscribe(e => {
                     typeTitleSubtitle(entity, `§cMroth Territory`)
 
                 }
-                if (!entity.isSneaking) {
-                    entity.applyDamage(1, {
-                        cause: "none"
-                    })
-                }
-
                 if (!entity.hasTag(`mroth_tip`)) {
                     entity.addTag(`mroth_tip`)
                     await waitTicks(60)
@@ -39,6 +33,23 @@ Sneak instantly to avoid getting killed by those creatures.
 
 You can't defeat them, as energy that they exist from cannot be destroyed physically or magically.`)
                 }
+            }
+        },
+        async onStepOff(e) {
+            const entity = e.entity;
+            if (entity instanceof Player) {
+
+                const px = entity.location.x;
+                const py = entity.location.y;
+                const pz = entity.location.z;
+
+                const block = world.getDimension('overworld').getBlock({ x: px, y: py, z: pz });
+
+                if (block.typeId != "hsmp:darmud") {
+                    entity.removeTag(`on_darmud`)
+                    entity.runCommand(`fog @s pop mroth`)
+                    entity.runCommand(`stopsound @s hsmp_ambient.mroth`)
+                } else return;
             }
         }
     })
