@@ -758,9 +758,21 @@ export async function startCutscene(player) {
             // 21s
             await waitTicks(100)
             player.sendMessage(`2`)
+            player.onScreenDisplay.setTitle(`Story`, {
+                fadeInDuration: 5,
+                fadeOutDuration: 10,
+                stayDuration: 100,
+                subtitle: `Written by:`
+            })
             // 28s
             await waitTicks(140)
             player.sendMessage(`3`)
+            player.onScreenDisplay.setTitle(`SamuraiBread`, {
+                fadeInDuration: 5,
+                fadeOutDuration: 10,
+                stayDuration: 100
+            })
+
 
             // 36s
             await waitTicks(160)
@@ -770,9 +782,22 @@ export async function startCutscene(player) {
             // 43s
             await waitTicks(140)
             player.sendMessage(`5`)
+            player.onScreenDisplay.setTitle(`Addon`, {
+                fadeInDuration: 5,
+                fadeOutDuration: 10,
+                stayDuration: 100,
+                subtitle: `by:`
+            })
+
             // 48s
             await waitTicks(100)
             player.sendMessage(`6`)
+            player.onScreenDisplay.setTitle(`SamuraiBread`, {
+                fadeInDuration: 5,
+                fadeOutDuration: 10,
+                stayDuration: 100
+            })
+
 
             // 52s
             await waitTicks(80)
@@ -782,10 +807,24 @@ export async function startCutscene(player) {
             // 56s
             await waitTicks(80)
             player.sendMessage(`8`)
+            player.onScreenDisplay.setTitle(`Tested`, {
+                fadeInDuration: 5,
+                fadeOutDuration: 10,
+                stayDuration: 100,
+                subtitle: `by:`
+            })
+
 
             // 63s
             await waitTicks(140)
             player.sendMessage(`9`)
+            player.onScreenDisplay.setTitle(` `, {
+                fadeInDuration: 5,
+                fadeOutDuration: 10,
+                stayDuration: 100,
+                subtitle: `ShadowTheBloodWolf\nAkuCrestfallen\nSrbajlLuka`
+            })
+
 
             // 65s
             await waitTicks(40)
@@ -808,10 +847,24 @@ export async function startCutscene(player) {
             // 90s
             await waitTicks(160)
             player.sendMessage(`12`)
+            player.onScreenDisplay.setTitle(`StoreKeepers`, {
+                fadeInDuration: 5,
+                fadeOutDuration: 5,
+                stayDuration: 100,
+                subtitle: `Voice Actors:`
+            })
+
 
             // 97s
             await waitTicks(140)
             player.sendMessage(`12`)
+            player.onScreenDisplay.setTitle(``, {
+                fadeInDuration: 5,
+                fadeOutDuration: 5,
+                stayDuration: 100,
+                subtitle: `MINI\nSrbajlLuka\nSamuraiBread\nSkullcrusher`
+            })
+
 
             // 100s
             await waitTicks(60)
@@ -841,6 +894,7 @@ export async function startCutscene(player) {
             // 124s
             await waitTicks(80)
             player.sendMessage(`12`)
+            player.teleport({ x: 652, y: 159, z: 1788 }, { rotation: { y: 0, x: 20 } })
 
             // 132s
             await waitTicks(160)
@@ -853,6 +907,7 @@ export async function startCutscene(player) {
             // 144s
             await waitTicks(100)
             player.sendMessage(`12`)
+            player.teleport({ x: 1231, y: 121, z: 3250 }, { rotation: { y: -120, x: -10 } })
 
             // 148s
             await waitTicks(80)
@@ -865,7 +920,7 @@ export async function startCutscene(player) {
             // 157s
             await waitTicks(120)
             player.sendMessage(`12`)
-
+            player.teleport({ x: 2659, y: 196, z: 561 }, { rotation: { y: -110, x: 20 } })
             // 162s
             await waitTicks(100)
             player.sendMessage(`12`)
