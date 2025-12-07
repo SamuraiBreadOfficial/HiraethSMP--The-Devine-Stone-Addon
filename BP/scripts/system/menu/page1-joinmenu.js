@@ -1,14 +1,14 @@
 console.warn("§d[HIRAETH]§r Loading scripts/system/menu/page1-joinmenu.js");
 
 import { ActionFormData } from "@minecraft/server-ui";
-import { system, world } from "@minecraft/server";
+import { system, world, HudVisibility, InputPermissionCategory, GameMode } from "@minecraft/server";
 
 import { questRegistry } from "./../quests/main/core.js"
 
-export const tag_human = 'hsmp_race_human';
-export const tag_elf = 'hsmp_race_elf';
-export const tag_half_orc = 'hsmp_race_half_orc';
-export const tag_demon = 'hsmp_race_demon';
+export const tag_human = 'race_human';
+export const tag_elf = 'race_elf';
+export const tag_half_orc = 'race_half_orc';
+export const tag_demon = 'race_tanarri';
 
 export const tag_fire = 'hsmp_magic_fire'
 export const tag_wind = 'hsmp_magic_wind'
@@ -568,6 +568,7 @@ This Private Whitelist-only Realm contains mature themes and intense content des
 ▪ Suicide and self-harm references; 
 
 By clicking Continue, you confirm that you understand and accept these themes. Requests to remove or censor such content will be ignored.`)
+        .button(`§l§2CONTINUE`)
         .button(`§l§cLEAVE THE SERVER`)
         .show(player)
     if (r.canceled || r.selection == 1) lockAccess(player);
@@ -619,56 +620,53 @@ Please accept rules before we continue into the tutorial.`)
         .body(menuBuild)
         .divider()
         .header(`General`)
-        .label(`
-§\1.1 Follow Discord TOS, which can be found here.
-§\1.2 Breaking major rules will result in immediate punishment without warning.
-§\1.3 By joining the server, you confirm that you are 16 years old or older. If it is detected otherwise, you will be banned for the amount of time remaining until you reach the required age.
-§\1.4 Staff Members, regardless of their rank, are considered correct in most cases. If you believe a Staff Member is wrong, do not hesitate to speak up — you are protected under the rule below.
-§\1.5 Pointing out Staff Members’ mistakes or inappropriate behaviour does not give them a valid reason to punish you, as long as no rule was broken.
-`)
+        .label(`p1.1 Follow Discord TOS, which can be found here.
+p1.2 Breaking major rules will result in immediate punishment without warning.
+p1.3 By joining the server, you confirm that you are 16 years old or older. If it is detected otherwise, you will be banned for the amount of time remaining until you reach the required age.
+p1.4 Staff Members, regardless of their rank, are considered correct in most cases. If you believe a Staff Member is wrong, do not hesitate to speak up — you are protected under the rule below.
+p1.5 Pointing out Staff Members' mistakes or inappropriate behaviour does not give them a valid reason to punish you, as long as no rule was broken.`)
         .divider()
         .header(`Community`)
         .label(`
-§\2.1 Do not spam or flood the channels.
-§\2.2 Slurs are allowed, but do not overuse them.
-§\2.3 Brainrot is allowed, but excessive use will not be tolerated.
-§\2.4 AI-generated content is not allowed on the server.
-§\2.5 Harassment or bullying will not be tolerated.
-§\2.6 Be mature and treat others how you would like to be treated. Masochists not included lol.
-§\2.7 Do not ask for Staff Roles.
-§\2.8 No NSFW content in any channels.
-§\2.9 Avoid political, religious, or other sensitive topics that may start arguments.
-§\2.10 Do not advertise your server in Server Channels or on the MC:BE Realm unless permitted.
-§\2.11 Do not advertise websites or projects that promote:
+p2.1 Do not spam or flood the channels.
+p2.2 Slurs are allowed, but do not overuse them.
+p2.3 Brainrot is allowed, but excessive use will not be tolerated.
+p2.4 AI-generated content is not allowed on the server.
+p2.5 Harassment or bullying will not be tolerated.
+p2.6 Be mature and treat others how you would like to be treated. Masochists not included lol.
+p2.7 Do not ask for Staff Roles.
+p2.8 No NSFW content in any channels.
+p2.9 Avoid political, religious, or other sensitive topics that may start arguments.
+p2.10 Do not advertise your server in Server Channels or on the MC:BE Realm unless permitted.
+p2.11 Do not advertise websites or projects that promote:
 
 ▪ Cheats
 ▪ Illegal activities
 ▪ Harmful behaviour
 ▪ Any topics harmful to communities of any kind
 
-§\2.12 Use English only on the server.
-§\2.13 In VC, keep your voice at a comfortable volume.
-§\2.14 Do not overuse the soundboard in VC.
-§\2.15 Do not blast music in VC unless the majority agrees.
-§\2.16 Trolling or recording others in VC is not allowed unless everyone has been informed. 
-`)
+p2.12 Use English only on the server.
+p2.13 In VC, keep your voice at a comfortable volume.
+p2.14 Do not overuse the soundboard in VC.
+p2.15 Do not blast music in VC unless the majority agrees.
+p2.16 Trolling or recording others in VC is not allowed unless everyone has been informed.`)
         .divider()
         .header(`Minecraft`)
         .label(`
-§\3.1 No griefing.
-§\3.2 No cheating.
-§\3.3 No exploiting in-game bugs.
-§\3.4 No offensive or inappropriate builds.
-§\3.5 Avoid lag-inducing builds.
-§\3.6 Follow staff instructions.
-§\3.7 Use common sense; if unsure, ask.
-§\3.8 PvP is allowed only when both players are from PvP-focused factions.
-§\3.9 PvP inside bases is not allowed, unless the base owner explicitly allows it.
-§\3.10 Entering someone’s base without permission may be considered provocation.
-§\3.11 Points §3.9 and §3.10 apply to both PvP and PvE-focused factions.
-§\3.12 Follow all cutscenes as intended. Do not use the cutscene timeout to troll or obstruct quest progression. Violating this rule will result in permanent removal of your Realm access.
-§\3.13 Intentionally leaving the Realm after triggering a cutscene to block an area will be treated as a direct violation of §3.12.
-§\3.14 Points §3.12 and §3.13 do not apply if the reason for leaving the Realm is due to WiFi or connectivity issues. If this occurs and you are unable to rejoin, you must immediately open a ticket. Failure to do so will result in being treated as a player who violated the rules stated in this section. Within the ticket, you must provide accurate information for the following points. If the information is fabricated or clearly false, the ticket will also be treated as lying to staff members.
+p3.1 No griefing.
+p3.2 No cheating.
+p3.3 No exploiting in-game bugs.
+p3.4 No offensive or inappropriate builds.
+p3.5 Avoid lag-inducing builds.
+p3.6 Follow staff instructions.
+p3.7 Use common sense; if unsure, ask.
+p3.8 PvP is allowed only when both players are from PvP-focused factions.
+p3.9 PvP inside bases is not allowed, unless the base owner explicitly allows it.
+p3.10 Entering someone’s base without permission may be considered provocation.
+p3.11 Points §3.9 and §3.10 apply to both PvP and PvE-focused factions.
+p3.12 Follow all cutscenes as intended. Do not use the cutscene timeout to troll or obstruct quest progression. Violating this rule will result in permanent removal of your Realm access.
+p3.13 Intentionally leaving the Realm after triggering a cutscene to block an area will be treated as a direct violation of §3.12.
+p3.14 Points §3.12 and §3.13 do not apply if the reason for leaving the Realm is due to WiFi or connectivity issues. If this occurs and you are unable to rejoin, you must immediately open a ticket. Failure to do so will result in being treated as a player who violated the rules stated in this section. Within the ticket, you must provide accurate information for the following points. If the information is fabricated or clearly false, the ticket will also be treated as lying to staff members.
 `)
         .button('ACCEPT')
         .label(`§c§l’/!\\ THIS OPTION WILL LOCK YOUR SERVER ACCESS!`)
@@ -732,16 +730,166 @@ export async function startCutscene(player) {
     const unknown = `§dFemale Voice§r`
 
     for (const player of world.getPlayers()) {
-        await player.camera.fade(
-            {
+        system.run(async () => {
+            player.camera.fade({
                 fadeTime: {
-                    fadeInTime: 1,
-                    fadeOutTime: 1,
-                    holdTime: 1
+                    fadeInTime: 5,
+                    fadeOutTime: 5,
+                    holdTime: 10
                 }
-            }
-        )
-        await typeActionbar(player, me, `lol`)
+            })
+            await waitTicks(200)
+            player.onScreenDisplay.setTitle(`SamuraiBread`, {
+                fadeInDuration: 20,
+                fadeOutDuration: 20,
+                stayDuration: 150,
+                subtitle: `Presents:`
+            })
+            player.playMusic(`hsmp_music.prologue_start`, {
+                fade: 3,
+                loop: false,
+                volume: 1
+            })
+            player.teleport({ x: -1868, y: 173, z: -2833 }, { rotation: { y: -130, x: 10 } })
+            // 16s
+            await waitTicks(320)
+            player.sendMessage(`1`)
+            player.teleport({ x: -1972, y: 78.5, z: -2606 }, { rotation: { y: -110, x: -10 } })
+            // 21s
+            await waitTicks(100)
+            player.sendMessage(`2`)
+            // 28s
+            await waitTicks(140)
+            player.sendMessage(`3`)
+
+            // 36s
+            await waitTicks(160)
+            player.sendMessage(`4`)
+            player.teleport({ x: -2324, y: 143, z: -2223 }, { rotation: { y: 60, x: 0 } })
+
+            // 43s
+            await waitTicks(140)
+            player.sendMessage(`5`)
+            // 48s
+            await waitTicks(100)
+            player.sendMessage(`6`)
+
+            // 52s
+            await waitTicks(80)
+            player.sendMessage(`7`)
+            player.teleport({ x: -2387, y: 112, z: -1863 }, { rotation: { y: 110, x: -30 } })
+
+            // 56s
+            await waitTicks(80)
+            player.sendMessage(`8`)
+
+            // 63s
+            await waitTicks(140)
+            player.sendMessage(`9`)
+
+            // 65s
+            await waitTicks(40)
+            player.sendMessage(`10`)
+            player.teleport({ x: -2376, y: 176, z: -2396 }, { rotation: { y: 140, x: 0 } })
+
+            // 69s
+            await waitTicks(80)
+            player.sendMessage(`11`)
+
+            // 75s
+            await waitTicks(120)
+            player.sendMessage(`12`)
+
+            // 82s
+            await waitTicks(140)
+            player.sendMessage(`12`)
+            player.teleport({ x: -2431, y: 163, z: -2106 }, { rotation: { y: 0, x: -20 } })
+
+            // 90s
+            await waitTicks(160)
+            player.sendMessage(`12`)
+
+            // 97s
+            await waitTicks(140)
+            player.sendMessage(`12`)
+
+            // 100s
+            await waitTicks(60)
+            player.sendMessage(`12`)
+            player.teleport({ x: -2774, y: 199, z: -2122 }, { rotation: { y: 60, x: 20 } })
+
+            // 102s
+            await waitTicks(40)
+            player.sendMessage(`12`)
+
+            // 104s
+            await waitTicks(40)
+            player.sendMessage(`12`)
+
+            // 112s
+            await waitTicks(160)
+            player.sendMessage(`12`)
+
+            // 116s
+            await waitTicks(80)
+            player.sendMessage(`12`)
+
+            // 120s
+            await waitTicks(80)
+            player.sendMessage(`12`)
+
+            // 124s
+            await waitTicks(80)
+            player.sendMessage(`12`)
+
+            // 132s
+            await waitTicks(160)
+            player.sendMessage(`12`)
+
+            // 139s
+            await waitTicks(140)
+            player.sendMessage(`12`)
+
+            // 144s
+            await waitTicks(100)
+            player.sendMessage(`12`)
+
+            // 148s
+            await waitTicks(80)
+            player.sendMessage(`12`)
+
+            // 151s
+            await waitTicks(60)
+            player.sendMessage(`12`)
+
+            // 157s
+            await waitTicks(120)
+            player.sendMessage(`12`)
+
+            // 162s
+            await waitTicks(100)
+            player.sendMessage(`12`)
+
+            // 165s
+            await waitTicks(60)
+            player.sendMessage(`12`)
+
+            // 170s
+            await waitTicks(100)
+            player.sendMessage(`12`)
+            player.runCommand(`music stop 10`)
+            player.camera.fade({
+                fadeTime: {
+                    fadeInTime: 10,
+                    holdTime: 10,
+                    fadeOutTime: 10
+                }
+            })
+            await waitTicks(200)
+            await typeTitleTitle(player, `§l§dHiraethSMP`, 4, "random.click", 0.5)
+            await typeTitleSubtitle(player, `§oThe Shattering`, 4, "random.click", 0.5)
+
+        })
     }
 }
 
