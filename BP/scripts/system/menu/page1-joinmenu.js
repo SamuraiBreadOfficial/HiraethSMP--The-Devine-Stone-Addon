@@ -944,7 +944,61 @@ export async function startCutscene(player) {
             await typeTitleTitle(player, `§l§dHiraethSMP`, 4, "random.click", 0.5)
             await typeTitleSubtitle(player, `§oThe Shattering`, 4, "random.click", 0.5)
 
+            player.addTag(`blackScreen`)
+            player.teleport({ x: -26, y: 64, z: 1946 })
+
+            await waitTicks(200)
+            await typeActionbar(player, unknown, `No. . .`)
+            await waitTicks(60)
+            await typeActionbar(player, unknown, `${me}..?`)
+            await waitTicks(60)
+            await typeActionbar(player, unknown, `Wake up.. Please!`)
+            await waitTicks(60)
+            await typeActionbar(player, unknown, `I'm begging you, ${me}!`)
+            await waitTicks(60)
+            await typeActionbar(player, unknown, `We can't do it without you!`)
+            await waitTicks(60)
+            await typeActionbar(player, unknown, `Wake up!`)
+            await waitTicks(60)
+            await typeTitleTitle(player, `WAKE UP!`)
+            player.removeTag(`blackScreen`)
+            await waitTicks(60)
+            await typeActionbar(player, me, `Ughh. My head..`)
+            await waitTicks(30)
+            await typeActionbar(player, me, `What a weird dream. . .`)
+            await waitTicks(60)
+            await typeActionbar(player, me, `Wait. Where am I?`)
+            await waitTicks(20)
+            await typeActionbar(player, me, `. . .`)
+            await waitTicks(20)
+
+            await typeActionbar(player, me, `What the hell happened?`)
+            await waitTicks(20)
+
+            await typeActionbar(player, me, `Why i don't remember anything?`)
+            await waitTicks(20)
+
+            await typeActionbar(player, me, `. . .`)
+            await waitTicks(20)
+
+            await typeActionbar(player, me, `Ughh.. There's a city.. I should check it out\nand maybe ask someone something about this place...`)
+            await waitTicks(20)
+
         })
     }
 }
 
+
+system.runInterval(async () => {
+    for (const p of world.getPlayers()) {
+        if (p.hasTag(`blackScreen`)) {
+            p.camera.fade({
+                fadeTime: {
+                    holdTime: 10,
+                    fadeInTime: 0,
+                    fadeOutTime: 10
+                }
+            })
+        }
+    }
+}, 200)
