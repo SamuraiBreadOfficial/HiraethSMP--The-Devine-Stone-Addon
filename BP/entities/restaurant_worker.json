@@ -19,6 +19,11 @@
 				"look_distance": 8,
 				"probability": 1,
 				"target_distance": 0
+			},
+			"minecraft:interact": {
+				"interactions": {
+					"interact_text": "Buy"
+				}
 			}
 		},
 		"events": {}
