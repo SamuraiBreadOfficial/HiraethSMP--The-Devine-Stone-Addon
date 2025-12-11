@@ -193,6 +193,19 @@ export const foodSell = {
 
 }
 
+export async function restaurantWindow(player) {
+    const menu = await new ActionFormData()
+        .title(`§lRESTAUTANT | MAIN MENU`)
+        .divider()
+        .header(`Select a Category`)
+        .divider()
+        .label(`( Cooked Food )`)
+        .button(`§lCOOKED FOOD`)
+        .label(`( Bread, stews, etc. )`)
+        .button(`§lMISC`)
+        .show(player)
+}
+
 export function restaurantMarket(player) {
 
     const translatedOptions = {
@@ -252,7 +265,7 @@ export function restaurantMarket(player) {
 system.beforeEvents.startup.subscribe(e => {
     e.blockComponentRegistry.registerCustomComponent('hsmp:restaurant', {
         onPlayerInteract(e) {
-            restaurantMarket(e.player)
+            restaurantWindow(e.player)
         }
     })
 })
