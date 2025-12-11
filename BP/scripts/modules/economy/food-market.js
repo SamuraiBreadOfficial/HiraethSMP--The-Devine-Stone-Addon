@@ -207,7 +207,7 @@ export async function restaurantWindow(player) {
 
     const selection = menu.selection;
 
-    if (menu.canceled) break;
+    if (menu.canceled) return;
 
     if (selection == 0) restaurantMarket(player);
     if (selection == 1) restaurantMisc(player);
@@ -257,7 +257,7 @@ async function restaurantMisc(player) {
 
     if (miscMenu.canceled) return;
 
-    const selectedIndex = r.formValues[4]
+    const selectedIndex = miscMenu.formValues[4]
     const selectedLabel = options[selectedIndex];
 
     const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]
