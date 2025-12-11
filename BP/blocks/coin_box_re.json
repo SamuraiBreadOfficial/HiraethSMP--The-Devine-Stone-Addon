@@ -12,7 +12,6 @@
 					"render_method": "alpha_test"
 				}
 			},
-			"hsmp:restaurant": {},
 			"minecraft:destructible_by_explosion": false,
 			"minecraft:destructible_by_mining": false,
 			"minecraft:selection_box": {

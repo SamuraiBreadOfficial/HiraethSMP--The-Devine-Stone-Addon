@@ -11,8 +11,7 @@
 					"texture": "hsmp_cr_food",
 					"render_method": "alpha_test"
 				}
-			},
-			"hsmp:restaurant": {}
+			}
 		}
 	}
 }
