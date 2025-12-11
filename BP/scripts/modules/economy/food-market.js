@@ -204,6 +204,69 @@ export async function restaurantWindow(player) {
         .label(`( Bread, stews, etc. )`)
         .button(`§lMISC`)
         .show(player)
+
+    const selection = menu.selection;
+
+    if (menu.canceled) break;
+
+    if (selection == 0) restaurantMarket(player);
+    if (selection == 1) restaurantMisc(player);
+}
+
+async function restaurantMisc(player) {
+
+    const translatedOptions = {
+        "Fresh Bread": `bread`,
+        "Mushroom Stew": `mstew`,
+        "Beetroot Soup": `bsoup`,
+        "Rabbit Soup": `rsoup`,
+        "Jacked Potato": `jpotato`,
+        "Chocolate Cookie": "cookie",
+        "Pumkin Pie": `ppie`,
+        "Birthday Cake": "cake",
+        "Dried Kelp": "dkelp"
+    }
+    let options = [
+
+        `Fresh Bread ${formatCurrency(getTotalPrice(foodPrices, "misc", "bread"))}`,
+        `Mushroom Stew ${formatCurrency(getTotalPrice(foodPrices, "misc", "mstew"))}`,
+        `Beetroot Soup ${formatCurrency(getTotalPrice(foodPrices, "misc", "bsoup"))}`,
+        `Rabbit Soup ${formatCurrency(getTotalPrice(foodPrices, "misc", "rsoup"))}`,
+        `Jacked Potato ${formatCurrency(getTotalPrice(foodPrices, "misc", "jpotato"))}`,
+        `Chocolate Cookie ${formatCurrency(getTotalPrice(foodPrices, "misc", "cookie"))}`,
+        `Pumkin Pie ${formatCurrency(getTotalPrice(foodPrices, "misc", "ppie"))}`,
+        `Birthday Cake ${formatCurrency(getTotalPrice(foodPrices, "misc", "cake"))}`,
+        `Dried Kelp ${formatCurrency(getTotalPrice(foodPrices, "misc", "dkelp"))}`
+    ]
+
+    const miscMenu = await new ModalFormData()
+        .title(`§lRESTAURANT`)
+        .header(`§l§eRestaurant`)
+        .label(`${randomRestaurantMessage()}`)
+        .divider()
+        .label(`
+§a[ i ]§r Restaurant sells only cooked food. It has special items too.
+
+§c[ ! ]§r Before buying, you need to withdraw money from your bank.
+
+§c[ ! ]§r Price is not the same 24/7. Modifiers for the price updates each day at 6:00 (Day tick 0)
+
+§a[ i ]§r Current Modifiers: §e${foodPrices.modifier}%%`)
+        .dropdown(`Items | Total Price`, options)
+        .show(player)
+
+    if (miscMenu.canceled) return;
+
+    const selectedIndex = r.formValues[4]
+    const selectedLabel = options[selectedIndex];
+
+    const baseName = selectedLabel.split(" ")[0] + " " + selectedLabel.split(" ")[1]
+    const foodType = translatedOptions[baseName]
+
+    player.sendMessage(`${selectedLabel} -> ${foodType}`)
+    buyMenu(baseName, foodPrices, "misc", foodType, player)
+
+
 }
 
 export function restaurantMarket(player) {
