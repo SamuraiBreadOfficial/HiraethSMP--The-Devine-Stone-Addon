@@ -325,12 +325,14 @@ export function restaurantMarket(player) {
         })
 }
 
-system.beforeEvents.startup.subscribe(e => {
-    e.blockComponentRegistry.registerCustomComponent('hsmp:restaurant', {
-        onPlayerInteract(e) {
-            restaurantWindow(e.player)
-        }
-    })
+
+world.afterEvents.playerInteractWithEntity.subscribe(e => {
+    const player = e.player;
+    const entity = e.target;
+
+    if (entity.typeId == "hsmp:restaurant_worker") {
+        restaurantWindow(player)
+    }
 })
 
 export function butcherMarket(player) {
